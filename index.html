@@ -242,13 +242,6 @@
     letter-spacing: 1px;
     text-align: center;
   }
-  .qr-sublabel {
-    font-size: 0.8em;
-    color: #555;
-    text-align: center;
-    word-break: break-all;
-    max-width: 100%;
-  }
   .qr-actions {
     display: flex;
     gap: 10px;
@@ -271,37 +264,6 @@
   .qr-btn-download:hover { background: #16a34a; }
   .qr-btn-print { background: #00d4ff; color: #0f2027; }
   .qr-btn-print:hover { background: #00b8e0; }
-  .qr-url-row {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-    align-items: stretch;
-  }
-  .qr-url-row input {
-    flex: 1;
-    margin: 0;
-    padding: 8px 12px;
-    font-size: 0.85em;
-  }
-  .qr-url-row button {
-    background: #ffd700;
-    color: #0f2027;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 0.85em;
-    white-space: nowrap;
-  }
-  .qr-url-row button:hover { background: #e6c200; }
-  .qr-hint {
-    font-size: 0.8em;
-    color: #aaa;
-    text-align: center;
-    margin-top: 10px;
-  }
 
   /* Печать QR-кода: печатается только QR */
   @media print {
@@ -320,10 +282,6 @@
     #qrPrintArea .qr-label {
       font-size: 2em;
       margin-top: 24px;
-    }
-    #qrPrintArea .qr-sublabel {
-      font-size: 1em;
-      margin-top: 10px;
     }
   }
 </style>
@@ -558,21 +516,11 @@
     <div class="qr-wrapper">
       <div id="qrCanvasHolder"></div>
       <div class="qr-label">RGB-стенгазета</div>
-      <div class="qr-sublabel" id="qrUrlLabel">—</div>
     </div>
 
     <div class="qr-actions">
       <button class="qr-btn-download" id="qrDownloadBtn">💾 Скачать PNG</button>
       <button class="qr-btn-print" id="qrPrintBtn">🖨 Распечатать</button>
-    </div>
-
-    <div class="qr-url-row">
-      <input type="text" id="qrUrlInput" placeholder="https://example.com/...">
-      <button id="qrApplyUrlBtn">Обновить</button>
-    </div>
-    <div class="qr-hint">
-      Если сайт ещё не опубликован — вставьте ссылку вручную.
-      Значение сохранится в браузере.
     </div>
 
     <div class="btn-row" style="margin-top:15px;">
@@ -700,43 +648,27 @@
   /* ============================================================
      ⚙️ АДМИН-ПАНЕЛЬ С QR-КОДОМ
      ============================================================ */
-  const QR_URL_KEY = "rgb_qr_url";
   const adminPanelModal = document.getElementById('adminPanelModal');
   const qrCanvasHolder = document.getElementById('qrCanvasHolder');
-  const qrUrlLabel = document.getElementById('qrUrlLabel');
-  const qrUrlInput = document.getElementById('qrUrlInput');
   const qrDownloadBtn = document.getElementById('qrDownloadBtn');
   const qrPrintBtn = document.getElementById('qrPrintBtn');
-  const qrApplyUrlBtn = document.getElementById('qrApplyUrlBtn');
   const closeAdminPanel = document.getElementById('closeAdminPanel');
   const qrPrintArea = document.getElementById('qrPrintArea');
 
-  let currentQrUrl = "";
+  // URL, зашитый в QR-код. Если сайт открыт по http(s) — берём текущий адрес.
+  // Можно зафиксировать вручную, например: "https://ok11-afk.github.io/school-magazine/"
+  const FIXED_QR_URL = "";
 
-  function getDefaultUrl() {
-    // Если сайт открыт по http(s) — берём его текущий адрес
+  function getQrUrl() {
+    if (FIXED_QR_URL) return FIXED_QR_URL;
     if (location.protocol === 'http:' || location.protocol === 'https:') {
       return location.origin + location.pathname;
     }
-    return "";
-  }
-
-  function getQrUrl() {
-    return localStorage.getItem(QR_URL_KEY) || getDefaultUrl();
+    return "https://example.com/";
   }
 
   function renderQr(url) {
-    if (!url) {
-      qrCanvasHolder.innerHTML = '<div style="color:#333;padding:20px;text-align:center;">Не задан URL</div>';
-      qrUrlLabel.textContent = "—";
-      return;
-    }
-
-    currentQrUrl = url;
     qrCanvasHolder.innerHTML = "";
-    qrUrlLabel.textContent = url;
-
-    // qrcodejs генерирует <canvas> и/или <img>
     new QRCode(qrCanvasHolder, {
       text: url,
       width: 260,
@@ -748,9 +680,7 @@
   }
 
   function openAdminPanel() {
-    const url = getQrUrl();
-    qrUrlInput.value = url || "";
-    renderQr(url);
+    renderQr(getQrUrl());
     adminPanelModal.classList.add('open');
   }
 
@@ -762,16 +692,6 @@
 
   adminPanelModal.addEventListener('click', (e) => {
     if (e.target === adminPanelModal) adminPanelModal.classList.remove('open');
-  });
-
-  qrApplyUrlBtn.addEventListener('click', () => {
-    const val = qrUrlInput.value.trim();
-    if (!val) {
-      alert("Введите ссылку");
-      return;
-    }
-    localStorage.setItem(QR_URL_KEY, val);
-    renderQr(val);
   });
 
   /* ----- Скачать QR в PNG ----- */
@@ -800,13 +720,11 @@
     qrPrintArea.innerHTML = `
       <img src="${dataUrl}" alt="QR" style="width:320px;height:320px;">
       <div class="qr-label">RGB-стенгазета</div>
-      <div class="qr-sublabel">${currentQrUrl}</div>
     `;
     qrPrintArea.style.display = 'flex';
 
     window.print();
 
-    // Прячем после печати
     setTimeout(() => {
       qrPrintArea.style.display = 'none';
     }, 500);
@@ -892,7 +810,7 @@
   }
 
   /* ============================================================
-     📜 УНИВЕРСАЛЬНОЕ СВОРАЧИВАНИЕ
+     📜 УНИВЕРСАЛЬНОЕ СВОРАЧИВАНИЕ [data-collapse]
      ============================================================ */
   function applyItemCollapseToAll() {
     document.querySelectorAll('[data-collapse]').forEach(el => applyItemCollapse(el));
