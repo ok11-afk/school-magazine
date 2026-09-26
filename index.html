@@ -4,137 +4,77 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RGB — Стенгазета класса робототехники</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
 <style>
   * { box-sizing: border-box; }
   body {
     font-family: 'Segoe UI', Tahoma, sans-serif;
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    margin: 0;
-    padding: 20px;
-    color: #fff;
-    min-height: 100vh;
+    margin: 0; padding: 20px; color: #fff; min-height: 100vh;
   }
   .paper {
-    max-width: 1100px;
-    margin: auto;
-    background: #1a1a2e;
-    border: 3px solid #00d4ff;
-    border-radius: 15px;
-    padding: 25px;
+    max-width: 1100px; margin: auto; background: #1a1a2e;
+    border: 3px solid #00d4ff; border-radius: 15px; padding: 25px;
     box-shadow: 0 0 30px #00d4ff88;
   }
-
-  /* ===== ШАПКА ===== */
-  header {
-    border-bottom: 2px dashed #00d4ff;
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-  }
-  .top-row {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  .logo {
-    flex-shrink: 0;
-    filter: drop-shadow(0 0 10px #00d4ffaa);
-    animation: spin 12s linear infinite;
-  }
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
+  header { border-bottom: 2px dashed #00d4ff; padding-bottom: 15px; margin-bottom: 20px; }
+  .top-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .logo { flex-shrink: 0; filter: drop-shadow(0 0 10px #00d4ffaa); animation: spin 12s linear infinite; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   .title-block { flex: 1; min-width: 240px; }
-  .class-name {
-    font-size: 1.1em;
-    color: #00d4ff;
-    letter-spacing: 4px;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
+  .class-name { font-size: 1.1em; color: #00d4ff; letter-spacing: 4px; font-weight: bold; text-transform: uppercase; }
   h1 {
-    font-size: 2.4em;
-    margin: 5px 0;
+    font-size: 2.4em; margin: 5px 0;
     background: linear-gradient(90deg, #22c55e, #3b82f6, #ef4444);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: 3px;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; letter-spacing: 3px;
   }
-  .slogan {
-    color: #ff00ea;
-    font-style: italic;
-    margin-top: 5px;
-    font-size: 1em;
-  }
+  .slogan { color: #ff00ea; font-style: italic; margin-top: 5px; font-size: 1em; }
 
-  /* ===== МЕНЮ ===== */
-  nav {
-    margin-top: 18px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+  .admin-bar {
+    display: flex; justify-content: flex-end; align-items: center;
+    gap: 10px; margin-bottom: 10px; flex-wrap: wrap;
   }
-  nav button {
-    background: #16213e;
-    color: #00d4ff;
-    border: 2px solid #00d4ff;
-    padding: 10px 18px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.95em;
+  .admin-bar button {
+    background: #16213e; color: #ffd700; border: 2px solid #ffd700;
+    padding: 6px 14px; border-radius: 20px; cursor: pointer;
+    font-weight: bold; font-size: 0.85em; font-family: inherit;
     transition: all 0.25s;
-    font-family: inherit;
   }
-  nav button:hover {
-    background: #00d4ff;
-    color: #0f2027;
-    box-shadow: 0 0 15px #00d4ff;
-    transform: translateY(-2px);
+  .admin-bar button:hover { background: #ffd700; color: #0f2027; }
+  .admin-bar button.on {
+    background: #22c55e; border-color: #22c55e; color: #fff;
+    box-shadow: 0 0 12px #22c55e;
   }
+  .admin-status { font-size: 0.85em; color: #aaa; }
+
+  nav { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+  nav button {
+    background: #16213e; color: #00d4ff; border: 2px solid #00d4ff;
+    padding: 10px 18px; border-radius: 25px; cursor: pointer;
+    font-weight: bold; font-size: 0.95em; font-family: inherit;
+    transition: all 0.25s;
+  }
+  nav button:hover { background: #00d4ff; color: #0f2027; box-shadow: 0 0 15px #00d4ff; transform: translateY(-2px); }
   nav button.active {
     background: linear-gradient(90deg, #22c55e, #3b82f6, #ef4444);
-    color: #fff;
-    border-color: transparent;
-    box-shadow: 0 0 20px #3b82f6aa;
+    color: #fff; border-color: transparent; box-shadow: 0 0 20px #3b82f6aa;
   }
 
-  /* ===== КОНТЕНТ ===== */
   .page { display: none; }
   .page.active { display: block; animation: fadeIn 0.4s ease; }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  .grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
-  }
-  @media (max-width: 720px) {
-    .grid { grid-template-columns: 1fr; }
-  }
+  .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
   .card {
-    background: #16213e;
-    border-left: 4px solid #00d4ff;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 15px;
-    transition: transform 0.3s, box-shadow 0.3s;
+    background: #16213e; border-left: 4px solid #00d4ff; border-radius: 10px;
+    padding: 15px; margin-bottom: 15px; transition: transform 0.3s, box-shadow 0.3s;
   }
-  .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px #00d4ff55;
-  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px #00d4ff55; }
   .card h2 {
-    color: #00d4ff;
-    margin-top: 0;
-    font-size: 1.3em;
-    border-bottom: 1px solid #00d4ff44;
-    padding-bottom: 5px;
+    color: #00d4ff; margin-top: 0; font-size: 1.3em;
+    border-bottom: 1px solid #00d4ff44; padding-bottom: 5px;
   }
   .card.highlight { border-left-color: #ff00ea; }
   .card.highlight h2 { color: #ff00ea; }
@@ -144,46 +84,165 @@
   .card.puzzle h2 { color: #00ff88; }
 
   .tag {
+    display: inline-block; background: #00d4ff; color: #0f2027;
+    padding: 3px 10px; border-radius: 12px; font-size: 0.8em;
+    font-weight: bold; margin-right: 5px;
+  }
+  footer {
+    text-align: center; margin-top: 25px; padding-top: 15px;
+    border-top: 2px dashed #00d4ff; color: #aaa; font-size: 0.9em;
+  }
+  ul { padding-left: 20px; } li { margin-bottom: 5px; }
+
+  .photo-box {
+    background: #0f2027; border-radius: 8px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 160px; border: 1px dashed #00d4ff55; position: relative;
+  }
+  .photo-box img { width: 100%; height: auto; display: block; border-radius: 8px; }
+  .photo-box .placeholder { color: #555; padding: 40px 10px; text-align: center; }
+
+  /* ====== АДМИН-ЛОГИКА ====== */
+  .admin-only { display: none !important; }
+  body.admin .admin-only { display: block !important; }
+
+  .admin-photo-controls { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .admin-photo-controls label {
+    background: #00d4ff; color: #0f2027; padding: 6px 14px;
+    border-radius: 20px; cursor: pointer; font-weight: bold;
+    font-size: 0.85em; transition: all 0.25s;
+  }
+  .admin-photo-controls label:hover { background: #fff; }
+  .admin-photo-controls input[type="file"] { display: none; }
+  .admin-photo-controls button {
+    background: #ef4444; color: #fff; border: none; padding: 6px 14px;
+    border-radius: 20px; cursor: pointer; font-weight: bold;
+    font-size: 0.85em; font-family: inherit;
+  }
+  .admin-photo-controls button:hover { background: #b91c1c; }
+
+  /* Кнопки редактирования */
+  .edit-controls {
+    display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap;
+  }
+  .edit-controls button {
+    background: #00d4ff; color: #0f2027; border: none;
+    padding: 5px 12px; border-radius: 15px; cursor: pointer;
+    font-weight: bold; font-size: 0.8em; font-family: inherit;
+    transition: all 0.25s;
+  }
+  .edit-controls button:hover { background: #fff; }
+  .edit-controls button.save { background: #22c55e; color: #fff; }
+  .edit-controls button.save:hover { background: #16a34a; }
+  .edit-controls button.cancel { background: #666; color: #fff; }
+  .edit-controls button.cancel:hover { background: #888; }
+
+  /* Подсветка редактируемого блока */
+  .editable[contenteditable="true"] {
+    outline: 2px dashed #00d4ff;
+    outline-offset: 4px;
+    background: #0f2027;
+    border-radius: 6px;
+    padding: 8px;
+    min-height: 30px;
+  }
+  .card h2.editable[contenteditable="true"] {
+    padding: 4px 8px;
+    min-height: 30px;
+  }
+
+  .edit-status {
+    font-size: 0.8em; color: #22c55e; margin-top: 6px; min-height: 1em;
+  }
+
+  /* ====== СВОРАЧИВАНИЕ ДЛИННЫХ СПИСКОВ (<ul>/<ol>) ====== */
+  .editable ul.collapsed-list > li.hidden-item,
+  .editable ol.collapsed-list > li.hidden-item {
+    display: none;
+  }
+
+  /* ====== УНИВЕРСАЛЬНОЕ СВОРАЧИВАНИЕ ([data-collapse]) ====== */
+  [data-collapse] > .collapse-hidden {
+    display: none !important;
+  }
+  .project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .project-item {
+    padding: 4px 0;
+  }
+
+  .show-more-btn {
     display: inline-block;
+    margin-top: 8px;
+    background: transparent;
+    color: #00d4ff;
+    border: 2px dashed #00d4ff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 0.85em;
+    transition: all 0.25s;
+  }
+  .show-more-btn:hover {
     background: #00d4ff;
     color: #0f2027;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 0.8em;
-    font-weight: bold;
-    margin-right: 5px;
+    border-style: solid;
+  }
+  .show-more-btn.expanded {
+    border-color: #ff00ea;
+    color: #ff00ea;
+  }
+  .show-more-btn.expanded:hover {
+    background: #ff00ea;
+    color: #fff;
   }
 
-  footer {
-    text-align: center;
-    margin-top: 25px;
-    padding-top: 15px;
-    border-top: 2px dashed #00d4ff;
-    color: #aaa;
-    font-size: 0.9em;
+  /* ====== МОДАЛКА ====== */
+  .modal {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+    z-index: 1000; align-items: center; justify-content: center; padding: 20px;
   }
-  ul { padding-left: 20px; }
-  li { margin-bottom: 5px; }
-
-  .photo-placeholder {
-    background: #0f2027;
-    height: 160px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #555;
-    border: 1px dashed #00d4ff55;
+  .modal.open { display: flex; }
+  .modal-content {
+    background: #1a1a2e; border: 2px solid #00d4ff; border-radius: 12px;
+    padding: 25px; max-width: 360px; width: 100%; text-align: center;
+    box-shadow: 0 0 30px #00d4ff88;
   }
+  .modal-content h3 { color: #00d4ff; margin-top: 0; }
+  .modal-content input {
+    width: 100%; padding: 10px; border-radius: 8px; border: 2px solid #00d4ff;
+    background: #0f2027; color: #fff; font-size: 1em; margin: 15px 0;
+    font-family: inherit;
+  }
+  .modal-content input:focus { outline: none; box-shadow: 0 0 10px #00d4ff; }
+  .modal-content .btn-row { display: flex; gap: 10px; }
+  .modal-content button {
+    flex: 1; padding: 10px; border-radius: 8px; border: none;
+    font-weight: bold; cursor: pointer; font-family: inherit; font-size: 0.95em;
+  }
+  .btn-login { background: #22c55e; color: #fff; }
+  .btn-login:hover { background: #16a34a; }
+  .btn-cancel { background: #444; color: #fff; }
+  .btn-cancel:hover { background: #666; }
+  .error-msg { color: #ef4444; font-size: 0.85em; min-height: 1.2em; }
 </style>
 </head>
 <body>
+
 <div class="paper">
 
-  <!-- ===== ШАПКА ===== -->
+  <div class="admin-bar">
+    <span class="admin-status" id="adminStatus">Режим: пользователь</span>
+    <button id="adminToggleBtn">🔐 Войти как админ</button>
+  </div>
+
   <header>
     <div class="top-row">
-      <!-- ЛОГОТИП -->
       <div class="logo">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
           <circle cx="50" cy="50" r="49" fill="#ffffff"/>
@@ -201,8 +260,6 @@
           </g>
         </svg>
       </div>
-
-      <!-- НАЗВАНИЕ + ДЕВИЗ -->
       <div class="title-block">
         <div class="class-name">Класс / Кружок — RGB</div>
         <h1 id="gazeta-title">РОБО-ВЕСТИ</h1>
@@ -210,7 +267,6 @@
       </div>
     </div>
 
-    <!-- МЕНЮ -->
     <nav id="menu">
       <button data-page="home" data-title="РОБО-ВЕСТИ" class="active">РОБО-ВЕСТИ</button>
       <button data-page="cyber" data-title="Кибер-Газета">Кибер-Газета</button>
@@ -220,61 +276,104 @@
     </nav>
   </header>
 
-  <!-- ===== СТРАНИЦА 1: РОБО-ВЕСТИ ===== -->
+  <!-- ================= ГЛАВНАЯ ================= -->
   <section id="home" class="page active">
     <div class="grid">
       <div>
+        <!-- Проекты -->
         <div class="card">
-          <h2>🚀 Наши проекты</h2>
-          <p><span class="tag">НОВОЕ</span> Робот-манипулятор «Железный клещ» — собрал ученик 8А класса. Умеет сортировать детали по цвету!</p>
-          <p><span class="tag">ХИТ</span> Гусеничный ровер «Марсоход-2025» прошёл испытания на пересечённой местности.</p>
+          <h2 class="editable" data-id="title-projects">🚀 Наши проекты</h2>
+
+          <div class="editable project-list" data-id="projects" data-collapse="3">
+            <div class="project-item"><span class="tag">НОВОЕ</span> Робот-манипулятор «Железный клещ» — собрал ученик 8А класса.</div>
+            <div class="project-item"><span class="tag">ХИТ</span> Гусеничный ровер «Марсоход-2025» прошёл испытания.</div>
+            <div class="project-item"><span class="tag">НОВОЕ</span> Робот-художник «Пикассо» рисует геометрические фигуры.</div>
+            <div class="project-item"><span class="tag">ХИТ</span> Робот-сортировщик «Железный клещ» — 2-е место на олимпиаде.</div>
+            <div class="project-item"><span class="tag">НОВОЕ</span> Робот-манипулятор «Манипулятор-2025» — прошёл испытания.</div>
+          </div>
+
+          <div class="edit-controls admin-only"></div>
+          <div class="edit-status"></div>
         </div>
+
+        <!-- Гений недели -->
         <div class="card highlight">
-          <h2>🏆 Гений недели</h2>
-          <p><strong>Иван Петров, 7Б</strong> — написал программу, которая заставляет робота рисовать геометрические фигуры. Поздравляем! 👏</p>
+          <h2 class="editable" data-id="title-genius">🏆 Гений недели</h2>
+          <div class="editable" data-id="genius"><strong>Иван Петров, 7Б</strong> — написал программу для рисования фигур роботом. 👏</div>
+          <div class="edit-controls admin-only"></div>
+          <div class="edit-status"></div>
         </div>
+
+        <!-- Календарь событий -->
         <div class="card">
-          <h2>📅 Календарь событий</h2>
-          <ul>
-            <li>15 ноября — Городская олимпиада по робототехнике</li>
-            <li>22 ноября — Мастер-класс «Пайка для начинающих»</li>
-            <li>30 ноября — Внутренний турнир «Робо-Сумо»</li>
-          </ul>
+          <h2 class="editable" data-id="title-events">📅 Календарь событий</h2>
+          <div class="editable" data-id="events">
+            <ul>
+              <li>15 ноября — Городская олимпиада по робототехнике</li>
+              <li>22 ноября — Мастер-класс «Пайка для начинающих»</li>
+              <li>30 ноября — Внутренний турнир «Робо-Сумо»</li>
+              <li>5 декабря — Встреча с командой «Кибер-Код»</li>
+              <li>12 декабря — Городской Робо-фест</li>
+            </ul>
+          </div>
+          <div class="edit-controls admin-only"></div>
+          <div class="edit-status"></div>
         </div>
+
+        <!-- Робо-юмор -->
         <div class="card joke">
-          <h2>😄 Робо-юмор</h2>
-          <p>— Робот, ты почему не сделал домашку?<br>— Ошибка 404: Мотивация не найдена 🤖</p>
+          <h2 class="editable" data-id="title-joke">😄 Робо-юмор</h2>
+          <div class="editable" data-id="joke">— Робот, ты почему не сделал домашку?<br>— Ошибка 404: Мотивация не найдена 🤖</div>
+          <div class="edit-controls admin-only"></div>
+          <div class="edit-status"></div>
         </div>
       </div>
+
       <div>
+        <!-- Головоломка -->
         <div class="card puzzle">
-          <h2>🧩 Головоломка</h2>
-          <p>Робот стоит в точке А и должен попасть в точку Б. Он может делать только шаг вперёд и поворот на 90°. Сколько минимально команд нужно?</p>
-          <p style="color:#00ff88;"><em>Ответ — в следующем выпуске!</em></p>
+          <h2 class="editable" data-id="title-puzzle">🧩 Головоломка</h2>
+          <div class="editable" data-id="puzzle">Робот стоит в точке А и должен попасть в точку Б. Только шаг вперёд и поворот на 90°. Сколько команд?</div>
+          <div class="edit-controls admin-only"></div>
+          <div class="edit-status"></div>
         </div>
+
+        <!-- Совет от мастера -->
         <div class="card">
-          <h2>🔧 Совет от мастера</h2>
-          <p>Перед пайкой всегда зачищайте жало паяльника и используйте флюс — так контакт будет надёжнее!</p>
+          <h2 class="editable" data-id="title-tip">🔧 Совет от мастера</h2>
+          <div class="editable" data-id="tip">Перед пайкой зачищайте жало паяльника и используйте флюс!</div>
+          <div class="edit-controls admin-only"></div>
+          <div class="edit-status"></div>
         </div>
+
+        <!-- Фото недели -->
         <div class="card">
-          <h2>📸 Фото недели</h2>
-          <div class="photo-placeholder">[Вставьте фото робота]</div>
+          <h2 class="editable" data-id="title-photo">📸 Фото недели</h2>
+          <div class="photo-box" id="photoBox">
+            <div class="placeholder">Загрузка фото...</div>
+          </div>
+          <div class="admin-photo-controls admin-only">
+            <label for="photoInput">📤 Загрузить фото</label>
+            <input type="file" id="photoInput" accept="image/*">
+            <button id="photoRemoveBtn" type="button">🗑 Удалить</button>
+          </div>
+          <div class="edit-status" id="uploadStatus"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== СТРАНИЦА 2: КИБЕР-ГАЗЕТА ===== -->
+  <!-- ================= ОСТАЛЬНЫЕ СТРАНИЦЫ ================= -->
   <section id="cyber" class="page">
     <div class="grid">
       <div>
         <div class="card">
           <h2>💻 Кибер-новости</h2>
-          <p>Класс RGB начал изучать язык Python для управления роботами. Первые программы уже работают!</p>
+          <p>Класс RGB начал изучать Python для управления роботами.</p>
         </div>
         <div class="card highlight">
           <h2>🔐 Безопасность в сети</h2>
-          <p>Помни: даже робот должен знать правила кибергигиены. Меняй пароли, не открывай подозрительные файлы!</p>
+          <p>Меняй пароли, не открывай подозрительные файлы!</p>
         </div>
       </div>
       <div>
@@ -286,62 +385,49 @@
     </div>
   </section>
 
-  <!-- ===== СТРАНИЦА 3: БАЙТ И БОЛТ ===== -->
   <section id="byte" class="page">
     <div class="grid">
       <div>
         <div class="card">
           <h2>🔩 Железо и код</h2>
-          <p>Разбираем, как устроен сервопривод и зачем нужен ШИМ-сигнал. Просто о сложном!</p>
-        </div>
-        <div class="card puzzle">
-          <h2>🧩 Задача на логику</h2>
-          <p>В коробке 5 болтов и 3 гайки. Сколько деталей нужно докупить, чтобы собрать 8 креплений?</p>
+          <p>Разбираем, как устроен сервопривод и зачем нужен ШИМ-сигнал.</p>
         </div>
       </div>
       <div>
-        <div class="card">
-          <h2>🛠️ Мастерская</h2>
-          <p>Инструменты недели: мультиметр, паяльная станция, набор отвёрток.</p>
+        <div class="card puzzle">
+          <h2>🧩 Задача</h2>
+          <p>В коробке 5 болтов и 3 гайки. Сколько деталей докупить для 8 креплений?</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== СТРАНИЦА 4: ТЕРМИНАЛ НОВОСТЕЙ ===== -->
   <section id="terminal" class="page">
     <div class="grid">
       <div>
         <div class="card">
           <h2>📰 Лента новостей</h2>
-          <p><span class="tag">СРОЧНО</span> Команда RGB заняла 2 место на городском турнире по робо-сумо!</p>
-          <p><span class="tag">НОВОЕ</span> Открыт набор в кружок «Юный программист» для 5–6 классов.</p>
+          <p><span class="tag">СРОЧНО</span> Команда RGB заняла 2 место на турнире по робо-сумо!</p>
         </div>
       </div>
       <div>
         <div class="card highlight">
           <h2>📢 Объявления</h2>
-          <p>Ищем желающих в команду для участия в региональном чемпионате. Запись у руководителя кружка!</p>
+          <p>Ищем желающих в команду для регионального чемпионата!</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== СТРАНИЦА 5: СХЕМА УСПЕХА ===== -->
   <section id="scheme" class="page">
     <div class="grid">
       <div>
         <div class="card">
           <h2>📈 Наши достижения</h2>
           <ul>
-            <li>🥇 1 место — олимпиада по робототехнике (октябрь)</li>
-            <li>🥈 2 место — турнир «Робо-Сумо» (ноябрь)</li>
-            <li>🥉 3 место — конкурс проектов «Техно-старт»</li>
+            <li>🥇 1 место — олимпиада по робототехнике</li>
+            <li>🥈 2 место — турнир «Робо-Сумо»</li>
           </ul>
-        </div>
-        <div class="card highlight">
-          <h2>⭐ Доска почёта</h2>
-          <p><strong>Иван Петров</strong>, <strong>Мария Смирнова</strong>, <strong>Артём Ким</strong> — активные участники проектов.</p>
         </div>
       </div>
       <div>
@@ -350,7 +436,6 @@
           <ul>
             <li>Собрать 3 новых робота</li>
             <li>Освоить Arduino</li>
-            <li>Победить в городском турнире</li>
           </ul>
         </div>
       </div>
@@ -358,31 +443,522 @@
   </section>
 
   <footer>
-    Стенгазета класса робототехники <strong>RGB</strong> • Редакция: ученики 7–9 классов
+    Стенгазета класса робототехники <strong>RGB</strong> • Разработчик: Седельников Яков
   </footer>
 </div>
 
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <h3>🔐 Вход администратора</h3>
+    <p style="color:#aaa; font-size:0.85em; margin:0;">Введите пароль</p>
+    <input type="password" id="passwordInput" placeholder="Пароль" autocomplete="off">
+    <div class="error-msg" id="errorMsg"></div>
+    <div class="btn-row">
+      <button class="btn-cancel" id="cancelLogin">Отмена</button>
+      <button class="btn-login" id="confirmLogin">Войти</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const menu = document.getElementById('menu');
-  const buttons = menu.querySelectorAll('button');
-  const pages = document.querySelectorAll('.page');
-  const title = document.getElementById('gazeta-title');
+  /* ============================================================
+     ⚙️ НАСТРОЙКА SUPABASE
+     ============================================================ */
+  const SUPABASE_URL = "https://kcundhshqbdqnpwtmbgo.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjdW5kaHNocWJkcW5wd3RtYmdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0NDM2ODYsImV4cCI6MjEwNjAxOTY4Nn0.Dpmdwb8cMKZEttqvlxAVNJ1o-e68bWGudtuD4KriFuk";
+  const BUCKET_NAME = "photos";
+  const PHOTO_PATH = "photo-of-week.jpg";
 
-  buttons.forEach(btn => {
+  const ADMIN_PASSWORD = "rgb2025";
+
+  /* ============================================================
+     🌐 ИНИЦИАЛИЗАЦИЯ SUPABASE
+     ============================================================ */
+  let supabaseClient = null;
+  let supabaseReady = false;
+
+  try {
+    if (!window.supabase || typeof window.supabase.createClient !== "function") {
+      throw new Error("Библиотека Supabase не загрузилась.");
+    }
+    if (SUPABASE_URL.includes("ВАШ_ПРОЕКТ") || SUPABASE_ANON_KEY.includes("ВАШ_ANON_KEY")) {
+      throw new Error("Ключи Supabase не заполнены в коде.");
+    }
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    supabaseReady = true;
+    console.log("✅ Supabase подключён");
+  } catch (err) {
+    console.warn("⚠️ Supabase не подключён:", err.message);
+  }
+
+  /* ============================================================
+     📑 ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
+     ============================================================ */
+  document.querySelectorAll('#menu button').forEach(btn => {
     btn.addEventListener('click', () => {
-      // снять активность со всех
-      buttons.forEach(b => b.classList.remove('active'));
-      pages.forEach(p => p.classList.remove('active'));
-
-      // активировать выбранное
+      document.querySelectorAll('#menu button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById(btn.dataset.page).classList.add('active');
-
-      // сменить заголовок в шапке
-      title.textContent = btn.dataset.title;
+      document.getElementById('gazeta-title').textContent = btn.dataset.title;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
+
+  /* ============================================================
+     🔐 РЕЖИМ АДМИНА
+     ============================================================ */
+  const body = document.body;
+  const adminToggleBtn = document.getElementById('adminToggleBtn');
+  const adminStatus = document.getElementById('adminStatus');
+  const loginModal = document.getElementById('loginModal');
+  const passwordInput = document.getElementById('passwordInput');
+  const errorMsg = document.getElementById('errorMsg');
+  const confirmLogin = document.getElementById('confirmLogin');
+  const cancelLogin = document.getElementById('cancelLogin');
+
+  function setAdminMode(isAdmin) {
+    if (isAdmin) {
+      body.classList.add('admin');
+      sessionStorage.setItem('isAdmin', '1');
+      adminToggleBtn.textContent = "🚪 Выйти из режима админа";
+      adminToggleBtn.classList.add('on');
+      adminStatus.textContent = "Режим: АДМИНИСТРАТОР";
+      adminStatus.style.color = "#22c55e";
+      buildEditButtons();
+    } else {
+      body.classList.remove('admin');
+      sessionStorage.removeItem('isAdmin');
+      adminToggleBtn.textContent = "🔐 Войти как админ";
+      adminToggleBtn.classList.remove('on');
+      adminStatus.textContent = "Режим: пользователь";
+      adminStatus.style.color = "#aaa";
+    }
+  }
+
+  adminToggleBtn.addEventListener('click', () => {
+    if (body.classList.contains('admin')) {
+      setAdminMode(false);
+    } else {
+      passwordInput.value = "";
+      errorMsg.textContent = "";
+      loginModal.classList.add('open');
+      setTimeout(() => passwordInput.focus(), 100);
+    }
+  });
+
+  cancelLogin.addEventListener('click', () => loginModal.classList.remove('open'));
+
+  confirmLogin.addEventListener('click', () => {
+    if (passwordInput.value === ADMIN_PASSWORD) {
+      setAdminMode(true);
+      loginModal.classList.remove('open');
+      errorMsg.textContent = "";
+    } else {
+      errorMsg.textContent = "❌ Неверный пароль";
+      passwordInput.value = "";
+      passwordInput.focus();
+    }
+  });
+
+  passwordInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') confirmLogin.click();
+    if (e.key === 'Escape') cancelLogin.click();
+  });
+
+  loginModal.addEventListener('click', (e) => {
+    if (e.target === loginModal) loginModal.classList.remove('open');
+  });
+
+  /* ============================================================
+     🧼 ОЧИСТКА HTML
+     ============================================================ */
+  function sanitizeHtml(html) {
+    const allowedTags = ['B','I','U','STRONG','EM','BR','UL','OL','LI','SPAN','P','DIV','A','H1','H2','H3','H4','H5','H6'];
+    const allowedAttrs = ['class', 'href', 'target', 'data-id', 'data-collapse'];
+
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+
+    temp.querySelectorAll('script, style, iframe, object, embed, link, meta, form, input, button').forEach(n => n.remove());
+
+    temp.querySelectorAll('*').forEach(node => {
+      [...node.attributes].forEach(attr => {
+        const name = attr.name.toLowerCase();
+        if (name === 'style' || !allowedAttrs.includes(name)) {
+          node.removeAttribute(attr.name);
+        }
+      });
+      if (!allowedTags.includes(node.tagName)) {
+        node.replaceWith(document.createTextNode(node.textContent));
+      }
+    });
+
+    return temp.innerHTML;
+  }
+
+  /* ============================================================
+     📜 СВОРАЧИВАНИЕ ДЛЯ <ul>/<ol> (классические списки)
+     ============================================================ */
+  const MAX_VISIBLE_ITEMS = 3;
+
+  function applyCollapseToAll() {
+    document.querySelectorAll('.editable').forEach(el => applyCollapse(el));
+  }
+
+  function applyCollapse(container) {
+    const oldBtn = container.querySelector('.show-more-btn');
+    if (oldBtn) oldBtn.remove();
+
+    const list = container.querySelector('ul, ol');
+    if (!list) return;
+
+    const items = list.querySelectorAll(':scope > li');
+    if (items.length <= MAX_VISIBLE_ITEMS) {
+      items.forEach(li => li.classList.remove('hidden-item'));
+      list.classList.remove('collapsed-list');
+      return;
+    }
+
+    items.forEach((li, i) => {
+      if (i >= MAX_VISIBLE_ITEMS) li.classList.add('hidden-item');
+      else li.classList.remove('hidden-item');
+    });
+    list.classList.add('collapsed-list');
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'show-more-btn';
+    btn.textContent = `▼ Показать ещё (${items.length - MAX_VISIBLE_ITEMS})`;
+
+    btn.addEventListener('click', () => {
+      const isCollapsed = list.classList.toggle('collapsed-list');
+      if (isCollapsed) {
+        items.forEach((li, i) => {
+          if (i >= MAX_VISIBLE_ITEMS) li.classList.add('hidden-item');
+        });
+        btn.textContent = `▼ Показать ещё (${items.length - MAX_VISIBLE_ITEMS})`;
+        btn.classList.remove('expanded');
+      } else {
+        items.forEach(li => li.classList.remove('hidden-item'));
+        btn.textContent = `▲ Свернуть`;
+        btn.classList.add('expanded');
+      }
+    });
+
+    container.appendChild(btn);
+  }
+
+  /* ============================================================
+     📜 УНИВЕРСАЛЬНОЕ СВОРАЧИВАНИЕ ([data-collapse="N"])
+     Работает для <ul>/<ol> и для любых контейнеров с div-детьми.
+     ============================================================ */
+  function applyItemCollapseToAll() {
+    document.querySelectorAll('[data-collapse]').forEach(el => applyItemCollapse(el));
+  }
+
+  function applyItemCollapse(container) {
+    // Удаляем старую кнопку этого контейнера
+    const oldBtn = container.parentElement.querySelector('.show-more-btn[data-for="' + (container.dataset.id || '') + '"]');
+    if (oldBtn) oldBtn.remove();
+
+    const limit = parseInt(container.dataset.collapse, 10) || 3;
+
+    // Определяем набор дочерних элементов
+    let items;
+    if (container.tagName === 'UL' || container.tagName === 'OL') {
+      items = [...container.querySelectorAll(':scope > li')];
+    } else {
+      items = [...container.children].filter(c => !c.classList.contains('show-more-btn'));
+    }
+
+    if (items.length <= limit) {
+      items.forEach(it => it.classList.remove('collapse-hidden'));
+      return;
+    }
+
+    // Скрываем всё после limit
+    items.forEach((it, i) => {
+      if (i >= limit) it.classList.add('collapse-hidden');
+      else it.classList.remove('collapse-hidden');
+    });
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'show-more-btn';
+    btn.dataset.for = container.dataset.id || '';
+    btn.textContent = `▼ Показать ещё (${items.length - limit})`;
+
+    btn.addEventListener('click', () => {
+      const isHidden = items.some(it => it.classList.contains('collapse-hidden'));
+      if (isHidden) {
+        items.forEach(it => it.classList.remove('collapse-hidden'));
+        btn.textContent = '▲ Свернуть';
+        btn.classList.add('expanded');
+      } else {
+        items.forEach((it, i) => {
+          if (i >= limit) it.classList.add('collapse-hidden');
+        });
+        btn.textContent = `▼ Показать ещё (${items.length - limit})`;
+        btn.classList.remove('expanded');
+      }
+    });
+
+    container.parentElement.appendChild(btn);
+  }
+
+  /* ============================================================
+     ✏️ РЕДАКТИРОВАНИЕ КАРТОЧЕК (ЗАГОЛОВОК + СОДЕРЖИМОЕ)
+     ============================================================ */
+  const editables = document.querySelectorAll('.editable');
+
+  function buildEditButtons() {
+    const cards = new Set();
+    editables.forEach(el => cards.add(el.closest('.card')));
+
+    cards.forEach(card => {
+      if (!card) return;
+      const controls = card.querySelector('.edit-controls');
+      if (!controls || controls.dataset.built === '1') return;
+      controls.dataset.built = '1';
+
+      const editableEls = card.querySelectorAll('.editable');
+
+      const editBtn = document.createElement('button');
+      editBtn.textContent = '✏️ Редактировать';
+      editBtn.type = 'button';
+
+      const saveBtn = document.createElement('button');
+      saveBtn.textContent = '💾 Сохранить';
+      saveBtn.className = 'save';
+      saveBtn.type = 'button';
+      saveBtn.style.display = 'none';
+
+      const cancelBtn = document.createElement('button');
+      cancelBtn.textContent = '❌ Отмена';
+      cancelBtn.className = 'cancel';
+      cancelBtn.type = 'button';
+      cancelBtn.style.display = 'none';
+
+      controls.appendChild(editBtn);
+      controls.appendChild(saveBtn);
+      controls.appendChild(cancelBtn);
+
+      const statusEl = card.querySelector('.edit-status');
+      let originals = [];
+
+      editBtn.addEventListener('click', () => {
+        originals = [];
+        editableEls.forEach(el => {
+          originals.push(el.innerHTML);
+          el.contentEditable = 'true';
+
+          // Убираем сворачивание [data-collapse]
+          if (el.dataset.collapse) {
+            el.querySelectorAll('.collapse-hidden').forEach(x => x.classList.remove('collapse-hidden'));
+            const btn = el.parentElement.querySelector('.show-more-btn[data-for="' + (el.dataset.id || '') + '"]');
+            if (btn) btn.remove();
+          }
+          // Убираем сворачивание <ul>
+          const list = el.querySelector('ul, ol');
+          if (list) {
+            list.classList.remove('collapsed-list');
+            list.querySelectorAll('li').forEach(li => li.classList.remove('hidden-item'));
+          }
+          const oldBtn = el.querySelector('.show-more-btn');
+          if (oldBtn) oldBtn.remove();
+        });
+        editableEls[0]?.focus();
+
+        // Вставка только чистого текста
+        editableEls.forEach(el => {
+          el.onpaste = (evt) => {
+            evt.preventDefault();
+            const text = (evt.clipboardData || window.clipboardData).getData('text/plain');
+            const sel = window.getSelection();
+            if (!sel.rangeCount) return;
+            const range = sel.getRangeAt(0);
+            range.deleteContents();
+            const textNode = document.createTextNode(text);
+            range.insertNode(textNode);
+            range.setStartAfter(textNode);
+            range.collapse(true);
+            sel.removeAllRanges();
+            sel.addRange(range);
+          };
+        });
+
+        editBtn.style.display = 'none';
+        saveBtn.style.display = '';
+        cancelBtn.style.display = '';
+      });
+
+      cancelBtn.addEventListener('click', () => {
+        editableEls.forEach((el, i) => {
+          el.innerHTML = originals[i];
+          el.contentEditable = 'false';
+          el.onpaste = null;
+          applyCollapse(el);
+          if (el.dataset.collapse) applyItemCollapse(el);
+        });
+        editBtn.style.display = '';
+        saveBtn.style.display = 'none';
+        cancelBtn.style.display = 'none';
+      });
+
+      saveBtn.addEventListener('click', async () => {
+        if (!supabaseReady) {
+          alert("Supabase не подключён.");
+          return;
+        }
+
+        statusEl.textContent = "⏳ Сохранение...";
+        statusEl.style.color = "#00d4ff";
+
+        try {
+          const rows = [];
+          editableEls.forEach(el => {
+            const id = el.dataset.id;
+            if (!id) return;
+            const html = sanitizeHtml(el.innerHTML.trim());
+            el.innerHTML = html;
+            rows.push({ id, html, updated_at: new Date().toISOString() });
+          });
+
+          const { error } = await supabaseClient
+            .from('content')
+            .upsert(rows, { onConflict: 'id' });
+
+          if (error) throw error;
+
+          editableEls.forEach(el => {
+            el.contentEditable = 'false';
+            el.onpaste = null;
+            applyCollapse(el);
+            if (el.dataset.collapse) applyItemCollapse(el);
+          });
+
+          editBtn.style.display = '';
+          saveBtn.style.display = 'none';
+          cancelBtn.style.display = 'none';
+
+          statusEl.textContent = "✅ Сохранено";
+          statusEl.style.color = "#22c55e";
+          setTimeout(() => { statusEl.textContent = ""; }, 2000);
+        } catch (err) {
+          console.error(err);
+          statusEl.textContent = "❌ " + (err.message || "Ошибка сохранения");
+          statusEl.style.color = "#ef4444";
+        }
+      });
+    });
+  }
+
+  async function loadContent() {
+    if (!supabaseReady) return;
+
+    try {
+      const { data, error } = await supabaseClient
+        .from('content')
+        .select('id, html');
+
+      if (error) throw error;
+      if (!data) return;
+
+      data.forEach(row => {
+        const el = document.querySelector(`.editable[data-id="${row.id}"]`);
+        if (el) el.innerHTML = row.html;
+      });
+
+      applyCollapseToAll();
+      applyItemCollapseToAll();
+    } catch (err) {
+      console.warn("Не удалось загрузить контент:", err.message);
+    }
+  }
+
+  /* ============================================================
+     📸 ФОТО НЕДЕЛИ
+     ============================================================ */
+  const photoBox = document.getElementById('photoBox');
+  const photoInput = document.getElementById('photoInput');
+  const photoRemoveBtn = document.getElementById('photoRemoveBtn');
+  const uploadStatus = document.getElementById('uploadStatus');
+
+  function getPhotoUrl() {
+    if (!supabaseReady) return null;
+    const { data } = supabaseClient.storage.from(BUCKET_NAME).getPublicUrl(PHOTO_PATH);
+    return data.publicUrl;
+  }
+
+  function renderPhoto() {
+    if (!supabaseReady) {
+      photoBox.innerHTML = `<div class="placeholder">⚠️ Хранилище фото не подключено.</div>`;
+      return;
+    }
+    const url = getPhotoUrl() + "?t=" + Date.now();
+    photoBox.innerHTML = `<img src="${url}" alt="Фото недели"
+      onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'>[Фото пока не загружено]</div>'">`;
+  }
+
+  photoInput.addEventListener('change', async (e) => {
+    if (!supabaseReady) { alert("Supabase не подключён."); return; }
+    const file = e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) { alert("Выберите изображение."); return; }
+    if (file.size > 5 * 1024 * 1024) { alert("Максимум 5 МБ."); return; }
+
+    uploadStatus.textContent = "⏳ Загрузка...";
+    uploadStatus.style.color = "#00d4ff";
+    try {
+      const { error } = await supabaseClient.storage
+        .from(BUCKET_NAME)
+        .upload(PHOTO_PATH, file, { upsert: true, contentType: file.type, cacheControl: '0' });
+      if (error) throw error;
+      uploadStatus.textContent = "✅ Фото загружено!";
+      uploadStatus.style.color = "#22c55e";
+      renderPhoto();
+      setTimeout(() => { uploadStatus.textContent = ""; }, 3000);
+    } catch (err) {
+      console.error(err);
+      uploadStatus.textContent = "❌ " + (err.message || "Ошибка загрузки");
+      uploadStatus.style.color = "#ef4444";
+    }
+    photoInput.value = "";
+  });
+
+  photoRemoveBtn.addEventListener('click', async () => {
+    if (!supabaseReady) { alert("Supabase не подключён."); return; }
+    if (!confirm("Удалить фото недели?")) return;
+
+    uploadStatus.textContent = "⏳ Удаление...";
+    uploadStatus.style.color = "#00d4ff";
+    try {
+      const { error } = await supabaseClient.storage.from(BUCKET_NAME).remove([PHOTO_PATH]);
+      if (error) throw error;
+      uploadStatus.textContent = "✅ Фото удалено";
+      uploadStatus.style.color = "#22c55e";
+      renderPhoto();
+      setTimeout(() => { uploadStatus.textContent = ""; }, 3000);
+    } catch (err) {
+      console.error(err);
+      uploadStatus.textContent = "❌ " + (err.message || "Ошибка удаления");
+      uploadStatus.style.color = "#ef4444";
+    }
+  });
+
+  /* ============================================================
+     🚀 ИНИЦИАЛИЗАЦИЯ
+     ============================================================ */
+  if (sessionStorage.getItem('isAdmin') === '1') setAdminMode(true);
+  else setAdminMode(false);
+
+  loadContent();
+  applyCollapseToAll();
+  applyItemCollapseToAll();
+  renderPhoto();
+  setInterval(renderPhoto, 30000);
 </script>
 </body>
 </html>
