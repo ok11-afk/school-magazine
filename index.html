@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RGB — Стенгазета класса робототехники</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    margin: 0;
+    padding: 20px;
+    color: #fff;
+    min-height: 100vh;
+  }
+  .paper {
+    max-width: 1100px;
+    margin: auto;
+    background: #1a1a2e;
+    border: 3px solid #00d4ff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 0 30px #00d4ff88;
+  }
+
+  /* ===== ШАПКА ===== */
+  header {
+    border-bottom: 2px dashed #00d4ff;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+  }
+  .top-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .logo {
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 10px #00d4ffaa);
+    animation: spin 12s linear infinite;
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .title-block { flex: 1; min-width: 240px; }
+  .class-name {
+    font-size: 1.1em;
+    color: #00d4ff;
+    letter-spacing: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  h1 {
+    font-size: 2.4em;
+    margin: 5px 0;
+    background: linear-gradient(90deg, #22c55e, #3b82f6, #ef4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 3px;
+  }
+  .slogan {
+    color: #ff00ea;
+    font-style: italic;
+    margin-top: 5px;
+    font-size: 1em;
+  }
+
+  /* ===== МЕНЮ ===== */
+  nav {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  nav button {
+    background: #16213e;
+    color: #00d4ff;
+    border: 2px solid #00d4ff;
+    padding: 10px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95em;
+    transition: all 0.25s;
+    font-family: inherit;
+  }
+  nav button:hover {
+    background: #00d4ff;
+    color: #0f2027;
+    box-shadow: 0 0 15px #00d4ff;
+    transform: translateY(-2px);
+  }
+  nav button.active {
+    background: linear-gradient(90deg, #22c55e, #3b82f6, #ef4444);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 0 20px #3b82f6aa;
+  }
+
+  /* ===== КОНТЕНТ ===== */
+  .page { display: none; }
+  .page.active { display: block; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 720px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+  .card {
+    background: #16213e;
+    border-left: 4px solid #00d4ff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px #00d4ff55;
+  }
+  .card h2 {
+    color: #00d4ff;
+    margin-top: 0;
+    font-size: 1.3em;
+    border-bottom: 1px solid #00d4ff44;
+    padding-bottom: 5px;
+  }
+  .card.highlight { border-left-color: #ff00ea; }
+  .card.highlight h2 { color: #ff00ea; }
+  .card.joke { border-left-color: #ffd700; }
+  .card.joke h2 { color: #ffd700; }
+  .card.puzzle { border-left-color: #00ff88; }
+  .card.puzzle h2 { color: #00ff88; }
+
+  .tag {
+    display: inline-block;
+    background: #00d4ff;
+    color: #0f2027;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-right: 5px;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 2px dashed #00d4ff;
+    color: #aaa;
+    font-size: 0.9em;
+  }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 5px; }
+
+  .photo-placeholder {
+    background: #0f2027;
+    height: 160px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    border: 1px dashed #00d4ff55;
+  }
+</style>
+</head>
+<body>
+<div class="paper">
+
+  <!-- ===== ШАПКА ===== -->
+  <header>
+    <div class="top-row">
+      <!-- ЛОГОТИП -->
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+          <circle cx="50" cy="50" r="49" fill="#ffffff"/>
+          <g>
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#2d3748" stroke-width="4"/>
+            <path d="M 50 10 A 40 40 0 0 1 84.6 70" fill="none" stroke="#22c55e" stroke-width="7" stroke-linecap="round"/>
+            <path d="M 84.6 70 A 40 40 0 0 1 15.4 70" fill="none" stroke="#3b82f6" stroke-width="7" stroke-linecap="round"/>
+            <path d="M 15.4 70 A 40 40 0 0 1 50 10" fill="none" stroke="#ef4444" stroke-width="7" stroke-linecap="round"/>
+            <rect x="26" y="34" width="48" height="18" rx="8" fill="#2d3748"/>
+            <circle cx="38" cy="43" r="5" fill="#ffffff"/>
+            <circle cx="62" cy="43" r="5" fill="#ffffff"/>
+            <circle cx="39.5" cy="41.5" r="1.5" fill="#2d3748" opacity="0.3"/>
+            <circle cx="63.5" cy="41.5" r="1.5" fill="#2d3748" opacity="0.3"/>
+            <path d="M 36 63 Q 50 74 64 63" stroke="#2d3748" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- НАЗВАНИЕ + ДЕВИЗ -->
+      <div class="title-block">
+        <div class="class-name">Класс / Кружок — RGB</div>
+        <h1 id="gazeta-title">РОБО-ВЕСТИ</h1>
+        <div class="slogan">«Мы не играем в роботов — мы их создаём!»</div>
+      </div>
+    </div>
+
+    <!-- МЕНЮ -->
+    <nav id="menu">
+      <button data-page="home" data-title="РОБО-ВЕСТИ" class="active">РОБО-ВЕСТИ</button>
+      <button data-page="cyber" data-title="Кибер-Газета">Кибер-Газета</button>
+      <button data-page="byte" data-title="Байт и Болт">Байт и Болт</button>
+      <button data-page="terminal" data-title="Терминал Новостей">Терминал Новостей</button>
+      <button data-page="scheme" data-title="Схема Успеха">Схема Успеха</button>
+    </nav>
+  </header>
+
+  <!-- ===== СТРАНИЦА 1: РОБО-ВЕСТИ ===== -->
+  <section id="home" class="page active">
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h2>🚀 Наши проекты</h2>
+          <p><span class="tag">НОВОЕ</span> Робот-манипулятор «Железный клещ» — собрал ученик 8А класса. Умеет сортировать детали по цвету!</p>
+          <p><span class="tag">ХИТ</span> Гусеничный ровер «Марсоход-2025» прошёл испытания на пересечённой местности.</p>
+        </div>
+        <div class="card highlight">
+          <h2>🏆 Гений недели</h2>
+          <p><strong>Иван Петров, 7Б</strong> — написал программу, которая заставляет робота рисовать геометрические фигуры. Поздравляем! 👏</p>
+        </div>
+        <div class="card">
+          <h2>📅 Календарь событий</h2>
+          <ul>
+            <li>15 ноября — Городская олимпиада по робототехнике</li>
+            <li>22 ноября — Мастер-класс «Пайка для начинающих»</li>
+            <li>30 ноября — Внутренний турнир «Робо-Сумо»</li>
+          </ul>
+        </div>
+        <div class="card joke">
+          <h2>😄 Робо-юмор</h2>
+          <p>— Робот, ты почему не сделал домашку?<br>— Ошибка 404: Мотивация не найдена 🤖</p>
+        </div>
+      </div>
+      <div>
+        <div class="card puzzle">
+          <h2>🧩 Головоломка</h2>
+          <p>Робот стоит в точке А и должен попасть в точку Б. Он может делать только шаг вперёд и поворот на 90°. Сколько минимально команд нужно?</p>
+          <p style="color:#00ff88;"><em>Ответ — в следующем выпуске!</em></p>
+        </div>
+        <div class="card">
+          <h2>🔧 Совет от мастера</h2>
+          <p>Перед пайкой всегда зачищайте жало паяльника и используйте флюс — так контакт будет надёжнее!</p>
+        </div>
+        <div class="card">
+          <h2>📸 Фото недели</h2>
+          <div class="photo-placeholder">[Вставьте фото робота]</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== СТРАНИЦА 2: КИБЕР-ГАЗЕТА ===== -->
+  <section id="cyber" class="page">
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h2>💻 Кибер-новости</h2>
+          <p>Класс RGB начал изучать язык Python для управления роботами. Первые программы уже работают!</p>
+        </div>
+        <div class="card highlight">
+          <h2>🔐 Безопасность в сети</h2>
+          <p>Помни: даже робот должен знать правила кибергигиены. Меняй пароли, не открывай подозрительные файлы!</p>
+        </div>
+      </div>
+      <div>
+        <div class="card joke">
+          <h2>😄 Кибер-юмор</h2>
+          <p>— Сколько программистов нужно, чтобы вкрутить лампочку?<br>— Ни одного, это аппаратная проблема 😅</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== СТРАНИЦА 3: БАЙТ И БОЛТ ===== -->
+  <section id="byte" class="page">
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h2>🔩 Железо и код</h2>
+          <p>Разбираем, как устроен сервопривод и зачем нужен ШИМ-сигнал. Просто о сложном!</p>
+        </div>
+        <div class="card puzzle">
+          <h2>🧩 Задача на логику</h2>
+          <p>В коробке 5 болтов и 3 гайки. Сколько деталей нужно докупить, чтобы собрать 8 креплений?</p>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <h2>🛠️ Мастерская</h2>
+          <p>Инструменты недели: мультиметр, паяльная станция, набор отвёрток.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== СТРАНИЦА 4: ТЕРМИНАЛ НОВОСТЕЙ ===== -->
+  <section id="terminal" class="page">
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h2>📰 Лента новостей</h2>
+          <p><span class="tag">СРОЧНО</span> Команда RGB заняла 2 место на городском турнире по робо-сумо!</p>
+          <p><span class="tag">НОВОЕ</span> Открыт набор в кружок «Юный программист» для 5–6 классов.</p>
+        </div>
+      </div>
+      <div>
+        <div class="card highlight">
+          <h2>📢 Объявления</h2>
+          <p>Ищем желающих в команду для участия в региональном чемпионате. Запись у руководителя кружка!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== СТРАНИЦА 5: СХЕМА УСПЕХА ===== -->
+  <section id="scheme" class="page">
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h2>📈 Наши достижения</h2>
+          <ul>
+            <li>🥇 1 место — олимпиада по робототехнике (октябрь)</li>
+            <li>🥈 2 место — турнир «Робо-Сумо» (ноябрь)</li>
+            <li>🥉 3 место — конкурс проектов «Техно-старт»</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <h2>⭐ Доска почёта</h2>
+          <p><strong>Иван Петров</strong>, <strong>Мария Смирнова</strong>, <strong>Артём Ким</strong> — активные участники проектов.</p>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <h2>🎯 Цели на четверть</h2>
+          <ul>
+            <li>Собрать 3 новых робота</li>
+            <li>Освоить Arduino</li>
+            <li>Победить в городском турнире</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Стенгазета класса робототехники <strong>RGB</strong> • Редакция: ученики 7–9 классов
+  </footer>
+</div>
+
+<script>
+  const menu = document.getElementById('menu');
+  const buttons = menu.querySelectorAll('button');
+  const pages = document.querySelectorAll('.page');
+  const title = document.getElementById('gazeta-title');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // снять активность со всех
+      buttons.forEach(b => b.classList.remove('active'));
+      pages.forEach(p => p.classList.remove('active'));
+
+      // активировать выбранное
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.page).classList.add('active');
+
+      // сменить заголовок в шапке
+      title.textContent = btn.dataset.title;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
