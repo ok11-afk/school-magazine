@@ -46,6 +46,10 @@
     background: #22c55e; border-color: #22c55e; color: #fff;
     box-shadow: 0 0 12px #22c55e;
   }
+  .admin-bar button.panel-btn {
+    background: #16213e; color: #00d4ff; border-color: #00d4ff;
+  }
+  .admin-bar button.panel-btn:hover { background: #00d4ff; color: #0f2027; }
   .admin-status { font-size: 0.85em; color: #aaa; }
 
   nav { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
@@ -105,6 +109,7 @@
   /* ====== АДМИН-ЛОГИКА ====== */
   .admin-only { display: none !important; }
   body.admin .admin-only { display: block !important; }
+  body.admin .admin-only.inline { display: inline-block !important; }
 
   .admin-photo-controls { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
   .admin-photo-controls label {
@@ -121,10 +126,7 @@
   }
   .admin-photo-controls button:hover { background: #b91c1c; }
 
-  /* Кнопки редактирования */
-  .edit-controls {
-    display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap;
-  }
+  .edit-controls { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
   .edit-controls button {
     background: #00d4ff; color: #0f2027; border: none;
     padding: 5px 12px; border-radius: 15px; cursor: pointer;
@@ -137,7 +139,6 @@
   .edit-controls button.cancel { background: #666; color: #fff; }
   .edit-controls button.cancel:hover { background: #888; }
 
-  /* Подсветка редактируемого блока */
   .editable[contenteditable="true"] {
     outline: 2px dashed #00d4ff;
     outline-offset: 4px;
@@ -151,61 +152,32 @@
     min-height: 30px;
   }
 
-  .edit-status {
-    font-size: 0.8em; color: #22c55e; margin-top: 6px; min-height: 1em;
-  }
+  .edit-status { font-size: 0.8em; color: #22c55e; margin-top: 6px; min-height: 1em; }
 
-  /* ====== СВОРАЧИВАНИЕ ДЛИННЫХ СПИСКОВ (<ul>/<ol>) ====== */
   .editable ul.collapsed-list > li.hidden-item,
-  .editable ol.collapsed-list > li.hidden-item {
-    display: none;
-  }
+  .editable ol.collapsed-list > li.hidden-item { display: none; }
 
-  /* ====== УНИВЕРСАЛЬНОЕ СВОРАЧИВАНИЕ ([data-collapse]) ====== */
-  [data-collapse] > .collapse-hidden {
-    display: none !important;
-  }
-  .project-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .project-item {
-    padding: 4px 0;
-  }
+  [data-collapse] > .collapse-hidden { display: none !important; }
+  .project-list { display: flex; flex-direction: column; gap: 8px; }
+  .project-item { padding: 4px 0; }
 
   .show-more-btn {
-    display: inline-block;
-    margin-top: 8px;
-    background: transparent;
-    color: #00d4ff;
-    border: 2px dashed #00d4ff;
-    padding: 6px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-family: inherit;
-    font-weight: bold;
-    font-size: 0.85em;
+    display: inline-block; margin-top: 8px;
+    background: transparent; color: #00d4ff;
+    border: 2px dashed #00d4ff; padding: 6px 14px;
+    border-radius: 20px; cursor: pointer;
+    font-family: inherit; font-weight: bold; font-size: 0.85em;
     transition: all 0.25s;
   }
-  .show-more-btn:hover {
-    background: #00d4ff;
-    color: #0f2027;
-    border-style: solid;
-  }
-  .show-more-btn.expanded {
-    border-color: #ff00ea;
-    color: #ff00ea;
-  }
-  .show-more-btn.expanded:hover {
-    background: #ff00ea;
-    color: #fff;
-  }
+  .show-more-btn:hover { background: #00d4ff; color: #0f2027; border-style: solid; }
+  .show-more-btn.expanded { border-color: #ff00ea; color: #ff00ea; }
+  .show-more-btn.expanded:hover { background: #ff00ea; color: #fff; }
 
-  /* ====== МОДАЛКА ====== */
+  /* ====== МОДАЛКИ ====== */
   .modal {
     display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
     z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+    overflow-y: auto;
   }
   .modal.open { display: flex; }
   .modal-content {
@@ -230,6 +202,130 @@
   .btn-cancel { background: #444; color: #fff; }
   .btn-cancel:hover { background: #666; }
   .error-msg { color: #ef4444; font-size: 0.85em; min-height: 1.2em; }
+
+  /* ====== АДМИН-ПАНЕЛЬ С QR ====== */
+  .admin-panel {
+    max-width: 520px;
+    text-align: left;
+  }
+  .admin-panel h3 {
+    text-align: center;
+    margin-top: 0;
+  }
+  .qr-wrapper {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin: 15px 0;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+  }
+  .qr-wrapper #qrCanvasHolder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 260px;
+    min-width: 260px;
+  }
+  .qr-wrapper canvas,
+  .qr-wrapper img {
+    display: block;
+    border-radius: 8px;
+  }
+  .qr-label {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #1a1a2e;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+  .qr-sublabel {
+    font-size: 0.8em;
+    color: #555;
+    text-align: center;
+    word-break: break-all;
+    max-width: 100%;
+  }
+  .qr-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .qr-actions button {
+    flex: 1;
+    min-width: 140px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.95em;
+    transition: all 0.25s;
+  }
+  .qr-btn-download { background: #22c55e; color: #fff; }
+  .qr-btn-download:hover { background: #16a34a; }
+  .qr-btn-print { background: #00d4ff; color: #0f2027; }
+  .qr-btn-print:hover { background: #00b8e0; }
+  .qr-url-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    align-items: stretch;
+  }
+  .qr-url-row input {
+    flex: 1;
+    margin: 0;
+    padding: 8px 12px;
+    font-size: 0.85em;
+  }
+  .qr-url-row button {
+    background: #ffd700;
+    color: #0f2027;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85em;
+    white-space: nowrap;
+  }
+  .qr-url-row button:hover { background: #e6c200; }
+  .qr-hint {
+    font-size: 0.8em;
+    color: #aaa;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* Печать QR-кода: печатается только QR */
+  @media print {
+    body * { visibility: hidden !important; }
+    #qrPrintArea, #qrPrintArea * { visibility: visible !important; }
+    #qrPrintArea {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+    #qrPrintArea .qr-label {
+      font-size: 2em;
+      margin-top: 24px;
+    }
+    #qrPrintArea .qr-sublabel {
+      font-size: 1em;
+      margin-top: 10px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -238,6 +334,7 @@
 
   <div class="admin-bar">
     <span class="admin-status" id="adminStatus">Режим: пользователь</span>
+    <button id="adminPanelBtn" class="panel-btn admin-only inline" title="Админ-панель">⚙️ Админ-панель</button>
     <button id="adminToggleBtn">🔐 Войти как админ</button>
   </div>
 
@@ -276,14 +373,11 @@
     </nav>
   </header>
 
-  <!-- ================= ГЛАВНАЯ ================= -->
   <section id="home" class="page active">
     <div class="grid">
       <div>
-        <!-- Проекты -->
         <div class="card">
           <h2 class="editable" data-id="title-projects">🚀 Наши проекты</h2>
-
           <div class="editable project-list" data-id="projects" data-collapse="3">
             <div class="project-item"><span class="tag">НОВОЕ</span> Робот-манипулятор «Железный клещ» — собрал ученик 8А класса.</div>
             <div class="project-item"><span class="tag">ХИТ</span> Гусеничный ровер «Марсоход-2025» прошёл испытания.</div>
@@ -291,12 +385,10 @@
             <div class="project-item"><span class="tag">ХИТ</span> Робот-сортировщик «Железный клещ» — 2-е место на олимпиаде.</div>
             <div class="project-item"><span class="tag">НОВОЕ</span> Робот-манипулятор «Манипулятор-2025» — прошёл испытания.</div>
           </div>
-
           <div class="edit-controls admin-only"></div>
           <div class="edit-status"></div>
         </div>
 
-        <!-- Гений недели -->
         <div class="card highlight">
           <h2 class="editable" data-id="title-genius">🏆 Гений недели</h2>
           <div class="editable" data-id="genius"><strong>Иван Петров, 7Б</strong> — написал программу для рисования фигур роботом. 👏</div>
@@ -304,7 +396,6 @@
           <div class="edit-status"></div>
         </div>
 
-        <!-- Календарь событий -->
         <div class="card">
           <h2 class="editable" data-id="title-events">📅 Календарь событий</h2>
           <div class="editable" data-id="events">
@@ -320,7 +411,6 @@
           <div class="edit-status"></div>
         </div>
 
-        <!-- Робо-юмор -->
         <div class="card joke">
           <h2 class="editable" data-id="title-joke">😄 Робо-юмор</h2>
           <div class="editable" data-id="joke">— Робот, ты почему не сделал домашку?<br>— Ошибка 404: Мотивация не найдена 🤖</div>
@@ -330,7 +420,6 @@
       </div>
 
       <div>
-        <!-- Головоломка -->
         <div class="card puzzle">
           <h2 class="editable" data-id="title-puzzle">🧩 Головоломка</h2>
           <div class="editable" data-id="puzzle">Робот стоит в точке А и должен попасть в точку Б. Только шаг вперёд и поворот на 90°. Сколько команд?</div>
@@ -338,7 +427,6 @@
           <div class="edit-status"></div>
         </div>
 
-        <!-- Совет от мастера -->
         <div class="card">
           <h2 class="editable" data-id="title-tip">🔧 Совет от мастера</h2>
           <div class="editable" data-id="tip">Перед пайкой зачищайте жало паяльника и используйте флюс!</div>
@@ -346,7 +434,6 @@
           <div class="edit-status"></div>
         </div>
 
-        <!-- Фото недели -->
         <div class="card">
           <h2 class="editable" data-id="title-photo">📸 Фото недели</h2>
           <div class="photo-box" id="photoBox">
@@ -363,7 +450,6 @@
     </div>
   </section>
 
-  <!-- ================= ОСТАЛЬНЫЕ СТРАНИЦЫ ================= -->
   <section id="cyber" class="page">
     <div class="grid">
       <div>
@@ -443,10 +529,11 @@
   </section>
 
   <footer>
-    Стенгазета класса робототехники <strong>RGB</strong> • Разработчик: Седельников Яков
+    Стенгазета класса робототехники <strong>RGB</strong> • Редакция: ученики 7–9 классов
   </footer>
 </div>
 
+<!-- ===== МОДАЛКА ВХОДА ===== -->
 <div class="modal" id="loginModal">
   <div class="modal-content">
     <h3>🔐 Вход администратора</h3>
@@ -460,7 +547,45 @@
   </div>
 </div>
 
+<!-- ===== МОДАЛКА АДМИН-ПАНЕЛИ С QR ===== -->
+<div class="modal" id="adminPanelModal">
+  <div class="modal-content admin-panel">
+    <h3>⚙️ Админ-панель</h3>
+    <p style="color:#aaa; font-size:0.85em; margin:0; text-align:center;">
+      QR-код главной страницы стенгазеты
+    </p>
+
+    <div class="qr-wrapper">
+      <div id="qrCanvasHolder"></div>
+      <div class="qr-label">RGB-стенгазета</div>
+      <div class="qr-sublabel" id="qrUrlLabel">—</div>
+    </div>
+
+    <div class="qr-actions">
+      <button class="qr-btn-download" id="qrDownloadBtn">💾 Скачать PNG</button>
+      <button class="qr-btn-print" id="qrPrintBtn">🖨 Распечатать</button>
+    </div>
+
+    <div class="qr-url-row">
+      <input type="text" id="qrUrlInput" placeholder="https://example.com/...">
+      <button id="qrApplyUrlBtn">Обновить</button>
+    </div>
+    <div class="qr-hint">
+      Если сайт ещё не опубликован — вставьте ссылку вручную.
+      Значение сохранится в браузере.
+    </div>
+
+    <div class="btn-row" style="margin-top:15px;">
+      <button class="btn-cancel" id="closeAdminPanel">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<!-- Скрытая область для печати QR -->
+<div id="qrPrintArea" style="display:none;"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script>
   /* ============================================================
      ⚙️ НАСТРОЙКА SUPABASE
@@ -511,6 +636,7 @@
      ============================================================ */
   const body = document.body;
   const adminToggleBtn = document.getElementById('adminToggleBtn');
+  const adminPanelBtn = document.getElementById('adminPanelBtn');
   const adminStatus = document.getElementById('adminStatus');
   const loginModal = document.getElementById('loginModal');
   const passwordInput = document.getElementById('passwordInput');
@@ -572,6 +698,121 @@
   });
 
   /* ============================================================
+     ⚙️ АДМИН-ПАНЕЛЬ С QR-КОДОМ
+     ============================================================ */
+  const QR_URL_KEY = "rgb_qr_url";
+  const adminPanelModal = document.getElementById('adminPanelModal');
+  const qrCanvasHolder = document.getElementById('qrCanvasHolder');
+  const qrUrlLabel = document.getElementById('qrUrlLabel');
+  const qrUrlInput = document.getElementById('qrUrlInput');
+  const qrDownloadBtn = document.getElementById('qrDownloadBtn');
+  const qrPrintBtn = document.getElementById('qrPrintBtn');
+  const qrApplyUrlBtn = document.getElementById('qrApplyUrlBtn');
+  const closeAdminPanel = document.getElementById('closeAdminPanel');
+  const qrPrintArea = document.getElementById('qrPrintArea');
+
+  let currentQrUrl = "";
+
+  function getDefaultUrl() {
+    // Если сайт открыт по http(s) — берём его текущий адрес
+    if (location.protocol === 'http:' || location.protocol === 'https:') {
+      return location.origin + location.pathname;
+    }
+    return "";
+  }
+
+  function getQrUrl() {
+    return localStorage.getItem(QR_URL_KEY) || getDefaultUrl();
+  }
+
+  function renderQr(url) {
+    if (!url) {
+      qrCanvasHolder.innerHTML = '<div style="color:#333;padding:20px;text-align:center;">Не задан URL</div>';
+      qrUrlLabel.textContent = "—";
+      return;
+    }
+
+    currentQrUrl = url;
+    qrCanvasHolder.innerHTML = "";
+    qrUrlLabel.textContent = url;
+
+    // qrcodejs генерирует <canvas> и/или <img>
+    new QRCode(qrCanvasHolder, {
+      text: url,
+      width: 260,
+      height: 260,
+      colorDark: "#0f2027",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  }
+
+  function openAdminPanel() {
+    const url = getQrUrl();
+    qrUrlInput.value = url || "";
+    renderQr(url);
+    adminPanelModal.classList.add('open');
+  }
+
+  adminPanelBtn.addEventListener('click', openAdminPanel);
+
+  closeAdminPanel.addEventListener('click', () => {
+    adminPanelModal.classList.remove('open');
+  });
+
+  adminPanelModal.addEventListener('click', (e) => {
+    if (e.target === adminPanelModal) adminPanelModal.classList.remove('open');
+  });
+
+  qrApplyUrlBtn.addEventListener('click', () => {
+    const val = qrUrlInput.value.trim();
+    if (!val) {
+      alert("Введите ссылку");
+      return;
+    }
+    localStorage.setItem(QR_URL_KEY, val);
+    renderQr(val);
+  });
+
+  /* ----- Скачать QR в PNG ----- */
+  qrDownloadBtn.addEventListener('click', () => {
+    const canvas = qrCanvasHolder.querySelector('canvas');
+    if (!canvas) {
+      alert("QR-код ещё не готов");
+      return;
+    }
+    const link = document.createElement('a');
+    link.download = 'rgb-gazeta-qr.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+
+  /* ----- Печать QR (только QR + подпись) ----- */
+  qrPrintBtn.addEventListener('click', () => {
+    const canvas = qrCanvasHolder.querySelector('canvas');
+    if (!canvas) {
+      alert("QR-код ещё не готов");
+      return;
+    }
+
+    const dataUrl = canvas.toDataURL('image/png');
+
+    qrPrintArea.innerHTML = `
+      <img src="${dataUrl}" alt="QR" style="width:320px;height:320px;">
+      <div class="qr-label">RGB-стенгазета</div>
+      <div class="qr-sublabel">${currentQrUrl}</div>
+    `;
+    qrPrintArea.style.display = 'flex';
+
+    window.print();
+
+    // Прячем после печати
+    setTimeout(() => {
+      qrPrintArea.style.display = 'none';
+    }, 500);
+  });
+
+  /* ============================================================
      🧼 ОЧИСТКА HTML
      ============================================================ */
   function sanitizeHtml(html) {
@@ -599,7 +840,7 @@
   }
 
   /* ============================================================
-     📜 СВОРАЧИВАНИЕ ДЛЯ <ul>/<ol> (классические списки)
+     📜 СВОРАЧИВАНИЕ <ul>/<ol>
      ============================================================ */
   const MAX_VISIBLE_ITEMS = 3;
 
@@ -651,21 +892,18 @@
   }
 
   /* ============================================================
-     📜 УНИВЕРСАЛЬНОЕ СВОРАЧИВАНИЕ ([data-collapse="N"])
-     Работает для <ul>/<ol> и для любых контейнеров с div-детьми.
+     📜 УНИВЕРСАЛЬНОЕ СВОРАЧИВАНИЕ
      ============================================================ */
   function applyItemCollapseToAll() {
     document.querySelectorAll('[data-collapse]').forEach(el => applyItemCollapse(el));
   }
 
   function applyItemCollapse(container) {
-    // Удаляем старую кнопку этого контейнера
     const oldBtn = container.parentElement.querySelector('.show-more-btn[data-for="' + (container.dataset.id || '') + '"]');
     if (oldBtn) oldBtn.remove();
 
     const limit = parseInt(container.dataset.collapse, 10) || 3;
 
-    // Определяем набор дочерних элементов
     let items;
     if (container.tagName === 'UL' || container.tagName === 'OL') {
       items = [...container.querySelectorAll(':scope > li')];
@@ -678,7 +916,6 @@
       return;
     }
 
-    // Скрываем всё после limit
     items.forEach((it, i) => {
       if (i >= limit) it.classList.add('collapse-hidden');
       else it.classList.remove('collapse-hidden');
@@ -709,7 +946,7 @@
   }
 
   /* ============================================================
-     ✏️ РЕДАКТИРОВАНИЕ КАРТОЧЕК (ЗАГОЛОВОК + СОДЕРЖИМОЕ)
+     ✏️ РЕДАКТИРОВАНИЕ КАРТОЧЕК
      ============================================================ */
   const editables = document.querySelectorAll('.editable');
 
@@ -754,13 +991,11 @@
           originals.push(el.innerHTML);
           el.contentEditable = 'true';
 
-          // Убираем сворачивание [data-collapse]
           if (el.dataset.collapse) {
             el.querySelectorAll('.collapse-hidden').forEach(x => x.classList.remove('collapse-hidden'));
             const btn = el.parentElement.querySelector('.show-more-btn[data-for="' + (el.dataset.id || '') + '"]');
             if (btn) btn.remove();
           }
-          // Убираем сворачивание <ul>
           const list = el.querySelector('ul, ol');
           if (list) {
             list.classList.remove('collapsed-list');
@@ -771,7 +1006,6 @@
         });
         editableEls[0]?.focus();
 
-        // Вставка только чистого текста
         editableEls.forEach(el => {
           el.onpaste = (evt) => {
             evt.preventDefault();
