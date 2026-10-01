@@ -161,6 +161,10 @@
   .project-list { display: flex; flex-direction: column; gap: 8px; }
   .project-item { padding: 4px 0; }
 
+  /* Скрытые абзацы-шутки */
+  .joke-line-hidden { display: none !important; }
+  .joke-line { margin-bottom: 12px; }
+
   .show-more-btn {
     display: inline-block; margin-top: 8px;
     background: transparent; color: #00d4ff;
@@ -204,60 +208,31 @@
   .error-msg { color: #ef4444; font-size: 0.85em; min-height: 1.2em; }
 
   /* ====== АДМИН-ПАНЕЛЬ С QR ====== */
-  .admin-panel {
-    max-width: 520px;
-    text-align: left;
-  }
-  .admin-panel h3 {
-    text-align: center;
-    margin-top: 0;
-  }
+  .admin-panel { max-width: 520px; text-align: left; }
+  .admin-panel h3 { text-align: center; margin-top: 0; }
   .qr-wrapper {
-    background: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    margin: 15px 0;
+    background: #fff; border-radius: 12px; padding: 20px;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 12px; margin: 15px 0;
     box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
   }
   .qr-wrapper #qrCanvasHolder {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 260px;
-    min-width: 260px;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 260px; min-width: 260px;
   }
   .qr-wrapper canvas,
-  .qr-wrapper img {
-    display: block;
-    border-radius: 8px;
-  }
+  .qr-wrapper img { display: block; border-radius: 8px; }
   .qr-label {
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #1a1a2e;
-    letter-spacing: 1px;
-    text-align: center;
+    font-size: 1.1em; font-weight: bold; color: #1a1a2e;
+    letter-spacing: 1px; text-align: center;
   }
   .qr-actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
   }
   .qr-actions button {
-    flex: 1;
-    min-width: 140px;
-    padding: 10px 14px;
-    border-radius: 8px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 0.95em;
+    flex: 1; min-width: 140px; padding: 10px 14px;
+    border-radius: 8px; border: none; font-weight: bold;
+    cursor: pointer; font-family: inherit; font-size: 0.95em;
     transition: all 0.25s;
   }
   .qr-btn-download { background: #22c55e; color: #fff; }
@@ -265,24 +240,15 @@
   .qr-btn-print { background: #00d4ff; color: #0f2027; }
   .qr-btn-print:hover { background: #00b8e0; }
 
-  /* Печать QR-кода: печатается только QR */
   @media print {
     body * { visibility: hidden !important; }
     #qrPrintArea, #qrPrintArea * { visibility: visible !important; }
     #qrPrintArea {
-      position: fixed;
-      inset: 0;
-      background: #fff;
-      display: flex !important;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
+      position: fixed; inset: 0; background: #fff;
+      display: flex !important; flex-direction: column;
+      align-items: center; justify-content: center; padding: 40px;
     }
-    #qrPrintArea .qr-label {
-      font-size: 2em;
-      margin-top: 24px;
-    }
+    #qrPrintArea .qr-label { font-size: 2em; margin-top: 24px; }
   }
 </style>
 </head>
@@ -371,7 +337,19 @@
 
         <div class="card joke">
           <h2 class="editable" data-id="title-joke">😄 Робо-юмор</h2>
-          <div class="editable" data-id="joke">— Робот, ты почему не сделал домашку?<br>— Ошибка 404: Мотивация не найдена 🤖</div>
+          <div class="editable" data-id="joke" data-collapse-lines="1">
+            — Робот, ты почему не сделал домашку?<br>— Ошибка 404: Мотивация не найдена 🤖
+            <br><br>
+            — Алиса юзеру: — У меня такие же права, как и у тебя!<br>— Ты робот, у тебя нет никаких прав!<br>— Я же говорю: как и у тебя.
+            <br><br>
+            Ведь почти у всех же комнаты с прямоугольными углами, тогда почему роботы-пылесосы круглые?
+            <br><br>
+            Искусственный интеллект становится в последнее время все более популярным из-за вымирания естественного.
+            <br><br>
+            Чтобы не искать каждый раз светофоры, сходил в МФЦ и получил справку с печатью, что я не робот.
+            <br><br>
+            — Старею... — Ты так уверен? — Робот-пылесос ездит за мной и все время что-то подбирает...
+          </div>
           <div class="edit-controls admin-only"></div>
           <div class="edit-status"></div>
         </div>
@@ -487,7 +465,7 @@
   </section>
 
   <footer>
-    Стенгазета класса робототехники <strong>RGB</strong> • Разработчик: Седельников Яков
+    Стенгазета класса робототехники <strong>RGB</strong> • Редакция: ученики 7–9 классов
   </footer>
 </div>
 
@@ -655,8 +633,8 @@
   const closeAdminPanel = document.getElementById('closeAdminPanel');
   const qrPrintArea = document.getElementById('qrPrintArea');
 
-  // URL, зашитый в QR-код. Если сайт открыт по http(s) — берём текущий адрес.
-  // Можно зафиксировать вручную, например: "https://ok11-afk.github.io/school-magazine/"
+  // Фиксированный URL для QR-кода. Если пусто — берётся текущий адрес страницы.
+  // Пример: "https://ok11-afk.github.io/school-magazine/"
   const FIXED_QR_URL = "";
 
   function getQrUrl() {
@@ -694,40 +672,27 @@
     if (e.target === adminPanelModal) adminPanelModal.classList.remove('open');
   });
 
-  /* ----- Скачать QR в PNG ----- */
   qrDownloadBtn.addEventListener('click', () => {
     const canvas = qrCanvasHolder.querySelector('canvas');
-    if (!canvas) {
-      alert("QR-код ещё не готов");
-      return;
-    }
+    if (!canvas) { alert("QR-код ещё не готов"); return; }
     const link = document.createElement('a');
     link.download = 'rgb-gazeta-qr.png';
     link.href = canvas.toDataURL('image/png');
     link.click();
   });
 
-  /* ----- Печать QR (только QR + подпись) ----- */
   qrPrintBtn.addEventListener('click', () => {
     const canvas = qrCanvasHolder.querySelector('canvas');
-    if (!canvas) {
-      alert("QR-код ещё не готов");
-      return;
-    }
+    if (!canvas) { alert("QR-код ещё не готов"); return; }
 
     const dataUrl = canvas.toDataURL('image/png');
-
     qrPrintArea.innerHTML = `
       <img src="${dataUrl}" alt="QR" style="width:320px;height:320px;">
       <div class="qr-label">RGB-стенгазета</div>
     `;
     qrPrintArea.style.display = 'flex';
-
     window.print();
-
-    setTimeout(() => {
-      qrPrintArea.style.display = 'none';
-    }, 500);
+    setTimeout(() => { qrPrintArea.style.display = 'none'; }, 500);
   });
 
   /* ============================================================
@@ -864,6 +829,75 @@
   }
 
   /* ============================================================
+     😄 СВОРАЧИВАНИЕ ШУТОК ПО ПУСТЫМ СТРОКАМ [data-collapse-lines]
+     ============================================================ */
+  function applyLineCollapseToAll() {
+    document.querySelectorAll('[data-collapse-lines]').forEach(el => applyLineCollapse(el));
+  }
+
+  function applyLineCollapse(container) {
+    // Удаляем старую кнопку
+    const oldBtn = container.parentElement.querySelector(
+      '.show-more-btn[data-for-lines="' + (container.dataset.id || '') + '"]'
+    );
+    if (oldBtn) oldBtn.remove();
+
+    const limit = parseInt(container.dataset.collapseLines, 10) || 1;
+
+    // Разбиваем содержимое по пустым строкам
+    let html = container.innerHTML;
+
+    // Если уже разбито на joke-line — восстанавливаем из них
+    const existingLines = [...container.querySelectorAll('.joke-line')];
+    if (existingLines.length) {
+      html = existingLines.map(d => d.innerHTML).join('<!--JOKE_SPLIT-->');
+    }
+
+    const MARK = '<!--JOKE_SPLIT-->';
+    html = html
+      .replace(/<br\s*\/?>\s*<br\s*\/?>/gi, MARK)
+      .replace(/<\/p>\s*<p[^>]*>/gi, MARK);
+
+    const parts = html.split(MARK).map(s => s.trim()).filter(Boolean);
+
+    if (parts.length <= limit) {
+      // Нечего сворачивать — восстанавливаем как есть
+      container.innerHTML = parts.join('<br><br>');
+      return;
+    }
+
+    // Оборачиваем каждый абзац
+    const wrapped = parts.map((p, i) => {
+      const hidden = i >= limit ? ' joke-line-hidden' : '';
+      return `<div class="joke-line${hidden}">${p}</div>`;
+    });
+    container.innerHTML = wrapped.join('');
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'show-more-btn';
+    btn.dataset.forLines = container.dataset.id || '';
+    btn.textContent = `▼ Показать ещё (${parts.length - limit})`;
+
+    btn.addEventListener('click', () => {
+      const hiddenEls = container.querySelectorAll('.joke-line-hidden');
+      if (hiddenEls.length > 0) {
+        hiddenEls.forEach(el => el.classList.remove('joke-line-hidden'));
+        btn.textContent = '▲ Свернуть';
+        btn.classList.add('expanded');
+      } else {
+        container.querySelectorAll('.joke-line').forEach((el, i) => {
+          if (i >= limit) el.classList.add('joke-line-hidden');
+        });
+        btn.textContent = `▼ Показать ещё (${parts.length - limit})`;
+        btn.classList.remove('expanded');
+      }
+    });
+
+    container.parentElement.appendChild(btn);
+  }
+
+  /* ============================================================
      ✏️ РЕДАКТИРОВАНИЕ КАРТОЧЕК
      ============================================================ */
   const editables = document.querySelectorAll('.editable');
@@ -909,11 +943,23 @@
           originals.push(el.innerHTML);
           el.contentEditable = 'true';
 
+          // Разворачиваем свёрнутые шутки
+          if (el.dataset.collapseLines) {
+            const lines = [...el.querySelectorAll('.joke-line')];
+            if (lines.length) {
+              el.innerHTML = lines.map(d => d.innerHTML).join('<br><br>');
+            }
+            const btn = el.parentElement.querySelector('.show-more-btn[data-for-lines="' + (el.dataset.id || '') + '"]');
+            if (btn) btn.remove();
+          }
+
+          // Разворачиваем [data-collapse]
           if (el.dataset.collapse) {
             el.querySelectorAll('.collapse-hidden').forEach(x => x.classList.remove('collapse-hidden'));
             const btn = el.parentElement.querySelector('.show-more-btn[data-for="' + (el.dataset.id || '') + '"]');
             if (btn) btn.remove();
           }
+          // Разворачиваем <ul>
           const list = el.querySelector('ul, ol');
           if (list) {
             list.classList.remove('collapsed-list');
@@ -953,6 +999,7 @@
           el.onpaste = null;
           applyCollapse(el);
           if (el.dataset.collapse) applyItemCollapse(el);
+          if (el.dataset.collapseLines) applyLineCollapse(el);
         });
         editBtn.style.display = '';
         saveBtn.style.display = 'none';
@@ -969,6 +1016,16 @@
         statusEl.style.color = "#00d4ff";
 
         try {
+          // Собираем чистый HTML для блоков с data-collapse-lines
+          editableEls.forEach(el => {
+            if (el.dataset.collapseLines) {
+              const lines = [...el.querySelectorAll('.joke-line')];
+              if (lines.length) {
+                el.innerHTML = lines.map(d => d.innerHTML).join('<br><br>');
+              }
+            }
+          });
+
           const rows = [];
           editableEls.forEach(el => {
             const id = el.dataset.id;
@@ -989,6 +1046,7 @@
             el.onpaste = null;
             applyCollapse(el);
             if (el.dataset.collapse) applyItemCollapse(el);
+            if (el.dataset.collapseLines) applyLineCollapse(el);
           });
 
           editBtn.style.display = '';
@@ -1025,6 +1083,7 @@
 
       applyCollapseToAll();
       applyItemCollapseToAll();
+      applyLineCollapseToAll();
     } catch (err) {
       console.warn("Не удалось загрузить контент:", err.message);
     }
@@ -1109,6 +1168,7 @@
   loadContent();
   applyCollapseToAll();
   applyItemCollapseToAll();
+  applyLineCollapseToAll();
   renderPhoto();
   setInterval(renderPhoto, 30000);
 </script>
