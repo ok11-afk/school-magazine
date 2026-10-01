@@ -22,7 +22,95 @@
   .top-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .logo { flex-shrink: 0; filter: drop-shadow(0 0 10px #00d4ffaa); animation: spin 12s linear infinite; }
   @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  .title-block { flex: 1; min-width: 240px; }
+  .title-block { flex: 1.15 1 0; min-width: 240px; }
+
+  /* Информационный блок "О нас" рядом с названием */
+  .about-panel {
+    flex: 1 1 0;
+    min-width: 270px;
+    padding: 16px 18px;
+    background: linear-gradient(145deg, #16213e, #111a30);
+    border: 1px solid #00d4ff55;
+    border-left: 4px solid #22c55e;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px #0003, 0 0 18px #00d4ff18;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-panel::after {
+    content: "";
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    right: -35px;
+    top: -35px;
+    border-radius: 50%;
+    background: #00d4ff12;
+    pointer-events: none;
+  }
+
+  .about-panel h2 {
+    margin: 0 0 8px;
+    color: #00d4ff;
+    font-size: 1.15em;
+    border-bottom: 1px solid #00d4ff44;
+    padding-bottom: 7px;
+  }
+
+  .about-panel p {
+    margin: 0;
+    line-height: 1.55;
+    color: #dbeafe;
+    font-size: 0.92em;
+  }
+
+  .about-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .about-tag {
+    display: inline-block;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: #00d4ff18;
+    border: 1px solid #00d4ff44;
+    color: #7dd3fc;
+    font-size: 0.76em;
+    font-weight: 700;
+  }
+
+  body.light-theme .about-panel {
+    background: linear-gradient(145deg, #ffffff, #edf6fa);
+    border-color: #159fc044;
+    border-left-color: #16a765;
+    box-shadow: 0 8px 24px #183b4b12;
+  }
+
+  body.light-theme .about-panel h2 {
+    color: #087f9d;
+    border-bottom-color: #159fc044;
+  }
+
+  body.light-theme .about-panel p {
+    color: #385064;
+  }
+
+  body.light-theme .about-tag {
+    background: #159fc012;
+    border-color: #159fc044;
+    color: #087f9d;
+  }
+
+  @media (max-width: 720px) {
+    .about-panel {
+      flex: 1 1 100%;
+      min-width: 0;
+    }
+  }
   .class-name { font-size: 1.1em; color: #00d4ff; letter-spacing: 4px; font-weight: bold; text-transform: uppercase; }
   h1 {
     font-size: 2.4em; margin: 5px 0;
@@ -516,6 +604,19 @@
         <h1 id="gazeta-title">РОБО-ВЕСТИ</h1>
         <div class="slogan">«Мы не играем в роботов — мы их создаём!»</div>
       </div>
+
+      <aside class="about-panel" aria-label="О нас">
+        <h2>ℹ️ О нас</h2>
+        <p class="editable" data-id="about-us">
+          RGB — класс и кружок робототехники, где мы изучаем конструирование,
+          программирование и создаём собственных роботов.
+        </p>
+        <div class="about-tags" aria-label="Направления">
+          <span class="about-tag">🤖 Робототехника</span>
+          <span class="about-tag">💻 Программирование</span>
+          <span class="about-tag">🔧 Конструирование</span>
+        </div>
+      </aside>
     </div>
 
     <nav id="menu">
