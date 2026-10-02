@@ -25,6 +25,100 @@
   .title-block { flex: 1.15 1 0; min-width: 240px; }
 
   /* Информационный блок "О нас" рядом с названием */
+
+  /* ===== Информационный блок «Виртуальное-зрение» ===== */
+  .cyber-vision-card {
+    position: relative;
+    margin: 0 0 20px;
+    padding: 20px 22px;
+    border: 1px solid #00d4ff55;
+    border-left: 5px solid #8b5cf6;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #182443 0%, #111a31 55%, #1b1635 100%);
+    box-shadow: 0 10px 28px #0003, 0 0 22px #8b5cf620;
+    overflow: hidden;
+  }
+
+  .cyber-vision-card::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: -75px;
+    top: -95px;
+    border-radius: 50%;
+    background: #00d4ff14;
+    pointer-events: none;
+  }
+
+  .cyber-vision-card .cyber-vision-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px;
+    color: #a78bfa;
+    font-size: 1.3em;
+    border-bottom: 1px solid #00d4ff35;
+    padding-bottom: 9px;
+  }
+
+  .cyber-vision-card .cyber-vision-title span {
+    font-size: 1.15em;
+  }
+
+  .cyber-vision-card p {
+    margin: 0 0 15px;
+    color: #e6edf7;
+    line-height: 1.6;
+  }
+
+  .cyber-vision-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: #00d4ff;
+    color: #07131d !important;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 5px 16px #00d4ff30;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+
+  .cyber-vision-link:hover {
+    transform: translateY(-2px);
+    background: #67e8f9;
+    box-shadow: 0 8px 22px #00d4ff45;
+  }
+
+  .cyber-vision-link:focus-visible {
+    outline: 3px solid #ffffff99;
+    outline-offset: 3px;
+  }
+
+  body.light-theme .cyber-vision-card {
+    background: linear-gradient(135deg, #ffffff 0%, #eef8fb 58%, #f5f0ff 100%);
+    border-color: #159fc044;
+    border-left-color: #7c3aed;
+    box-shadow: 0 10px 28px #183b4b14, 0 0 20px #7c3aed10;
+  }
+
+  body.light-theme .cyber-vision-card .cyber-vision-title {
+    color: #6d28d9;
+    border-bottom-color: #159fc044;
+  }
+
+  body.light-theme .cyber-vision-card p {
+    color: #385064;
+  }
+
+  @media (max-width: 720px) {
+    .cyber-vision-card {
+      padding: 17px;
+    }
+  }
+
   .about-panel {
     flex: 1 1 0;
     min-width: 270px;
@@ -169,7 +263,8 @@
   /* ===== АНИМАЦИЯ БЛОКОВ ПРИ ПРОКРУТКЕ ===== */
   /* До включения JS карточки остаются обычными, поэтому страница
      не ломается, если JavaScript отключён. */
-  body.reveal-enabled .card.reveal-card {
+  body.reveal-enabled .card.reveal-card,
+  body.reveal-enabled .cyber-vision-card.reveal-card {
     opacity: 0;
     transform: translateY(38px) scale(0.97);
     filter: blur(2px);
@@ -181,7 +276,8 @@
     transition-delay: var(--reveal-delay, 0ms);
   }
 
-  body.reveal-enabled .card.reveal-card.is-visible {
+  body.reveal-enabled .card.reveal-card.is-visible,
+  body.reveal-enabled .cyber-vision-card.reveal-card.is-visible {
     opacity: 1;
     transform: translateY(0) scale(1);
     filter: blur(0);
@@ -189,7 +285,9 @@
 
   @media (prefers-reduced-motion: reduce) {
     body.reveal-enabled .card.reveal-card,
-    body.reveal-enabled .card.reveal-card.is-visible {
+    body.reveal-enabled .card.reveal-card.is-visible,
+    body.reveal-enabled .cyber-vision-card.reveal-card,
+    body.reveal-enabled .cyber-vision-card.reveal-card.is-visible {
       opacity: 1;
       transform: none;
       filter: none;
@@ -629,6 +727,18 @@
   </header>
 
   <section id="home" class="page active">
+    <div class="cyber-vision-card">
+      <h2 class="cyber-vision-title"><span>👁️</span> Виртуальное-зрение</h2>
+      <p class="editable" data-id="cyber-vision">
+        Наш товарищ работает над проектом кибер-зрения — системой, связанной с камерой,
+        обработкой изображения и технологиями ESP32. Здесь можно подробнее познакомиться
+        с проектом, его разработкой и результатами работы.
+      </p>
+      <a class="cyber-vision-link" href="https://wwwnapoleon.github.io/esp32_fpv/" target="_blank" rel="noopener noreferrer">
+        🔗 Открыть проект
+      </a>
+    </div>
+
     <div class="grid">
       <div>
         <div class="card">
@@ -1541,7 +1651,7 @@
      ✨ АНИМАЦИЯ КАРТОЧЕК ПРИ ПОЯВЛЕНИИ НА ЭКРАНЕ
      ============================================================ */
   function initScrollReveal() {
-    const cards = document.querySelectorAll('.card');
+    const cards = document.querySelectorAll('.card, .cyber-vision-card');
     if (!cards.length) return;
 
     document.body.classList.add('reveal-enabled');
