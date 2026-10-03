@@ -644,6 +644,41 @@
     .settings-overlay, .settings-drawer, .settings-launcher, .theme-option { transition:none !important; }
   }
 
+
+  /* ===== Публичный QR-код сайта ===== */
+  .site-qr-section {
+    margin: 28px auto 12px;
+    max-width: 760px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 18px 22px;
+    border: 1px solid #00d4ff55;
+    border-left: 4px solid #00d4ff;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #111a30, #16213e);
+    box-shadow: 0 8px 24px #0003, 0 0 18px #00d4ff14;
+  }
+  .site-qr-text { flex: 1; }
+  .site-qr-text h2 { margin: 0 0 7px; color: #00d4ff; font-size: 1.2em; }
+  .site-qr-text p { margin: 0 0 8px; line-height: 1.5; color: #dbeafe; }
+  .site-qr-text span { font-size: .8em; font-weight: 700; letter-spacing: 1px; color: #7dd3fc; }
+  .site-qr-box { flex: 0 0 auto; padding: 9px; background: #fff; border-radius: 12px; box-shadow: 0 4px 18px #0004; }
+  #siteQrCode { width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; }
+  #siteQrCode img, #siteQrCode canvas { display: block; width: 150px !important; height: 150px !important; }
+  body.light-theme .site-qr-section {
+    background: linear-gradient(145deg, #fff, #edf6fa);
+    border-color: #159fc044;
+    border-left-color: #159fc0;
+    box-shadow: 0 8px 24px #183b4b12;
+  }
+  body.light-theme .site-qr-text p { color: #385064; }
+  body.light-theme .site-qr-text span { color: #087f9d; }
+  @media (max-width: 600px) {
+    .site-qr-section { flex-direction: column; text-align: center; }
+  }
+
 </style>
 </head>
 <body>
@@ -922,7 +957,19 @@
     <button id="changeBackgroundBtn" type="button">🖼️ Изменить фон</button>
   </div>
 
-  <footer>
+  <!-- ===== QR-КОД ССЫЛКИ НА САЙТ ===== -->
+<div class="site-qr-section reveal-card">
+  <div class="site-qr-text">
+    <h2>📱 Наш сайт</h2>
+    <p>Отсканируй QR-код камерой телефона, чтобы быстро открыть стенгазету.</p>
+    <span>RGB • РОБО-ВЕСТИ</span>
+  </div>
+  <div class="site-qr-box">
+    <div id="siteQrCode"></div>
+  </div>
+</div>
+
+<footer>
     Стенгазета класса робототехники <strong>RGB</strong> • Разработчик: Седельников Яков
   </footer>
 </div>
@@ -1753,6 +1800,26 @@
   renderPhoto();
   renderBackground();
   setInterval(renderPhoto, 30000);
+
+// ===== QR-КОД САЙТА =====
+(function renderPublicSiteQR() {
+  const qrElement = document.getElementById('siteQrCode');
+  if (!qrElement || typeof QRCode === 'undefined') return;
+
+  const siteUrl = 'https://ok11-afk.github.io/school-magazine/';
+
+  qrElement.innerHTML = '';
+
+  new QRCode(qrElement, {
+    text: siteUrl,
+    width: 150,
+    height: 150,
+    colorDark: '#111827',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+})();
+
 </script>
 </body>
 </html>
