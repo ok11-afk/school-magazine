@@ -57,7 +57,6 @@
     transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
   }
   .cyber-vision-link:hover { transform: translateY(-2px); background: #67e8f9; box-shadow: 0 8px 22px #00d4ff45; }
-  .cyber-vision-link:focus-visible { outline: 3px solid #ffffff99; outline-offset: 3px; }
 
   .about-panel {
     flex: 1 1 0; min-width: 270px;
@@ -140,9 +139,9 @@
   }
   .card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px #00d4ff55; }
 
-  /* ===== АНИМАЦИЯ БЛОКОВ ПРИ ПРОКРУТКЕ ===== */
   body.reveal-enabled .card.reveal-card,
-  body.reveal-enabled .cyber-vision-card.reveal-card {
+  body.reveal-enabled .cyber-vision-card.reveal-card,
+  body.reveal-enabled .projects-category.reveal-card {
     opacity: 0;
     transform: translateY(38px) scale(0.97);
     filter: blur(2px);
@@ -154,7 +153,8 @@
     transition-delay: var(--reveal-delay, 0ms);
   }
   body.reveal-enabled .card.reveal-card.is-visible,
-  body.reveal-enabled .cyber-vision-card.reveal-card.is-visible {
+  body.reveal-enabled .cyber-vision-card.reveal-card.is-visible,
+  body.reveal-enabled .projects-category.reveal-card.is-visible {
     opacity: 1;
     transform: translateY(0) scale(1);
     filter: blur(0);
@@ -163,7 +163,9 @@
     body.reveal-enabled .card.reveal-card,
     body.reveal-enabled .card.reveal-card.is-visible,
     body.reveal-enabled .cyber-vision-card.reveal-card,
-    body.reveal-enabled .cyber-vision-card.reveal-card.is-visible {
+    body.reveal-enabled .cyber-vision-card.reveal-card.is-visible,
+    body.reveal-enabled .projects-category.reveal-card,
+    body.reveal-enabled .projects-category.reveal-card.is-visible {
       opacity: 1; transform: none; filter: none; transition: none;
     }
   }
@@ -202,6 +204,9 @@
   .admin-only { display: none !important; }
   body.admin .admin-only { display: block !important; }
   body.admin .admin-only.inline { display: inline-block !important; }
+  body.admin .project-card-controls.admin-only,
+  body.admin .projects-gallery-header .admin-only { display: flex !important; }
+  body.admin .projects-gallery-header .admin-only.inline { display: inline-block !important; }
 
   .bottom-background-control { text-align: center; margin-top: 22px; margin-bottom: 10px; }
   .bottom-background-control button {
@@ -216,7 +221,6 @@
     background: #ffffff; transform: translateY(-2px);
     box-shadow: 0 0 18px rgba(0, 212, 255, 0.55);
   }
-  .bottom-background-control button:active { transform: translateY(0); }
 
   .admin-photo-controls { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
   .admin-photo-controls label {
@@ -406,224 +410,108 @@
 
   /* ===== КОНСТРУКТОР ТЕМ ===== */
   .themes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 10px;
-    margin-bottom: 12px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px; margin-bottom: 12px;
   }
   .theme-card {
-    position: relative;
-    border: 2px solid #35445f;
-    border-radius: 12px;
-    padding: 10px;
-    cursor: pointer;
-    background: #1a2742;
-    transition: border-color .2s, transform .2s, box-shadow .2s;
-    text-align: left;
+    position: relative; border: 2px solid #35445f; border-radius: 12px;
+    padding: 10px; cursor: pointer; background: #1a2742;
+    transition: border-color .2s, transform .2s, box-shadow .2s; text-align: left;
   }
   .theme-card:hover { transform: translateY(-2px); }
   .theme-card[data-active="true"] {
-    border-color: #00d4ff;
-    box-shadow: 0 0 0 2px #00d4ff22, 0 0 18px #00d4ff22;
+    border-color: #00d4ff; box-shadow: 0 0 0 2px #00d4ff22, 0 0 18px #00d4ff22;
   }
   .theme-card-preview {
-    height: 54px;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    border: 1px solid #ffffff30;
-    overflow: hidden;
-    display: flex;
+    height: 54px; border-radius: 8px; margin-bottom: 8px;
+    border: 1px solid #ffffff30; overflow: hidden; display: flex;
   }
   .theme-card-preview .swatch { flex: 1; }
   .theme-card-name {
-    font-size: 0.85em;
-    font-weight: 700;
-    color: #eaf2ff;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 0.85em; font-weight: 700; color: #eaf2ff;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .theme-card-actions {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    display: flex;
-    gap: 4px;
-    opacity: 0;
-    transition: opacity .2s;
+    position: absolute; top: 6px; right: 6px;
+    display: flex; gap: 4px; opacity: 0; transition: opacity .2s;
   }
   .theme-card:hover .theme-card-actions { opacity: 1; }
   .theme-card-actions button {
     width: 22px; height: 22px; border-radius: 50%;
     border: none; cursor: pointer; font-size: 0.75em;
     display: flex; align-items: center; justify-content: center;
-    background: #26334f; color: #fff;
-    transition: background .2s;
+    background: #26334f; color: #fff; transition: background .2s;
   }
   .theme-card-actions button:hover { background: #00d4ff; color: #0f2027; }
   .theme-card-actions button.danger:hover { background: #ef4444; color: #fff; }
 
-  .theme-action-row {
-    display: flex;
-    gap: 8px;
-    margin-top: 10px;
-    flex-wrap: wrap;
-  }
+  .theme-action-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
   .theme-action-row button {
-    flex: 1;
-    min-width: 120px;
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 0.9em;
-    transition: all .2s;
+    flex: 1; min-width: 120px; padding: 10px 14px; border-radius: 10px;
+    border: none; font-weight: 700; cursor: pointer;
+    font-family: inherit; font-size: 0.9em; transition: all .2s;
   }
-  .btn-create-theme {
-    background: linear-gradient(90deg, #22c55e, #00d4ff);
-    color: #0f2027;
-  }
+  .btn-create-theme { background: linear-gradient(90deg, #22c55e, #00d4ff); color: #0f2027; }
   .btn-create-theme:hover { filter: brightness(1.15); }
-  .btn-reset-theme {
-    background: #26334f;
-    color: #eaf2ff;
-  }
+  .btn-reset-theme { background: #26334f; color: #eaf2ff; }
   .btn-reset-theme:hover { background: #35445f; }
 
-  /* ===== РЕДАКТОР ТЕМЫ ===== */
   .theme-editor {
-    margin-top: 18px;
-    padding: 16px;
-    border: 1px solid #35445f;
-    border-radius: 12px;
-    background: #0f1830;
+    margin-top: 18px; padding: 16px; border: 1px solid #35445f;
+    border-radius: 12px; background: #0f1830;
   }
-  .theme-editor-title {
-    font-weight: 700;
-    color: #00d4ff;
-    margin-bottom: 14px;
-    font-size: 0.95em;
-  }
+  .theme-editor-title { font-weight: 700; color: #00d4ff; margin-bottom: 14px; font-size: 0.95em; }
   .theme-editor-label {
-    display: block;
-    font-size: 0.8em;
-    color: #aab6c9;
-    margin-bottom: 6px;
-    margin-top: 12px;
-    font-weight: 700;
+    display: block; font-size: 0.8em; color: #aab6c9;
+    margin-bottom: 6px; margin-top: 12px; font-weight: 700;
   }
   .theme-editor-input {
-    width: 100%;
-    padding: 9px 12px;
-    border-radius: 8px;
-    border: 1px solid #35445f;
-    background: #1a2742;
-    color: #eaf2ff;
-    font-family: inherit;
-    font-size: 0.95em;
+    width: 100%; padding: 9px 12px; border-radius: 8px;
+    border: 1px solid #35445f; background: #1a2742; color: #eaf2ff;
+    font-family: inherit; font-size: 0.95em;
   }
   .theme-editor-input:focus { outline: none; border-color: #00d4ff; box-shadow: 0 0 10px #00d4ff33; }
 
-  .presets-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 6px;
-  }
+  .presets-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
   .preset-chip {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    border: 2px solid #35445f;
-    cursor: pointer;
+    width: 40px; height: 40px; border-radius: 10px;
+    border: 2px solid #35445f; cursor: pointer;
     transition: transform .2s, border-color .2s;
-    padding: 0;
-    overflow: hidden;
-    position: relative;
+    padding: 0; overflow: hidden; position: relative;
   }
   .preset-chip:hover { transform: scale(1.08); border-color: #00d4ff; }
   .preset-chip[data-selected="true"] { border-color: #00d4ff; box-shadow: 0 0 0 2px #00d4ff55; }
-  .preset-chip-inner {
-    display: flex;
-    width: 100%;
-    height: 100%;
-  }
+  .preset-chip-inner { display: flex; width: 100%; height: 100%; }
   .preset-chip-inner div { flex: 1; }
 
-  .color-pick-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 6px;
-  }
+  .color-pick-row { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
   .color-pick-row input[type="color"] {
-    width: 48px;
-    height: 36px;
-    border: 1px solid #35445f;
-    border-radius: 8px;
-    padding: 2px;
-    background: #1a2742;
-    cursor: pointer;
+    width: 48px; height: 36px; border: 1px solid #35445f;
+    border-radius: 8px; padding: 2px; background: #1a2742; cursor: pointer;
   }
-  .color-pick-row .color-hex {
-    flex: 1;
-    font-family: monospace;
-    font-size: 0.85em;
-    color: #aab6c9;
-  }
+  .color-pick-row .color-hex { flex: 1; font-family: monospace; font-size: 0.85em; color: #aab6c9; }
 
   .theme-live-preview {
-    margin-top: 14px;
-    padding: 12px;
-    border-radius: 10px;
-    border: 1px solid #35445f;
-    transition: all .2s;
+    margin-top: 14px; padding: 12px; border-radius: 10px;
+    border: 1px solid #35445f; transition: all .2s;
   }
-  .theme-live-preview .lp-title {
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-  .theme-live-preview .lp-text {
-    font-size: 0.85em;
-    line-height: 1.4;
-    margin-bottom: 8px;
-  }
-  .theme-live-preview .lp-btn {
-    display: inline-block;
-    padding: 5px 12px;
-    border-radius: 8px;
-    font-size: 0.8em;
-    font-weight: 700;
-  }
+  .theme-live-preview .lp-title { font-weight: 700; margin-bottom: 6px; }
+  .theme-live-preview .lp-text { font-size: 0.85em; line-height: 1.4; margin-bottom: 8px; }
+  .theme-live-preview .lp-btn { display: inline-block; padding: 5px 12px; border-radius: 8px; font-size: 0.8em; font-weight: 700; }
 
-  .theme-editor-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 16px;
-  }
+  .theme-editor-actions { display: flex; gap: 8px; margin-top: 16px; }
   .theme-editor-actions button {
-    flex: 1;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 0.9em;
-    transition: all .2s;
+    flex: 1; padding: 10px; border-radius: 8px; border: none;
+    font-weight: 700; cursor: pointer; font-family: inherit;
+    font-size: 0.9em; transition: all .2s;
   }
   .btn-save-theme { background: #22c55e; color: #fff; }
   .btn-save-theme:hover { background: #16a34a; }
   .btn-cancel-theme { background: #26334f; color: #eaf2ff; }
   .btn-cancel-theme:hover { background: #35445f; }
 
-  /* ===== Тема ===== */
-  body.light-theme {
-    background: linear-gradient(135deg, #edf5f8, #dceaf0, #cbdfe8);
-    color: #243447;
-  }
+  /* ===== СВЕТЛАЯ ТЕМА ===== */
+  body.light-theme { background: linear-gradient(135deg, #edf5f8, #dceaf0, #cbdfe8); color: #243447; }
   body.light-theme .paper { background: #f8fbfd; border-color: #159fc0; box-shadow: 0 0 28px #159fc033; }
   body.light-theme header { border-bottom-color: #159fc077; }
   body.light-theme .class-name { color: #087f9d; }
@@ -660,11 +548,8 @@
   body.light-theme .btn-reset-theme { background: #e4eef3; color: #243447; }
   body.light-theme .btn-cancel-theme { background: #e4eef3; color: #243447; }
 
-  /* Применение пользовательской темы через CSS-переменные */
-  body.custom-theme {
-    background: var(--custom-bg);
-    color: var(--custom-text);
-  }
+  /* ===== КАСТОМНАЯ ТЕМА ===== */
+  body.custom-theme { background: var(--custom-bg); color: var(--custom-text); }
   body.custom-theme .paper {
     background: var(--custom-paper);
     border-color: var(--custom-accent);
@@ -735,11 +620,168 @@
   @media (max-width: 600px) {
     .site-qr-section { flex-direction: column; text-align: center; }
   }
+
+  /* ===== КАТЕГОРИЯ «НАШИ ПРОЕКТЫ» (ГАЛЕРЕЯ) ===== */
+  .projects-category {
+    margin: 0 0 22px;
+    padding: 22px;
+    border: 1px solid #00d4ff44;
+    border-left: 4px solid #00d4ff;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #111a30, #16213e);
+    box-shadow: 0 8px 24px #0003, 0 0 18px #00d4ff14;
+  }
+  .projects-gallery-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #00d4ff44;
+    padding-bottom: 10px;
+  }
+  .projects-gallery-header h2 {
+    margin: 0;
+    color: #00d4ff;
+    font-size: 1.35em;
+  }
+  #addProjectBtn {
+    background: #22c55e;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85em;
+    transition: all .25s;
+  }
+  #addProjectBtn:hover {
+    background: #16a34a;
+    transform: translateY(-2px);
+  }
+  .projects-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 720px) {
+    .projects-gallery-grid { grid-template-columns: 1fr; }
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    background: #0f2027;
+    border-radius: 14px;
+    border: 1px solid #00d4ff33;
+    overflow: hidden;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px #00d4ff33;
+  }
+  .project-card-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: #16213e center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .project-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+  .project-card-image .placeholder {
+    color: #556;
+    font-size: 0.9em;
+    text-align: center;
+    padding: 20px;
+    z-index: 1;
+  }
+  .project-card-caption {
+    padding: 14px 16px 8px;
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: #dbeafe;
+    flex: 1;
+    min-height: 60px;
+  }
+  .project-card-controls {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px 16px;
+    flex-wrap: wrap;
+  }
+  .project-card-controls label,
+  .project-card-controls button {
+    padding: 6px 12px;
+    border-radius: 16px;
+    border: none;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 0.82em;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .project-card-controls label {
+    background: #00d4ff;
+    color: #0f2027;
+  }
+  .project-card-controls label:hover { background: #fff; }
+  .project-card-controls button.remove {
+    background: #ef4444;
+    color: #fff;
+  }
+  .project-card-controls button.remove:hover { background: #b91c1c; }
+  .project-card-controls input[type="file"] { display: none; }
+
+  .project-card .edit-controls {
+    padding: 0 16px 16px;
+    margin-top: 0;
+  }
+
+  /* Светлая тема для галереи */
+  body.light-theme .projects-category {
+    background: linear-gradient(145deg, #fff, #edf6fa);
+    border-color: #159fc044;
+    border-left-color: #159fc0;
+  }
+  body.light-theme .projects-gallery-header { border-bottom-color: #159fc044; }
+  body.light-theme .projects-gallery-header h2 { color: #087f9d; }
+  body.light-theme .project-card { background: #fff; border-color: #c3d5df; }
+  body.light-theme .project-card-image { background: #eaf3f7; }
+  body.light-theme .project-card-image .placeholder { color: #889; }
+  body.light-theme .project-card-caption { color: #243447; }
+
+  /* Кастомная тема для галереи */
+  body.custom-theme .projects-category {
+    background: var(--custom-card);
+    border-color: var(--custom-accent-soft);
+    border-left-color: var(--custom-accent);
+  }
+  body.custom-theme .projects-gallery-header h2 { color: var(--custom-accent); }
+  body.custom-theme .projects-gallery-header { border-bottom-color: var(--custom-accent-soft); }
+  body.custom-theme .project-card {
+    background: var(--custom-paper);
+    border-color: var(--custom-accent-soft);
+  }
+  body.custom-theme .project-card-caption { color: var(--custom-text); }
+  body.custom-theme .project-card-controls label { background: var(--custom-accent); color: var(--custom-paper); }
 </style>
 </head>
 <body>
 
-<!-- Плавающая кнопка и боковое меню настроек -->
 <button class="settings-launcher" id="settingsLauncher" type="button" aria-label="Открыть настройки" aria-expanded="false" title="Настройки">⚙</button>
 <div class="settings-overlay" id="settingsOverlay"></div>
 <aside class="settings-drawer" id="settingsDrawer" aria-label="Настройки сайта" aria-hidden="true">
@@ -756,7 +798,6 @@
       <button class="btn-reset-theme" id="btnResetTheme" type="button">↺ Сбросить</button>
     </div>
 
-    <!-- Редактор темы -->
     <div class="theme-editor" id="themeEditor" style="display:none;">
       <div class="theme-editor-title" id="themeEditorTitle">➕ Новая тема</div>
 
@@ -796,7 +837,6 @@
         <span class="color-hex" id="hexText">#ffffff</span>
       </div>
 
-      <!-- Живой предпросмотр -->
       <div class="theme-live-preview" id="themeLivePreview">
         <div class="lp-title">Заголовок блока</div>
         <div class="lp-text">Пример текста внутри карточки.</div>
@@ -882,21 +922,21 @@
       </a>
     </div>
 
+    <!-- ===== КАТЕГОРИЯ «НАШИ ПРОЕКТЫ» (ГАЛЕРЕЯ) ===== -->
+    <section class="projects-category reveal-card" id="projectsGallery">
+      <div class="projects-gallery-header">
+        <h2 class="editable" data-id="title-projects-gallery">🗂 Наши проекты</h2>
+        <button class="admin-only inline" id="addProjectBtn" type="button">
+          ➕ Добавить проект
+        </button>
+      </div>
+      <div class="projects-gallery-grid" id="projectsGalleryGrid">
+        <!-- Карточки проектов генерируются JS -->
+      </div>
+    </section>
+
     <div class="grid">
       <div>
-        <div class="card">
-          <h2 class="editable" data-id="title-projects">🚀 Наши проекты</h2>
-          <div class="editable project-list" data-id="projects" data-collapse="3">
-            <div class="project-item"><span class="tag">НОВОЕ</span> Робот-манипулятор «Железный клещ» — собрал ученик 8А класса.</div>
-            <div class="project-item"><span class="tag">ХИТ</span> Гусеничный ровер «Марсоход-2025» прошёл испытания.</div>
-            <div class="project-item"><span class="tag">НОВОЕ</span> Робот-художник «Пикассо» рисует геометрические фигуры.</div>
-            <div class="project-item"><span class="tag">ХИТ</span> Робот-сортировщик «Железный клещ» — 2-е место на олимпиаде.</div>
-            <div class="project-item"><span class="tag">НОВОЕ</span> Робот-манипулятор «Манипулятор-2025» — прошёл испытания.</div>
-          </div>
-          <div class="edit-controls admin-only"></div>
-          <div class="edit-status"></div>
-        </div>
-
         <div class="card highlight">
           <h2 class="editable" data-id="title-genius">🏆 Гений недели</h2>
           <div class="editable" data-id="genius"><strong>Иван Петров, 7Б</strong> — написал программу для рисования фигур роботом. 👏</div>
@@ -1144,6 +1184,8 @@
   const BUCKET_NAME = "photos";
   const PHOTO_PATH = "photo-of-week.jpg";
   const BG_PATH = "background.jpg";
+  const PROJECT_PREFIX = "project-";
+  const PROJECTS_KEY = "rgb-projects-list";
 
   const ADMIN_PASSWORD = "rgb2025";
 
@@ -1199,7 +1241,7 @@
       adminToggleBtn.classList.add('on');
       adminStatus.textContent = "Режим: АДМИНИСТРАТОР";
       adminStatus.style.color = "#22c55e";
-      buildEditButtons();
+      rebuildEditables();
     } else {
       body.classList.remove('admin');
       sessionStorage.removeItem('isAdmin');
@@ -1225,9 +1267,9 @@
 
   confirmLogin.addEventListener('click', () => {
     if (passwordInput.value === ADMIN_PASSWORD) {
-      setAdminMode(true);
-      loginModal.classList.remove('open');
       errorMsg.textContent = "";
+      loginModal.classList.remove('open');
+      setAdminMode(true);
     } else {
       errorMsg.textContent = "❌ Неверный пароль";
       passwordInput.value = "";
@@ -1268,10 +1310,8 @@
     qrCanvasHolder.innerHTML = "";
     new QRCode(qrCanvasHolder, {
       text: url,
-      width: 260,
-      height: 260,
-      colorDark: "#0f2027",
-      colorLight: "#ffffff",
+      width: 260, height: 260,
+      colorDark: "#0f2027", colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.H
     });
   }
@@ -1283,11 +1323,7 @@
   }
 
   adminPanelBtn.addEventListener('click', openAdminPanel);
-
-  closeAdminPanel.addEventListener('click', () => {
-    adminPanelModal.classList.remove('open');
-  });
-
+  closeAdminPanel.addEventListener('click', () => adminPanelModal.classList.remove('open'));
   adminPanelModal.addEventListener('click', (e) => {
     if (e.target === adminPanelModal) adminPanelModal.classList.remove('open');
   });
@@ -1320,24 +1356,18 @@
   function sanitizeHtml(html) {
     const allowedTags = ['B','I','U','STRONG','EM','BR','UL','OL','LI','SPAN','P','DIV','A','H1','H2','H3','H4','H5','H6'];
     const allowedAttrs = ['class', 'href', 'target', 'data-id', 'data-collapse'];
-
     const temp = document.createElement('div');
     temp.innerHTML = html;
-
     temp.querySelectorAll('script, style, iframe, object, embed, link, meta, form, input, button').forEach(n => n.remove());
-
     temp.querySelectorAll('*').forEach(node => {
       [...node.attributes].forEach(attr => {
         const name = attr.name.toLowerCase();
-        if (name === 'style' || !allowedAttrs.includes(name)) {
-          node.removeAttribute(attr.name);
-        }
+        if (name === 'style' || !allowedAttrs.includes(name)) node.removeAttribute(attr.name);
       });
       if (!allowedTags.includes(node.tagName)) {
         node.replaceWith(document.createTextNode(node.textContent));
       }
     });
-
     return temp.innerHTML;
   }
 
@@ -1347,7 +1377,7 @@
   const MAX_VISIBLE_ITEMS = 3;
 
   function applyCollapseToAll() {
-    document.querySelectorAll('.editable').forEach(el => applyCollapse(el));
+    collectEditables().forEach(el => applyCollapse(el));
   }
 
   function applyCollapse(container) {
@@ -1378,9 +1408,7 @@
     btn.addEventListener('click', () => {
       const isCollapsed = list.classList.toggle('collapsed-list');
       if (isCollapsed) {
-        items.forEach((li, i) => {
-          if (i >= MAX_VISIBLE_ITEMS) li.classList.add('hidden-item');
-        });
+        items.forEach((li, i) => { if (i >= MAX_VISIBLE_ITEMS) li.classList.add('hidden-item'); });
         btn.textContent = `▼ Показать ещё (${items.length - MAX_VISIBLE_ITEMS})`;
         btn.classList.remove('expanded');
       } else {
@@ -1436,9 +1464,7 @@
         btn.textContent = '▲ Свернуть';
         btn.classList.add('expanded');
       } else {
-        items.forEach((it, i) => {
-          if (i >= limit) it.classList.add('collapse-hidden');
-        });
+        items.forEach((it, i) => { if (i >= limit) it.classList.add('collapse-hidden'); });
         btn.textContent = `▼ Показать ещё (${items.length - limit})`;
         btn.classList.remove('expanded');
       }
@@ -1448,18 +1474,194 @@
   }
 
   /* ============================================================
+     🗂 ГАЛЕРЕЯ ПРОЕКТОВ
+     ============================================================ */
+  const projectsGalleryGrid = document.getElementById('projectsGalleryGrid');
+  const addProjectBtn = document.getElementById('addProjectBtn');
+
+  function loadProjectsList() {
+    try {
+      const raw = localStorage.getItem(PROJECTS_KEY);
+      if (!raw) return [1, 2, 3, 4];
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) && parsed.length ? parsed : [1, 2, 3, 4];
+    } catch { return [1, 2, 3, 4]; }
+  }
+  function saveProjectsList(list) {
+    try { localStorage.setItem(PROJECTS_KEY, JSON.stringify(list)); } catch {}
+  }
+
+  function getProjectImageUrl(n) {
+    if (!supabaseReady) return null;
+    const path = `${PROJECT_PREFIX}${n}.jpg`;
+    const { data } = supabaseClient.storage.from(BUCKET_NAME).getPublicUrl(path);
+    return data.publicUrl;
+  }
+
+  function buildProjectCard(n) {
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.dataset.projectNum = String(n);
+
+    // Изображение
+    const imageWrap = document.createElement('div');
+    imageWrap.className = 'project-card-image';
+    const url = getProjectImageUrl(n);
+
+    if (url) {
+      const testImg = new Image();
+      testImg.onload = () => {
+        imageWrap.innerHTML = `<img src="${url}?t=${Date.now()}" alt="Проект ${n}">`;
+      };
+      testImg.onerror = () => {
+        imageWrap.innerHTML = `<div class="placeholder">📷 Фото проекта ${n}<br>(не загружено)</div>`;
+      };
+      testImg.src = url + "?t=" + Date.now();
+    } else {
+      imageWrap.innerHTML = `<div class="placeholder">📷 Фото проекта ${n}</div>`;
+    }
+    card.appendChild(imageWrap);
+
+    // Подпись
+    const caption = document.createElement('div');
+    caption.className = 'project-card-caption editable';
+    caption.dataset.id = `project-${n}-caption`;
+    caption.innerHTML = 'Подпись проекта...';
+    card.appendChild(caption);
+
+    // Контролы для админа
+    const controls = document.createElement('div');
+    controls.className = 'project-card-controls admin-only';
+
+    const uploadLabel = document.createElement('label');
+    uploadLabel.textContent = '📤 Заменить фото';
+    const uploadInput = document.createElement('input');
+    uploadInput.type = 'file';
+    uploadInput.accept = 'image/*';
+    uploadLabel.setAttribute('for', `projectUpload-${n}`);
+    uploadInput.id = `projectUpload-${n}`;
+
+    uploadInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (!file.type.startsWith('image/')) { alert('Выберите изображение'); return; }
+      if (file.size > 5 * 1024 * 1024) { alert('Максимум 5 МБ'); return; }
+      if (!supabaseReady) { alert('Supabase не подключён'); return; }
+      try {
+        const { error } = await supabaseClient.storage
+          .from(BUCKET_NAME)
+          .upload(`${PROJECT_PREFIX}${n}.jpg`, file, {
+            upsert: true, contentType: file.type, cacheControl: '0'
+          });
+        if (error) throw error;
+        const newUrl = getProjectImageUrl(n);
+        imageWrap.innerHTML = `<img src="${newUrl}?t=${Date.now()}" alt="Проект ${n}">`;
+      } catch (err) {
+        console.error(err);
+        alert('Ошибка загрузки: ' + (err.message || 'неизвестная'));
+      }
+      uploadInput.value = '';
+    });
+
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'remove';
+    removeBtn.textContent = '🗑 Удалить';
+    removeBtn.addEventListener('click', async () => {
+      if (!confirm(`Удалить проект ${n}?`)) return;
+      if (supabaseReady) {
+        try { await supabaseClient.storage.from(BUCKET_NAME).remove([`${PROJECT_PREFIX}${n}.jpg`]); }
+        catch (err) { console.warn(err); }
+      }
+      const list = loadProjectsList().filter(x => x !== n);
+      saveProjectsList(list);
+      renderProjectsGallery();
+    });
+
+    controls.appendChild(uploadLabel);
+    controls.appendChild(uploadInput);
+    controls.appendChild(removeBtn);
+    card.appendChild(controls);
+
+    return card;
+  }
+
+  async function renderProjectsGallery() {
+    if (!projectsGalleryGrid) return;
+    projectsGalleryGrid.innerHTML = '';
+
+    const list = loadProjectsList();
+    if (!list.length) {
+      projectsGalleryGrid.innerHTML = `<div style="grid-column:1/-1;color:#889;text-align:center;padding:20px;">Проектов пока нет</div>`;
+    } else {
+      list.forEach(n => projectsGalleryGrid.appendChild(buildProjectCard(n)));
+    }
+
+    // Подгружаем подписи
+    if (supabaseReady) {
+      try {
+        const ids = list.map(n => `project-${n}-caption`);
+        const { data, error } = await supabaseClient
+          .from('content').select('id, html').in('id', ids);
+        if (!error && data) {
+          data.forEach(row => {
+            const el = projectsGalleryGrid.querySelector(`.editable[data-id="${row.id}"]`);
+            if (el) el.innerHTML = row.html;
+          });
+        }
+      } catch (err) {
+        console.warn('Не удалось загрузить подписи:', err.message);
+      }
+    }
+
+    // Если админ — перестроить кнопки редактирования
+    if (document.body.classList.contains('admin')) {
+      rebuildEditables();
+    }
+  }
+
+  if (addProjectBtn) {
+    addProjectBtn.addEventListener('click', () => {
+      const list = loadProjectsList();
+      const maxN = list.length ? Math.max(...list) : 0;
+      list.push(maxN + 1);
+      saveProjectsList(list);
+      renderProjectsGallery();
+    });
+  }
+
+  /* ============================================================
      ✏️ РЕДАКТИРОВАНИЕ КАРТОЧЕК
      ============================================================ */
-  const editables = document.querySelectorAll('.editable');
+  function collectEditables() {
+    return document.querySelectorAll('.editable');
+  }
 
   function buildEditButtons() {
     const cards = new Set();
-    editables.forEach(el => cards.add(el.closest('.card')));
+    collectEditables().forEach(el => {
+      const card = el.closest('.card') || el.closest('.project-card');
+      if (card) cards.add(card);
+    });
 
     cards.forEach(card => {
       if (!card) return;
-      const controls = card.querySelector('.edit-controls');
-      if (!controls || controls.dataset.built === '1') return;
+
+      // Находим или создаём .edit-controls
+      let controls = card.querySelector('.edit-controls');
+      if (!controls) {
+        controls = document.createElement('div');
+        controls.className = 'edit-controls admin-only';
+        // Для project-card вставляем после caption
+        if (card.classList.contains('project-card')) {
+          const caption = card.querySelector('.project-card-caption');
+          if (caption) caption.after(controls);
+          else card.appendChild(controls);
+        } else {
+          card.appendChild(controls);
+        }
+      }
+      if (controls.dataset.built === '1') return;
       controls.dataset.built = '1';
 
       const editableEls = card.querySelectorAll('.editable');
@@ -1549,8 +1751,10 @@
           return;
         }
 
-        statusEl.textContent = "⏳ Сохранение...";
-        statusEl.style.color = "#00d4ff";
+        if (statusEl) {
+          statusEl.textContent = "⏳ Сохранение...";
+          statusEl.style.color = "#00d4ff";
+        }
 
         try {
           const rows = [];
@@ -1579,34 +1783,43 @@
           saveBtn.style.display = 'none';
           cancelBtn.style.display = 'none';
 
-          statusEl.textContent = "✅ Сохранено";
-          statusEl.style.color = "#22c55e";
-          setTimeout(() => { statusEl.textContent = ""; }, 2000);
+          if (statusEl) {
+            statusEl.textContent = "✅ Сохранено";
+            statusEl.style.color = "#22c55e";
+            setTimeout(() => { statusEl.textContent = ""; }, 2000);
+          }
         } catch (err) {
           console.error(err);
-          statusEl.textContent = "❌ " + (err.message || "Ошибка сохранения");
-          statusEl.style.color = "#ef4444";
+          if (statusEl) {
+            statusEl.textContent = "❌ " + (err.message || "Ошибка сохранения");
+            statusEl.style.color = "#ef4444";
+          }
         }
       });
     });
   }
 
+  function rebuildEditables() {
+    document.querySelectorAll('.edit-controls').forEach(el => {
+      el.dataset.built = '';
+      el.innerHTML = '';
+    });
+    buildEditButtons();
+    applyCollapseToAll();
+    applyItemCollapseToAll();
+  }
+
   async function loadContent() {
     if (!supabaseReady) return;
-
     try {
       const { data, error } = await supabaseClient
-        .from('content')
-        .select('id, html');
-
+        .from('content').select('id, html');
       if (error) throw error;
       if (!data) return;
-
       data.forEach(row => {
         const el = document.querySelector(`.editable[data-id="${row.id}"]`);
         if (el) el.innerHTML = row.html;
       });
-
       applyCollapseToAll();
       applyItemCollapseToAll();
     } catch (err) {
@@ -1644,7 +1857,6 @@
     if (!file) return;
     if (!file.type.startsWith('image/')) { alert("Выберите изображение."); return; }
     if (file.size > 5 * 1024 * 1024) { alert("Максимум 5 МБ."); return; }
-
     uploadStatus.textContent = "⏳ Загрузка...";
     uploadStatus.style.color = "#00d4ff";
     try {
@@ -1667,7 +1879,6 @@
   photoRemoveBtn.addEventListener('click', async () => {
     if (!supabaseReady) { alert("Supabase не подключён."); return; }
     if (!confirm("Удалить фото недели?")) return;
-
     uploadStatus.textContent = "⏳ Удаление...";
     uploadStatus.style.color = "#00d4ff";
     try {
@@ -1691,13 +1902,10 @@
   const bgInput = document.getElementById('bgInput');
   const bgRemoveBtn = document.getElementById('bgRemoveBtn');
   const bgStatus = document.getElementById('bgStatus');
-
   const changeBackgroundBtn = document.getElementById('changeBackgroundBtn');
 
   if (changeBackgroundBtn && bgInput) {
-    changeBackgroundBtn.addEventListener('click', () => {
-      bgInput.click();
-    });
+    changeBackgroundBtn.addEventListener('click', () => bgInput.click());
   }
 
   function getBgUrl() {
@@ -1722,20 +1930,13 @@
 
   async function renderBackground() {
     if (!supabaseReady) return;
-
     const url = getBgUrl();
-
     if (bgPreview) {
       const testImg = new Image();
-      testImg.onload = () => {
-        bgPreview.innerHTML = `<img src="${url}?t=${Date.now()}" alt="Фон">`;
-      };
-      testImg.onerror = () => {
-        bgPreview.innerHTML = `<span class="bg-preview-empty">Фон не задан</span>`;
-      };
+      testImg.onload = () => { bgPreview.innerHTML = `<img src="${url}?t=${Date.now()}" alt="Фон">`; };
+      testImg.onerror = () => { bgPreview.innerHTML = `<span class="bg-preview-empty">Фон не задан</span>`; };
       testImg.src = url + "?t=" + Date.now();
     }
-
     const testImg2 = new Image();
     testImg2.onload = () => applyBackground(url + "?t=" + Date.now());
     testImg2.onerror = () => applyBackground(null);
@@ -1748,7 +1949,6 @@
     if (!file) return;
     if (!file.type.startsWith('image/')) { alert("Выберите изображение."); return; }
     if (file.size > 5 * 1024 * 1024) { alert("Максимум 5 МБ."); return; }
-
     bgStatus.textContent = "⏳ Загрузка фона...";
     bgStatus.style.color = "#00d4ff";
     try {
@@ -1771,7 +1971,6 @@
   bgRemoveBtn.addEventListener('click', async () => {
     if (!supabaseReady) { alert("Supabase не подключён."); return; }
     if (!confirm("Убрать фон страницы?")) return;
-
     bgStatus.textContent = "⏳ Удаление...";
     bgStatus.style.color = "#00d4ff";
     try {
@@ -1793,35 +1992,24 @@
      ✨ АНИМАЦИЯ КАРТОЧЕК
      ============================================================ */
   function initScrollReveal() {
-    const cards = document.querySelectorAll('.card, .cyber-vision-card');
+    const cards = document.querySelectorAll('.card, .cyber-vision-card, .projects-category');
     if (!cards.length) return;
-
     document.body.classList.add('reveal-enabled');
-
     cards.forEach((card, index) => {
       card.classList.add('reveal-card');
       const delay = Math.min((index % 6) * 80, 400);
       card.style.setProperty('--reveal-delay', `${delay}ms`);
     });
-
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       cards.forEach(card => card.classList.add('is-visible'));
       return;
     }
-
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-        } else {
-          entry.target.classList.remove('is-visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+        else entry.target.classList.remove('is-visible');
       });
-    }, {
-      threshold: 0.12,
-      rootMargin: '0px 0px -50px 0px'
-    });
-
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
     cards.forEach(card => observer.observe(card));
   }
 
@@ -1831,22 +2019,20 @@
   const THEMES_KEY = "rgb-custom-themes";
   const ACTIVE_THEME_KEY = "rgb-active-theme";
 
-  // Встроенные темы
   const BUILT_IN_THEMES = [
-    { id: "dark",   name: "🌙 Тёмная",   builtIn: true, colors: { bg: "#0f2027", paper: "#1a1a2e", card: "#16213e", accent: "#00d4ff", accent2: "#ff00ea", text: "#ffffff" } },
-    { id: "light",  name: "☀️ Светлая",  builtIn: true, colors: { bg: "#edf5f8", paper: "#f8fbfd", card: "#ffffff", accent: "#159fc0", accent2: "#7c3aed", text: "#243447" } }
+    { id: "dark",  name: "🌙 Тёмная",  builtIn: true, colors: { bg: "#0f2027", paper: "#1a1a2e", card: "#16213e", accent: "#00d4ff", accent2: "#ff00ea", text: "#ffffff" } },
+    { id: "light", name: "☀️ Светлая", builtIn: true, colors: { bg: "#edf5f8", paper: "#f8fbfd", card: "#ffffff", accent: "#159fc0", accent2: "#7c3aed", text: "#243447" } }
   ];
 
-  // Готовые пресеты цветов для конструктора
   const COLOR_PRESETS = [
-    { name: "Неон-ночь", bg: "#0a0e27", paper: "#131a3a", card: "#1c2550", accent: "#00e5ff", accent2: "#ff00ea", text: "#ffffff" },
-    { name: "Киберпанк", bg: "#1a0b2e", paper: "#2a1348", card: "#3a1c5f", accent: "#ff2e88", accent2: "#00ffd5", text: "#f5e9ff" },
-    { name: "Матрица",   bg: "#000000", paper: "#0a1f0a", card: "#0f2e0f", accent: "#00ff41", accent2: "#7fff00", text: "#c8ffc8" },
-    { name: "Закат",     bg: "#2d1b3d", paper: "#4a2649", card: "#5c2f56", accent: "#ff8c42", accent2: "#ffd166", text: "#fff5e8" },
-    { name: "Океан",     bg: "#0a1929", paper: "#0f2840", card: "#14374f", accent: "#00b4d8", accent2: "#48cae4", text: "#e0f4ff" },
-    { name: "Ретро-терминал", bg: "#1a1208", paper: "#2b1e0f", card: "#3a2814", accent: "#ffb000", accent2: "#ffe066", text: "#ffd699" },
-    { name: "Лаванда",   bg: "#f0e6ff", paper: "#faf5ff", card: "#ffffff", accent: "#8b5cf6", accent2: "#ec4899", text: "#3b2c5f" },
-    { name: "Мята",      bg: "#e0f7f0", paper: "#f0fdf9", card: "#ffffff", accent: "#10b981", accent2: "#06b6d4", text: "#1a3d2e" }
+    { name: "Неон-ночь",      bg: "#0a0e27", paper: "#131a3a", card: "#1c2550", accent: "#00e5ff", text: "#ffffff" },
+    { name: "Киберпанк",      bg: "#1a0b2e", paper: "#2a1348", card: "#3a1c5f", accent: "#ff2e88", text: "#f5e9ff" },
+    { name: "Матрица",        bg: "#000000", paper: "#0a1f0a", card: "#0f2e0f", accent: "#00ff41", text: "#c8ffc8" },
+    { name: "Закат",          bg: "#2d1b3d", paper: "#4a2649", card: "#5c2f56", accent: "#ff8c42", text: "#fff5e8" },
+    { name: "Океан",          bg: "#0a1929", paper: "#0f2840", card: "#14374f", accent: "#00b4d8", text: "#e0f4ff" },
+    { name: "Ретро-терминал", bg: "#1a1208", paper: "#2b1e0f", card: "#3a2814", accent: "#ffb000", text: "#ffd699" },
+    { name: "Лаванда",        bg: "#f0e6ff", paper: "#faf5ff", card: "#ffffff", accent: "#8b5cf6", text: "#3b2c5f" },
+    { name: "Мята",           bg: "#e0f7f0", paper: "#f0fdf9", card: "#ffffff", accent: "#10b981", text: "#1a3d2e" }
   ];
 
   function loadUserThemes() {
@@ -1857,24 +2043,26 @@
       return Array.isArray(parsed) ? parsed : [];
     } catch { return []; }
   }
-
   function saveUserThemes(themes) {
     try { localStorage.setItem(THEMES_KEY, JSON.stringify(themes)); } catch (e) { console.warn(e); }
   }
-
   function getAllThemes() {
     return [...BUILT_IN_THEMES, ...loadUserThemes()];
   }
-
   function getActiveThemeId() {
     try { return localStorage.getItem(ACTIVE_THEME_KEY) || "dark"; } catch { return "dark"; }
   }
-
   function setActiveThemeId(id) {
     try { localStorage.setItem(ACTIVE_THEME_KEY, id); } catch {}
   }
-
-  // Применение кастомной темы через CSS-переменные
+  function hexToRgba(hex, alpha) {
+    const h = hex.replace('#', '');
+    const full = h.length === 3 ? h.split('').map(c => c + c).join('') : h;
+    const r = parseInt(full.slice(0, 2), 16);
+    const g = parseInt(full.slice(2, 4), 16);
+    const b = parseInt(full.slice(4, 6), 16);
+    return `rgba(${r},${g},${b},${alpha})`;
+  }
   function applyCustomThemeVars(colors) {
     const root = document.body;
     root.style.setProperty('--custom-bg', colors.bg);
@@ -1885,61 +2073,35 @@
     root.style.setProperty('--custom-accent-soft', hexToRgba(colors.accent, 0.35));
     root.style.setProperty('--custom-text', colors.text);
   }
-
-  function hexToRgba(hex, alpha) {
-    const h = hex.replace('#', '');
-    const full = h.length === 3 ? h.split('').map(c => c + c).join('') : h;
-    const r = parseInt(full.slice(0, 2), 16);
-    const g = parseInt(full.slice(2, 4), 16);
-    const b = parseInt(full.slice(4, 6), 16);
-    return `rgba(${r},${g},${b},${alpha})`;
-  }
-
   function applyThemeById(id) {
-    // Убираем все возможные классы темы
     document.body.classList.remove('light-theme', 'custom-theme');
-
     const theme = getAllThemes().find(t => t.id === id);
-
-    if (!theme) {
-      // Fallback: тёмная встроенная
-      applyThemeById('dark');
-      return;
-    }
-
+    if (!theme) { applyThemeById('dark'); return; }
     if (theme.id === 'light') {
       document.body.classList.add('light-theme');
     } else if (theme.id === 'dark') {
-      // тёмная — базовые стили
+      // базовые стили
     } else {
-      // Кастомная — применяем CSS-переменные
       applyCustomThemeVars(theme.colors);
       document.body.classList.add('custom-theme');
     }
-
     setActiveThemeId(id);
     updateThemeCardsUI();
-    applyBackgroundFromCurrent();
+    if (document.body.classList.contains('has-custom-bg')) {
+      const bgUrl = getBgUrl();
+      if (bgUrl) applyBackground(bgUrl);
+    }
   }
-
-  function applyBackgroundFromCurrent() {
-    if (!document.body.classList.contains('has-custom-bg')) return;
-    const bgUrl = getBgUrl();
-    if (bgUrl) applyBackground(bgUrl);
-  }
-
   function updateThemeCardsUI() {
     const activeId = getActiveThemeId();
     document.querySelectorAll('.theme-card').forEach(card => {
       card.dataset.active = String(card.dataset.themeId === activeId);
     });
   }
-
   function renderThemesGrid() {
     const grid = document.getElementById('themesGrid');
     if (!grid) return;
     grid.innerHTML = '';
-
     const themes = getAllThemes();
     const activeId = getActiveThemeId();
 
@@ -1950,26 +2112,15 @@
       card.dataset.themeId = theme.id;
       card.dataset.active = String(theme.id === activeId);
 
-      // Превью из трёх цветов
       const preview = document.createElement('div');
       preview.className = 'theme-card-preview';
       preview.style.background = theme.colors.bg;
-
-      const swatchPaper = document.createElement('div');
-      swatchPaper.className = 'swatch';
-      swatchPaper.style.background = theme.colors.paper;
-
-      const swatchCard = document.createElement('div');
-      swatchCard.className = 'swatch';
-      swatchCard.style.background = theme.colors.card;
-
-      const swatchAccent = document.createElement('div');
-      swatchAccent.className = 'swatch';
-      swatchAccent.style.background = theme.colors.accent;
-
-      preview.appendChild(swatchPaper);
-      preview.appendChild(swatchCard);
-      preview.appendChild(swatchAccent);
+      [theme.colors.paper, theme.colors.card, theme.colors.accent].forEach(c => {
+        const swatch = document.createElement('div');
+        swatch.className = 'swatch';
+        swatch.style.background = c;
+        preview.appendChild(swatch);
+      });
       card.appendChild(preview);
 
       const name = document.createElement('div');
@@ -1977,7 +2128,6 @@
       name.textContent = theme.name;
       card.appendChild(name);
 
-      // Кнопки действий для пользовательских тем
       if (!theme.builtIn) {
         const actions = document.createElement('div');
         actions.className = 'theme-card-actions';
@@ -1986,10 +2136,7 @@
         editBtn.type = 'button';
         editBtn.title = 'Редактировать';
         editBtn.textContent = '✏';
-        editBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          openThemeEditor(theme);
-        });
+        editBtn.addEventListener('click', (e) => { e.stopPropagation(); openThemeEditor(theme); });
 
         const delBtn = document.createElement('button');
         delBtn.type = 'button';
@@ -2001,9 +2148,7 @@
           if (confirm(`Удалить тему «${theme.name}»?`)) {
             const remaining = loadUserThemes().filter(t => t.id !== theme.id);
             saveUserThemes(remaining);
-            if (getActiveThemeId() === theme.id) {
-              applyThemeById('dark');
-            }
+            if (getActiveThemeId() === theme.id) applyThemeById('dark');
             renderThemesGrid();
           }
         });
@@ -2013,9 +2158,7 @@
         card.appendChild(actions);
       }
 
-      // Клик по карточке — применить
       card.addEventListener('click', () => applyThemeById(theme.id));
-
       grid.appendChild(card);
     });
   }
@@ -2039,7 +2182,7 @@
   const presetsRow = document.getElementById('presetsRow');
   const themeLivePreview = document.getElementById('themeLivePreview');
 
-  let editingThemeId = null; // null — создание новой
+  let editingThemeId = null;
 
   function buildPresets() {
     presetsRow.innerHTML = '';
@@ -2052,13 +2195,11 @@
 
       const inner = document.createElement('div');
       inner.className = 'preset-chip-inner';
-
       [preset.bg, preset.paper, preset.card, preset.accent].forEach(c => {
         const d = document.createElement('div');
         d.style.background = c;
         inner.appendChild(d);
       });
-
       chip.appendChild(inner);
       chip.addEventListener('click', () => {
         applyColorsToEditor(preset);
@@ -2078,7 +2219,6 @@
     updateHexLabels();
     updateLivePreview();
   }
-
   function updateHexLabels() {
     hexBg.textContent = themeBgColor.value;
     hexPaper.textContent = themePaperColor.value;
@@ -2086,25 +2226,16 @@
     hexAccent.textContent = themeAccentColor.value;
     hexText.textContent = themeTextColor.value;
   }
-
   function updateLivePreview() {
-    const bg = themeBgColor.value;
-    const paper = themePaperColor.value;
-    const card = themeCardColor.value;
-    const accent = themeAccentColor.value;
-    const text = themeTextColor.value;
-
-    themeLivePreview.style.background = paper;
-    themeLivePreview.style.borderColor = accent;
-
-    themeLivePreview.querySelector('.lp-title').style.color = accent;
-    themeLivePreview.querySelector('.lp-text').style.color = text;
+    themeLivePreview.style.background = themePaperColor.value;
+    themeLivePreview.style.borderColor = themeAccentColor.value;
+    themeLivePreview.querySelector('.lp-title').style.color = themeAccentColor.value;
+    themeLivePreview.querySelector('.lp-text').style.color = themeTextColor.value;
     const btn = themeLivePreview.querySelector('.lp-btn');
-    btn.style.background = accent;
-    btn.style.color = paper;
+    btn.style.background = themeAccentColor.value;
+    btn.style.color = themePaperColor.value;
   }
 
-  // Подписки на изменение цветов
   [themeBgColor, themePaperColor, themeCardColor, themeAccentColor, themeTextColor].forEach(inp => {
     inp.addEventListener('input', () => {
       updateHexLabels();
@@ -2123,17 +2254,12 @@
       editingThemeId = null;
       themeEditorTitle.textContent = '➕ Новая тема';
       themeNameInput.value = '';
-      // Дефолтные цвета новой темы
-      applyColorsToEditor({
-        bg: "#0f2027", paper: "#1a1a2e", card: "#16213e",
-        accent: "#00d4ff", accent2: "#ff00ea", text: "#ffffff"
-      });
+      applyColorsToEditor({ bg: "#0f2027", paper: "#1a1a2e", card: "#16213e", accent: "#00d4ff", text: "#ffffff" });
       document.querySelectorAll('.preset-chip').forEach(c => c.dataset.selected = 'false');
     }
     themeEditor.style.display = 'block';
     themeEditor.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
-
   function closeThemeEditor() {
     themeEditor.style.display = 'none';
     editingThemeId = null;
@@ -2144,25 +2270,20 @@
 
   document.getElementById('btnSaveTheme').addEventListener('click', () => {
     const name = themeNameInput.value.trim();
-    if (!name) {
-      alert('Введите название темы');
-      themeNameInput.focus();
-      return;
-    }
+    if (!name) { alert('Введите название темы'); themeNameInput.focus(); return; }
 
     const colors = {
       bg: themeBgColor.value,
       paper: themePaperColor.value,
       card: themeCardColor.value,
       accent: themeAccentColor.value,
-      accent2: themeAccentColor.value, // второй акцент = основной (можно расширить позже)
+      accent2: themeAccentColor.value,
       text: themeTextColor.value
     };
 
     const themes = loadUserThemes();
 
     if (editingThemeId) {
-      // Обновляем существующую
       const idx = themes.findIndex(t => t.id === editingThemeId);
       if (idx >= 0) {
         themes[idx].name = name;
@@ -2171,7 +2292,6 @@
       saveUserThemes(themes);
       applyThemeById(editingThemeId);
     } else {
-      // Создаём новую
       const id = 'user-' + Date.now().toString(36);
       themes.push({ id, name, colors });
       saveUserThemes(themes);
@@ -2182,9 +2302,7 @@
     renderThemesGrid();
   });
 
-  document.getElementById('btnResetTheme').addEventListener('click', () => {
-    applyThemeById('dark');
-  });
+  document.getElementById('btnResetTheme').addEventListener('click', () => applyThemeById('dark'));
 
   /* ============================================================
      🎨 ПАНЕЛЬ НАСТРОЕК
@@ -2227,30 +2345,24 @@
 
   initScrollReveal();
   loadContent();
+  renderProjectsGallery();
   applyCollapseToAll();
   applyItemCollapseToAll();
   renderPhoto();
   renderBackground();
   setInterval(renderPhoto, 30000);
 
-  // Применяем сохранённую тему
   applyThemeById(getActiveThemeId());
 
   // ===== QR-КОД САЙТА =====
   (function renderPublicSiteQR() {
     const qrElement = document.getElementById('siteQrCode');
     if (!qrElement || typeof QRCode === 'undefined') return;
-
     const siteUrl = 'https://ok11-afk.github.io/school-magazine/';
-
     qrElement.innerHTML = '';
-
     new QRCode(qrElement, {
-      text: siteUrl,
-      width: 150,
-      height: 150,
-      colorDark: '#111827',
-      colorLight: '#ffffff',
+      text: siteUrl, width: 150, height: 150,
+      colorDark: '#111827', colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.H
     });
   })();
