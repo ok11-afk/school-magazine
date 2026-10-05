@@ -24,65 +24,92 @@
   @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   .title-block { flex: 1.15 1 0; min-width: 240px; }
 
-  /* ===== Информационный блок «Виртуальное-зрение» ===== */
   .cyber-vision-card {
     position: relative;
     margin: 0 0 20px;
     padding: 20px 22px;
-    border: 1px solid var(--accent-soft, #00d4ff55);
-    border-left: 5px solid var(--accent-2, #8b5cf6);
+    border: 1px solid var(--custom-accent-soft, #00d4ff55);
+    border-left: 5px solid var(--custom-accent, #8b5cf6);
     border-radius: 16px;
-    background: linear-gradient(135deg, #182443 0%, #111a31 55%, #1b1635 100%);
-    box-shadow: 0 10px 28px #0003, 0 0 22px #8b5cf620;
+    background: linear-gradient(135deg,
+      var(--custom-card, #182443) 0%,
+      var(--custom-paper, #111a31) 55%,
+      var(--custom-card, #1b1635) 100%);
+    box-shadow: 0 10px 28px #0003, 0 0 22px var(--custom-accent-soft, #8b5cf620);
     overflow: hidden;
   }
   .cyber-vision-card::before {
     content: ""; position: absolute; width: 180px; height: 180px;
     right: -75px; top: -95px; border-radius: 50%;
-    background: #00d4ff14; pointer-events: none;
+    background: var(--custom-accent-soft, #00d4ff14);
+    pointer-events: none;
   }
   .cyber-vision-card .cyber-vision-title {
     display: flex; align-items: center; gap: 10px;
-    margin: 0 0 10px; color: #a78bfa; font-size: 1.3em;
-    border-bottom: 1px solid #00d4ff35; padding-bottom: 9px;
+    margin: 0 0 10px;
+    color: var(--custom-accent, #a78bfa);
+    font-size: 1.3em;
+    border-bottom: 1px solid var(--custom-accent-soft, #00d4ff35);
+    padding-bottom: 9px;
   }
   .cyber-vision-card .cyber-vision-title span { font-size: 1.15em; }
-  .cyber-vision-card p { margin: 0 0 15px; color: #e6edf7; line-height: 1.6; }
+  .cyber-vision-card p {
+    margin: 0 0 15px;
+    color: var(--custom-text, #e6edf7);
+    line-height: 1.6;
+  }
   .cyber-vision-link {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 10px 16px; border-radius: 10px;
-    background: #00d4ff; color: #07131d !important;
+    background: var(--custom-accent, #00d4ff);
+    color: var(--custom-paper, #07131d) !important;
     font-weight: 800; text-decoration: none;
-    box-shadow: 0 5px 16px #00d4ff30;
-    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    box-shadow: 0 5px 16px var(--custom-accent-soft, #00d4ff30);
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
   }
-  .cyber-vision-link:hover { transform: translateY(-2px); background: #67e8f9; box-shadow: 0 8px 22px #00d4ff45; }
+  .cyber-vision-link:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 8px 22px var(--custom-accent-soft, #00d4ff45);
+  }
 
   .about-panel {
     flex: 1 1 0; min-width: 270px;
     padding: 16px 18px;
-    background: linear-gradient(145deg, #16213e, #111a30);
-    border: 1px solid #00d4ff55;
-    border-left: 4px solid #22c55e;
+    background: linear-gradient(145deg,
+      var(--custom-card, #16213e),
+      var(--custom-paper, #111a30));
+    border: 1px solid var(--custom-accent-soft, #00d4ff55);
+    border-left: 4px solid var(--custom-accent, #22c55e);
     border-radius: 14px;
-    box-shadow: 0 8px 24px #0003, 0 0 18px #00d4ff18;
+    box-shadow: 0 8px 24px #0003, 0 0 18px var(--custom-accent-soft, #00d4ff18);
     position: relative; overflow: hidden;
   }
   .about-panel::after {
     content: ""; position: absolute; width: 90px; height: 90px;
     right: -35px; top: -35px; border-radius: 50%;
-    background: #00d4ff12; pointer-events: none;
+    background: var(--custom-accent-soft, #00d4ff12);
+    pointer-events: none;
   }
   .about-panel h2 {
-    margin: 0 0 8px; color: #00d4ff; font-size: 1.15em;
-    border-bottom: 1px solid #00d4ff44; padding-bottom: 7px;
+    margin: 0 0 8px;
+    color: var(--custom-accent, #00d4ff);
+    font-size: 1.15em;
+    border-bottom: 1px solid var(--custom-accent-soft, #00d4ff44);
+    padding-bottom: 7px;
   }
-  .about-panel p { margin: 0; line-height: 1.55; color: #dbeafe; font-size: 0.92em; }
+  .about-panel p {
+    margin: 0; line-height: 1.55;
+    color: var(--custom-text, #dbeafe);
+    font-size: 0.92em;
+  }
   .about-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
   .about-tag {
     display: inline-block; padding: 4px 9px;
-    border-radius: 999px; background: #00d4ff18;
-    border: 1px solid #00d4ff44; color: #7dd3fc;
+    border-radius: 999px;
+    background: var(--custom-accent-soft, #00d4ff18);
+    border: 1px solid var(--custom-accent-soft, #00d4ff44);
+    color: var(--custom-accent, #7dd3fc);
     font-size: 0.76em; font-weight: 700;
   }
 
@@ -112,6 +139,11 @@
   }
   .admin-bar button.panel-btn { background: #16213e; color: #00d4ff; border-color: #00d4ff; }
   .admin-bar button.panel-btn:hover { background: #00d4ff; color: #0f2027; }
+  .admin-bar button.icon-btn {
+    width: 42px; height: 42px; padding: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 1.25em; line-height: 1; border-radius: 50%;
+  }
   .admin-status { font-size: 0.85em; color: #aaa; }
 
   nav { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
@@ -141,7 +173,9 @@
 
   body.reveal-enabled .card.reveal-card,
   body.reveal-enabled .cyber-vision-card.reveal-card,
-  body.reveal-enabled .projects-category.reveal-card {
+  body.reveal-enabled .projects-category.reveal-card,
+  body.reveal-enabled .site-qr-section.reveal-card,
+  body.reveal-enabled .visits-counter.reveal-card {
     opacity: 0;
     transform: translateY(38px) scale(0.97);
     filter: blur(2px);
@@ -154,7 +188,9 @@
   }
   body.reveal-enabled .card.reveal-card.is-visible,
   body.reveal-enabled .cyber-vision-card.reveal-card.is-visible,
-  body.reveal-enabled .projects-category.reveal-card.is-visible {
+  body.reveal-enabled .projects-category.reveal-card.is-visible,
+  body.reveal-enabled .site-qr-section.reveal-card.is-visible,
+  body.reveal-enabled .visits-counter.reveal-card.is-visible {
     opacity: 1;
     transform: translateY(0) scale(1);
     filter: blur(0);
@@ -165,7 +201,11 @@
     body.reveal-enabled .cyber-vision-card.reveal-card,
     body.reveal-enabled .cyber-vision-card.reveal-card.is-visible,
     body.reveal-enabled .projects-category.reveal-card,
-    body.reveal-enabled .projects-category.reveal-card.is-visible {
+    body.reveal-enabled .projects-category.reveal-card.is-visible,
+    body.reveal-enabled .site-qr-section.reveal-card,
+    body.reveal-enabled .site-qr-section.reveal-card.is-visible,
+    body.reveal-enabled .visits-counter.reveal-card,
+    body.reveal-enabled .visits-counter.reveal-card.is-visible {
       opacity: 1; transform: none; filter: none; transition: none;
     }
   }
@@ -200,13 +240,12 @@
   .photo-box img { width: 100%; height: auto; display: block; border-radius: 8px; }
   .photo-box .placeholder { color: #555; padding: 40px 10px; text-align: center; }
 
-  /* ====== АДМИН-ЛОГИКА ====== */
   .admin-only { display: none !important; }
   body.admin .admin-only { display: block !important; }
   body.admin .admin-only.inline { display: inline-block !important; }
-  body.admin .project-card-controls.admin-only,
-  body.admin .projects-gallery-header .admin-only { display: flex !important; }
-  body.admin .projects-gallery-header .admin-only.inline { display: inline-block !important; }
+  body.admin .project-card-controls.admin-only { display: flex !important; }
+  body.admin .projects-gallery-header .admin-only { display: inline-block !important; }
+  body.admin .visits-counter-edit.admin-only { display: block !important; }
 
   .bottom-background-control { text-align: center; margin-top: 22px; margin-bottom: 10px; }
   .bottom-background-control button {
@@ -276,7 +315,6 @@
   .show-more-btn.expanded { border-color: #ff00ea; color: #ff00ea; }
   .show-more-btn.expanded:hover { background: #ff00ea; color: #fff; }
 
-  /* ====== МОДАЛКИ ====== */
   .modal {
     display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
     z-index: 1000; align-items: center; justify-content: center; padding: 20px;
@@ -306,7 +344,6 @@
   .btn-cancel:hover { background: #666; }
   .error-msg { color: #ef4444; font-size: 0.85em; min-height: 1.2em; }
 
-  /* ====== АДМИН-ПАНЕЛЬ ====== */
   .admin-panel { max-width: 520px; text-align: left; }
   .admin-panel h3 { text-align: center; margin-top: 0; }
   .qr-wrapper {
@@ -380,7 +417,6 @@
     #qrPrintArea .qr-label { font-size: 2em; margin-top: 24px; }
   }
 
-  /* ===== ПРАВАЯ ПАНЕЛЬ НАСТРОЕК ===== */
   .settings-launcher {
     position: fixed; right: 18px; top: 50%; transform: translateY(-50%);
     z-index: 1200; width: 52px; height: 52px; border: 1px solid #00d4ff;
@@ -408,7 +444,6 @@
   .settings-label { display:block; margin-bottom:12px; font-weight:700; }
   .settings-note { color:#aab6c9; font-size:.88rem; line-height:1.5; margin-top:16px; }
 
-  /* ===== КОНСТРУКТОР ТЕМ ===== */
   .themes-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 10px; margin-bottom: 12px;
@@ -548,6 +583,29 @@
   body.light-theme .btn-reset-theme { background: #e4eef3; color: #243447; }
   body.light-theme .btn-cancel-theme { background: #e4eef3; color: #243447; }
 
+  body.light-theme .about-panel {
+    background: linear-gradient(145deg, #ffffff, #edf6fa);
+    border-color: #159fc044;
+    border-left-color: #16a765;
+    box-shadow: 0 8px 24px #183b4b12;
+  }
+  body.light-theme .about-panel h2 { color: #087f9d; border-bottom-color: #159fc044; }
+  body.light-theme .about-panel p { color: #385064; }
+  body.light-theme .about-tag { background: #159fc012; border-color: #159fc044; color: #087f9d; }
+
+  body.light-theme .cyber-vision-card {
+    background: linear-gradient(135deg, #ffffff 0%, #eef8fb 58%, #f5f0ff 100%);
+    border-color: #159fc044;
+    border-left-color: #7c3aed;
+    box-shadow: 0 10px 28px #183b4b14, 0 0 20px #7c3aed10;
+  }
+  body.light-theme .cyber-vision-card .cyber-vision-title {
+    color: #6d28d9; border-bottom-color: #159fc044;
+  }
+  body.light-theme .cyber-vision-card p { color: #385064; }
+  body.light-theme .cyber-vision-link { background: #7c3aed; color: #fff !important; }
+  body.light-theme .cyber-vision-link:hover { background: #6d28d9; }
+
   /* ===== КАСТОМНАЯ ТЕМА ===== */
   body.custom-theme { background: var(--custom-bg); color: var(--custom-text); }
   body.custom-theme .paper {
@@ -604,24 +662,212 @@
     justify-content: space-between;
     gap: 24px;
     padding: 18px 22px;
-    border: 1px solid #00d4ff55;
-    border-left: 4px solid #00d4ff;
+    border: 1px solid var(--custom-accent-soft, #00d4ff55);
+    border-left: 4px solid var(--custom-accent, #00d4ff);
     border-radius: 16px;
-    background: linear-gradient(145deg, #111a30, #16213e);
-    box-shadow: 0 8px 24px #0003, 0 0 18px #00d4ff14;
+    background: linear-gradient(145deg,
+      var(--custom-card, #111a30),
+      var(--custom-paper, #16213e));
+    box-shadow: 0 8px 24px #0003, 0 0 18px var(--custom-accent-soft, #00d4ff14);
   }
   .site-qr-text { flex: 1; }
-  .site-qr-text h2 { margin: 0 0 7px; color: #00d4ff; font-size: 1.2em; }
-  .site-qr-text p { margin: 0 0 8px; line-height: 1.5; color: #dbeafe; }
-  .site-qr-text span { font-size: .8em; font-weight: 700; letter-spacing: 1px; color: #7dd3fc; }
-  .site-qr-box { flex: 0 0 auto; padding: 9px; background: #fff; border-radius: 12px; box-shadow: 0 4px 18px #0004; }
-  #siteQrCode { width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; }
-  #siteQrCode img, #siteQrCode canvas { display: block; width: 150px !important; height: 150px !important; }
+  .site-qr-text p {
+    margin: 0 0 8px;
+    line-height: 1.5;
+    color: var(--custom-text, #dbeafe);
+  }
+  .site-qr-text span {
+    font-size: .8em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--custom-accent, #7dd3fc);
+  }
+  .site-qr-box {
+    flex: 0 0 auto;
+    padding: 9px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px #0004;
+  }
+  #siteQrCode {
+    width: 150px; height: 150px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #siteQrCode img, #siteQrCode canvas {
+    display: block;
+    width: 150px !important;
+    height: 150px !important;
+  }
   @media (max-width: 600px) {
     .site-qr-section { flex-direction: column; text-align: center; }
   }
 
-  /* ===== КАТЕГОРИЯ «НАШИ ПРОЕКТЫ» (ГАЛЕРЕЯ) ===== */
+  body.light-theme .site-qr-section {
+    background: linear-gradient(145deg, #fff, #edf6fa);
+    border-color: #159fc044;
+    border-left-color: #159fc0;
+    box-shadow: 0 8px 24px #183b4b12;
+  }
+  body.light-theme .site-qr-text p { color: #385064; }
+  body.light-theme .site-qr-text span { color: #087f9d; }
+
+  body.custom-theme .site-qr-section {
+    background: linear-gradient(145deg, var(--custom-card), var(--custom-paper));
+    border-color: var(--custom-accent-soft);
+    border-left-color: var(--custom-accent);
+  }
+  body.custom-theme .site-qr-text p { color: var(--custom-text); }
+  body.custom-theme .site-qr-text span { color: var(--custom-accent); }
+
+  /* ===== СЧЁТЧИК ПОСЕЩЕНИЙ ===== */
+  .visits-counter {
+    margin: 16px auto 0;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 26px 24px 28px;
+    border: 2px solid var(--custom-accent-soft, #00d4ff55);
+    border-left: 6px solid var(--custom-accent, #00d4ff);
+    border-radius: 20px;
+    background: linear-gradient(145deg,
+      var(--custom-card, #111a30),
+      var(--custom-paper, #16213e));
+    box-shadow: 0 12px 32px #0004, 0 0 28px var(--custom-accent-soft, #00d4ff22);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .visits-counter::before {
+    content: "";
+    position: absolute;
+    width: 240px; height: 240px;
+    right: -100px; top: -120px;
+    border-radius: 50%;
+    background: var(--custom-accent-soft, #00d4ff10);
+    pointer-events: none;
+  }
+  .visits-counter-label {
+    font-size: 1.1em;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--custom-accent, #7dd3fc);
+    opacity: 0.9;
+  }
+  .visits-counter-value {
+    font-size: 4.5em;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 2px;
+    color: var(--custom-accent, #00d4ff);
+    text-shadow: 0 0 24px var(--custom-accent-soft, #00d4ff55);
+    font-variant-numeric: tabular-nums;
+  }
+  .visits-counter-sub {
+    font-size: 0.95em;
+    letter-spacing: 1px;
+    opacity: 0.75;
+    color: var(--custom-text, #dbeafe);
+  }
+  .visits-counter-edit { margin-top: 12px; }
+  .visits-counter-edit button {
+    background: transparent;
+    color: var(--custom-accent, #00d4ff);
+    border: 2px dashed var(--custom-accent, #00d4ff);
+    padding: 6px 14px;
+    border-radius: 18px;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: all .25s;
+  }
+  .visits-counter-edit button:hover {
+    background: var(--custom-accent, #00d4ff);
+    color: var(--custom-paper, #0f2027);
+    border-style: solid;
+  }
+  body.light-theme .visits-counter-edit button {
+    color: #087f9d;
+    border-color: #087f9d;
+  }
+  body.light-theme .visits-counter-edit button:hover {
+    background: #087f9d;
+    color: #fff;
+  }
+
+  .visits-counter-input-row {
+    display: none;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .visits-counter-input-row.open { display: flex; }
+  .visits-counter-input-row input {
+    width: 130px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 2px solid var(--custom-accent, #00d4ff);
+    background: var(--custom-paper, #0f2027);
+    color: var(--custom-text, #ffffff);
+    font-family: inherit;
+    font-size: 1em;
+    text-align: center;
+    outline: none;
+  }
+  body.light-theme .visits-counter-input-row input {
+    background: #fff;
+    color: #243447;
+    border-color: #087f9d;
+  }
+  .visits-counter-input-row button {
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: none;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .visits-counter-input-row button.save { background: #22c55e; color: #fff; }
+  .visits-counter-input-row button.save:hover { background: #16a34a; }
+  .visits-counter-input-row button.cancel { background: #444; color: #fff; }
+  .visits-counter-input-row button.cancel:hover { background: #666; }
+
+  @media (max-width: 520px) {
+    .visits-counter-value { font-size: 3.2em; }
+    .visits-counter-label { font-size: 0.95em; letter-spacing: 1px; }
+  }
+
+  body.light-theme .visits-counter {
+    background: linear-gradient(145deg, #fff, #edf6fa);
+    border-color: #159fc055;
+    border-left-color: #159fc0;
+    box-shadow: 0 12px 32px #183b4b18, 0 0 28px #159fc022;
+  }
+  body.light-theme .visits-counter-label { color: #087f9d; }
+  body.light-theme .visits-counter-value {
+    color: #087f9d;
+    text-shadow: 0 0 24px #159fc033;
+  }
+  body.light-theme .visits-counter-sub { color: #385064; }
+
+  body.custom-theme .visits-counter {
+    background: linear-gradient(145deg, var(--custom-card), var(--custom-paper));
+    border-color: var(--custom-accent-soft);
+    border-left-color: var(--custom-accent);
+  }
+  body.custom-theme .visits-counter-label { color: var(--custom-accent); }
+  body.custom-theme .visits-counter-value { color: var(--custom-accent); text-shadow: 0 0 24px var(--custom-accent-soft); }
+  body.custom-theme .visits-counter-sub { color: var(--custom-text); }
+
+  /* ===== КАТЕГОРИЯ «НАШИ ПРОЕКТЫ» ===== */
   .projects-category {
     margin: 0 0 22px;
     padding: 22px;
@@ -647,115 +893,55 @@
     font-size: 1.35em;
   }
   #addProjectBtn {
-    background: #22c55e;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 0.85em;
-    transition: all .25s;
+    background: #22c55e; color: #fff; border: none;
+    padding: 8px 16px; border-radius: 18px;
+    font-weight: bold; cursor: pointer; font-family: inherit;
+    font-size: 0.85em; transition: all .25s;
   }
-  #addProjectBtn:hover {
-    background: #16a34a;
-    transform: translateY(-2px);
-  }
+  #addProjectBtn:hover { background: #16a34a; transform: translateY(-2px); }
   .projects-gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;
   }
-  @media (max-width: 720px) {
-    .projects-gallery-grid { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 720px) { .projects-gallery-grid { grid-template-columns: 1fr; } }
 
   .project-card {
-    display: flex;
-    flex-direction: column;
-    background: #0f2027;
-    border-radius: 14px;
-    border: 1px solid #00d4ff33;
-    overflow: hidden;
-    transition: transform .3s, box-shadow .3s;
+    display: flex; flex-direction: column;
+    background: #0f2027; border-radius: 14px; border: 1px solid #00d4ff33;
+    overflow: hidden; transition: transform .3s, box-shadow .3s;
   }
-  .project-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 28px #00d4ff33;
-  }
+  .project-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px #00d4ff33; }
   .project-card-image {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 10;
+    position: relative; width: 100%; aspect-ratio: 16 / 10;
     background: #16213e center/cover no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
   }
   .project-card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    position: absolute;
-    inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; position: absolute; inset: 0;
   }
-  .project-card-image .placeholder {
-    color: #556;
-    font-size: 0.9em;
-    text-align: center;
-    padding: 20px;
-    z-index: 1;
-  }
+  .project-card-image .placeholder { color: #556; font-size: 0.9em; text-align: center; padding: 20px; z-index: 1; }
   .project-card-caption {
-    padding: 14px 16px 8px;
-    font-size: 0.95em;
-    line-height: 1.5;
-    color: #dbeafe;
-    flex: 1;
-    min-height: 60px;
+    padding: 14px 16px 8px; font-size: 0.95em; line-height: 1.5;
+    color: #dbeafe; flex: 1; min-height: 60px;
   }
-  .project-card-controls {
-    display: flex;
-    gap: 8px;
-    padding: 0 16px 16px;
-    flex-wrap: wrap;
-  }
+  .project-card-controls { display: flex; gap: 8px; padding: 0 16px 16px; flex-wrap: wrap; }
   .project-card-controls label,
   .project-card-controls button {
-    padding: 6px 12px;
-    border-radius: 16px;
-    border: none;
-    font-family: inherit;
-    font-weight: bold;
-    font-size: 0.82em;
-    cursor: pointer;
-    transition: all .2s;
+    padding: 6px 12px; border-radius: 16px; border: none;
+    font-family: inherit; font-weight: bold; font-size: 0.82em;
+    cursor: pointer; transition: all .2s;
   }
-  .project-card-controls label {
-    background: #00d4ff;
-    color: #0f2027;
-  }
+  .project-card-controls label { background: #00d4ff; color: #0f2027; }
   .project-card-controls label:hover { background: #fff; }
-  .project-card-controls button.remove {
-    background: #ef4444;
-    color: #fff;
-  }
+  .project-card-controls button.remove { background: #ef4444; color: #fff; }
   .project-card-controls button.remove:hover { background: #b91c1c; }
   .project-card-controls input[type="file"] { display: none; }
 
-  .project-card .edit-controls {
-    padding: 0 16px 16px;
-    margin-top: 0;
-  }
+  .project-card .edit-controls { padding: 0 16px 16px; margin-top: 0; }
 
-  /* Светлая тема для галереи */
   body.light-theme .projects-category {
     background: linear-gradient(145deg, #fff, #edf6fa);
-    border-color: #159fc044;
-    border-left-color: #159fc0;
+    border-color: #159fc044; border-left-color: #159fc0;
   }
   body.light-theme .projects-gallery-header { border-bottom-color: #159fc044; }
   body.light-theme .projects-gallery-header h2 { color: #087f9d; }
@@ -764,7 +950,6 @@
   body.light-theme .project-card-image .placeholder { color: #889; }
   body.light-theme .project-card-caption { color: #243447; }
 
-  /* Кастомная тема для галереи */
   body.custom-theme .projects-category {
     background: var(--custom-card);
     border-color: var(--custom-accent-soft);
@@ -773,15 +958,226 @@
   body.custom-theme .projects-gallery-header h2 { color: var(--custom-accent); }
   body.custom-theme .projects-gallery-header { border-bottom-color: var(--custom-accent-soft); }
   body.custom-theme .project-card {
-    background: var(--custom-paper);
-    border-color: var(--custom-accent-soft);
+    background: var(--custom-paper); border-color: var(--custom-accent-soft);
   }
   body.custom-theme .project-card-caption { color: var(--custom-text); }
   body.custom-theme .project-card-controls label { background: var(--custom-accent); color: var(--custom-paper); }
+
+  /* ===== ОБРАТНАЯ СВЯЗЬ ===== */
+  .feedback-float {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 1180;
+    max-width: 300px;
+    padding: 12px 16px;
+    border: 1px solid var(--custom-accent-soft, #00d4ff55);
+    border-left: 4px solid var(--custom-accent, #00d4ff);
+    border-radius: 15px;
+    background: linear-gradient(145deg, var(--custom-card, #111a30), var(--custom-paper, #16213e));
+    color: var(--custom-text, #dbeafe);
+    box-shadow: 0 10px 28px #0005, 0 0 18px var(--custom-accent-soft, #00d4ff22);
+    font-family: inherit;
+    font-size: .9em;
+    cursor: pointer;
+    text-align: left;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .feedback-float:hover { transform: translateY(-3px); box-shadow: 0 14px 34px #0006, 0 0 24px var(--custom-accent-soft, #00d4ff35); }
+  .feedback-float-title { font-weight: 800; color: var(--custom-accent, #00d4ff); margin-bottom: 3px; }
+  .feedback-float-sub { opacity: .8; font-size: .82em; }
+
+  .feedback-modal-content { max-width: 520px; text-align: left; }
+  .feedback-modal-content h3 { text-align: center; margin-bottom: 8px; }
+  .feedback-intro { text-align: center; opacity: .8; font-size: .9em; margin-top: 0; }
+  .feedback-rating { display: flex; gap: 10px; margin: 16px 0; }
+  .feedback-rating button {
+    flex: 1; padding: 11px 8px; border-radius: 11px;
+    border: 1px solid var(--custom-accent-soft, #00d4ff55);
+    background: var(--custom-card, #16213e); color: var(--custom-text, #dbeafe);
+    cursor: pointer; font-family: inherit; font-weight: 700; transition: all .2s;
+  }
+  .feedback-rating button:hover, .feedback-rating button.selected {
+    background: var(--custom-accent, #00d4ff); color: var(--custom-paper, #0f2027); transform: translateY(-2px);
+  }
+  .feedback-textarea {
+    width: 100%; min-height: 130px; resize: vertical; padding: 12px;
+    border-radius: 11px; border: 1px solid var(--custom-accent-soft, #00d4ff55);
+    background: var(--custom-paper, #0f2027); color: var(--custom-text, #fff);
+    font-family: inherit; font-size: .95em; outline: none;
+  }
+  .feedback-textarea:focus { border-color: var(--custom-accent, #00d4ff); box-shadow: 0 0 12px var(--custom-accent-soft, #00d4ff22); }
+  .feedback-mail-note { font-size: .78em; opacity: .65; margin: 9px 0 0; text-align: center; }
+  .feedback-send { background: var(--custom-accent, #00d4ff); color: var(--custom-paper, #0f2027); }
+  .feedback-send:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+  body.light-theme .feedback-float { background: linear-gradient(145deg, #fff, #edf6fa); color: #243447; border-color: #159fc055; border-left-color: #159fc0; }
+  body.light-theme .feedback-float-title { color: #087f9d; }
+  body.light-theme .feedback-rating button { background: #fff; color: #243447; border-color: #c3d5df; }
+  body.light-theme .feedback-rating button:hover, body.light-theme .feedback-rating button.selected { background: #159fc0; color: #fff; }
+  body.light-theme .feedback-textarea { background: #fff; color: #243447; border-color: #c3d5df; }
+  body.custom-theme .feedback-float { background: linear-gradient(145deg, var(--custom-card), var(--custom-paper)); }
+  body.custom-theme .feedback-rating button { background: var(--custom-paper); color: var(--custom-text); border-color: var(--custom-accent-soft); }
+  body.custom-theme .feedback-textarea { background: var(--custom-paper); color: var(--custom-text); border-color: var(--custom-accent-soft); }
+
+  @media (max-width: 600px) {
+    .feedback-float { right: 10px; bottom: 10px; left: 10px; max-width: none; text-align: center; }
+  }
+
+  /* ===== ССЫЛКА В ФУТЕРЕ ===== */
+  .footer-links {
+    margin-top: 8px;
+  }
+  .footer-links button {
+    background: transparent;
+    border: none;
+    color: var(--custom-accent, #00d4ff);
+    font-family: inherit;
+    font-size: 0.9em;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: all .25s;
+    text-decoration: underline;
+  }
+  .footer-links button:hover {
+    background: var(--custom-accent-soft, #00d4ff22);
+    text-decoration: none;
+  }
+  body.light-theme .footer-links button { color: #087f9d; }
+  body.custom-theme .footer-links button { color: var(--custom-accent); }
+
+  /* ===== COOKIE-БАННЕР ===== */
+  .cookie-banner {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    z-index: 1250;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    border: 1px solid var(--custom-accent-soft, #00d4ff55);
+    border-left: 4px solid var(--custom-accent, #00d4ff);
+    border-radius: 14px;
+    background: linear-gradient(145deg,
+      var(--custom-card, #111a30),
+      var(--custom-paper, #16213e));
+    color: var(--custom-text, #dbeafe);
+    box-shadow: 0 12px 32px #0005, 0 0 22px var(--custom-accent-soft, #00d4ff22);
+    font-size: 0.92em;
+    transform: translateY(140%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .35s ease;
+  }
+  .cookie-banner.visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .cookie-banner-text { flex: 1; min-width: 200px; line-height: 1.5; }
+  .cookie-banner-text a {
+    color: var(--custom-accent, #00d4ff);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .cookie-banner-actions button {
+    background: var(--custom-accent, #00d4ff);
+    color: var(--custom-paper, #0f2027);
+    border: none;
+    padding: 9px 20px;
+    border-radius: 20px;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all .25s;
+    white-space: nowrap;
+  }
+  .cookie-banner-actions button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.15);
+    box-shadow: 0 6px 18px var(--custom-accent-soft, #00d4ff55);
+  }
+  @media (max-width: 600px) {
+    .cookie-banner { flex-direction: column; align-items: stretch; text-align: center; }
+    .cookie-banner-actions { display: flex; justify-content: center; }
+  }
+  body.light-theme .cookie-banner {
+    background: linear-gradient(145deg, #fff, #edf6fa);
+    border-color: #159fc055;
+    border-left-color: #159fc0;
+    color: #243447;
+  }
+  body.light-theme .cookie-banner-text a { color: #087f9d; }
+  body.light-theme .cookie-banner-actions button { background: #159fc0; color: #fff; }
+  body.custom-theme .cookie-banner {
+    background: linear-gradient(145deg, var(--custom-card), var(--custom-paper));
+    border-color: var(--custom-accent-soft);
+    border-left-color: var(--custom-accent);
+    color: var(--custom-text);
+  }
+  body.custom-theme .cookie-banner-actions button {
+    background: var(--custom-accent);
+    color: var(--custom-paper);
+  }
+
+  /* ===== МОДАЛКА ПОЛИТИКИ ===== */
+  .privacy-modal-content {
+    max-width: 640px;
+    text-align: left;
+  }
+  .privacy-modal-content h3 {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .privacy-body {
+    max-height: 65vh;
+    overflow-y: auto;
+    padding-right: 6px;
+    color: var(--custom-text, #dbeafe);
+    line-height: 1.55;
+    font-size: 0.92em;
+  }
+  .privacy-body p { margin: 0 0 10px; }
+  .privacy-body p strong { color: var(--custom-accent, #00d4ff); }
+  .privacy-body ul {
+    padding-left: 20px;
+    margin: 0 0 12px;
+  }
+  .privacy-body li { margin-bottom: 4px; }
+  .privacy-body code {
+    background: var(--custom-accent-soft, #00d4ff22);
+    padding: 1px 6px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.88em;
+  }
+  .privacy-date {
+    color: #889;
+    font-size: 0.85em;
+    text-align: right;
+    margin-top: 14px !important;
+  }
+  body.light-theme .privacy-body { color: #243447; }
+  body.light-theme .privacy-body p strong { color: #087f9d; }
+  body.light-theme .privacy-body code { background: #159fc022; }
+  body.custom-theme .privacy-body { color: var(--custom-text); }
+  body.custom-theme .privacy-body p strong { color: var(--custom-accent); }
 </style>
 </head>
 <body>
 
+<button class="feedback-float" id="feedbackFloat" type="button" aria-label="Оставить отзыв">
+  <div class="feedback-float-title">💬 Вам была интересна предоставленная информация?</div>
+  <div class="feedback-float-sub">Нажмите, чтобы оставить отзыв</div>
+</button>
 <button class="settings-launcher" id="settingsLauncher" type="button" aria-label="Открыть настройки" aria-expanded="false" title="Настройки">⚙</button>
 <div class="settings-overlay" id="settingsOverlay"></div>
 <aside class="settings-drawer" id="settingsDrawer" aria-label="Настройки сайта" aria-hidden="true">
@@ -856,9 +1252,9 @@
 <div class="paper">
 
   <div class="admin-bar">
-    <span class="admin-status" id="adminStatus">Режим: пользователь</span>
+    <span class="admin-status" id="adminStatus">Режим: гость</span>
     <button id="adminPanelBtn" class="panel-btn admin-only inline" title="Админ-панель">⚙️ Админ-панель</button>
-    <button id="adminToggleBtn">🔐 Войти как админ</button>
+    <button id="adminToggleBtn" class="icon-btn" title="Войти как админ" aria-label="Войти как админ">🔐</button>
   </div>
 
   <header>
@@ -906,6 +1302,7 @@
       <button data-page="byte" data-title="Байт и Болт">Байт и Болт</button>
       <button data-page="terminal" data-title="Терминал Новостей">Терминал Новостей</button>
       <button data-page="scheme" data-title="Схема Успеха">Схема Успеха</button>
+      <button data-page="projects" data-title="Наши проекты">Наши проекты</button>
     </nav>
   </header>
 
@@ -921,19 +1318,6 @@
         🔗 Открыть проект
       </a>
     </div>
-
-    <!-- ===== КАТЕГОРИЯ «НАШИ ПРОЕКТЫ» (ГАЛЕРЕЯ) ===== -->
-    <section class="projects-category reveal-card" id="projectsGallery">
-      <div class="projects-gallery-header">
-        <h2 class="editable" data-id="title-projects-gallery">🗂 Наши проекты</h2>
-        <button class="admin-only inline" id="addProjectBtn" type="button">
-          ➕ Добавить проект
-        </button>
-      </div>
-      <div class="projects-gallery-grid" id="projectsGalleryGrid">
-        <!-- Карточки проектов генерируются JS -->
-      </div>
-    </section>
 
     <div class="grid">
       <div>
@@ -1100,13 +1484,27 @@
     </div>
   </section>
 
+  <!-- ================= НАШИ ПРОЕКТЫ ================= -->
+  <section id="projects" class="page">
+    <section class="projects-category reveal-card" id="projectsGallery">
+      <div class="projects-gallery-header">
+        <h2 class="editable" data-id="title-projects-gallery">🗂 Наши проекты</h2>
+        <button class="admin-only inline" id="addProjectBtn" type="button">
+          ➕ Добавить проект
+        </button>
+      </div>
+      <div class="projects-gallery-grid" id="projectsGalleryGrid">
+        <!-- Карточки проектов генерируются JS -->
+      </div>
+    </section>
+  </section>
+
   <div class="bottom-background-control admin-only">
     <button id="changeBackgroundBtn" type="button">🖼️ Изменить фон</button>
   </div>
 
   <div class="site-qr-section reveal-card">
     <div class="site-qr-text">
-      <h2>📱 Наш сайт</h2>
       <p>Отсканируй QR-код камерой телефона, чтобы быстро открыть стенгазету.</p>
       <span>RGB • РОБО-ВЕСТИ</span>
     </div>
@@ -1115,9 +1513,48 @@
     </div>
   </div>
 
+  <!-- ===== БОЛЬШОЙ СЧЁТЧИК ПОСЕЩЕНИЙ ===== -->
+  <div class="visits-counter reveal-card" id="visitsCounter">
+    <div class="visits-counter-label">🌐 Наш сайт посетило:</div>
+    <div class="visits-counter-value" id="visitsCount">…</div>
+    <div class="visits-counter-sub">раз</div>
+
+    <div class="visits-counter-edit admin-only">
+      <button id="visitsEditBtn" type="button">✏️ Изменить число</button>
+    </div>
+    <div class="visits-counter-input-row" id="visitsInputRow">
+      <input type="number" id="visitsInput" min="0" step="1" placeholder="0">
+      <button class="save" id="visitsSaveBtn" type="button">💾 Сохранить</button>
+      <button class="cancel" id="visitsCancelBtn" type="button">Отмена</button>
+    </div>
+    <div class="edit-status" id="visitsStatus"></div>
+  </div>
+
   <footer>
     Стенгазета класса робототехники <strong>RGB</strong> • Разработчик: Седельников Яков
+    <div class="footer-links">
+      <button type="button" id="feedbackFooterBtn">💡 Что можно улучшить для Вас?</button>
+      <button type="button" id="privacyPolicyBtn">🔒 Политика безопасности</button>
+    </div>
   </footer>
+</div>
+
+<div class="modal" id="feedbackModal">
+  <div class="modal-content feedback-modal-content">
+    <h3>💬 Обратная связь</h3>
+    <p class="feedback-intro">Ваше мнение поможет сделать «РОБО-ВЕСТИ» ещё интереснее.</p>
+    <div class="feedback-rating" role="group" aria-label="Оценка информации">
+      <button type="button" data-rating="interesting">👍 Да, интересно</button>
+      <button type="button" data-rating="partly">🤔 Частично</button>
+      <button type="button" data-rating="not-interesting">👎 Можно лучше</button>
+    </div>
+    <textarea class="feedback-textarea" id="feedbackText" maxlength="3000" placeholder="Напишите, что вам понравилось или что хотелось бы улучшить..."></textarea>
+    <p class="feedback-mail-note">При отправке откроется почтовое приложение с уже подготовленным письмом.</p>
+    <div class="btn-row" style="margin-top:12px;">
+      <button class="btn-cancel" id="feedbackCloseBtn" type="button">Закрыть</button>
+      <button class="feedback-send" id="feedbackSendBtn" type="button">✉️ Подготовить письмо</button>
+    </div>
+  </div>
 </div>
 
 <div class="modal" id="loginModal">
@@ -1171,14 +1608,66 @@
   </div>
 </div>
 
+<!-- ===== МОДАЛКА «ПОЛИТИКА БЕЗОПАСНОСТИ» ===== -->
+<div class="modal" id="privacyModal">
+  <div class="modal-content privacy-modal-content">
+    <h3>🔒 Политика безопасности</h3>
+    <div class="privacy-body">
+      <p><strong>1. Что мы собираем</strong></p>
+      <p>Мы используем файлы Cookie и технологию localStorage браузера для хранения ваших персональных настроек и подсчёта статистики. Мы <em>не</em> собираем имена, email, номера телефонов и не передаём данные третьим лицам.</p>
+
+      <p><strong>2. Что хранится в Cookie / localStorage</strong></p>
+      <ul>
+        <li><code>rgb-theme</code> — выбранная вами тема оформления;</li>
+        <li><code>rgb-active-page</code> — последний открытый раздел газеты;</li>
+        <li><code>rgb-custom-themes</code> — ваши пользовательские темы;</li>
+        <li><code>rgb-projects-list</code> — порядок карточек проектов;</li>
+        <li><code>rgb-visit-date</code> — дата последнего визита (для счётчика);</li>
+        <li><code>rgb-cookie-accepted</code> — факт согласия с этой политикой.</li>
+      </ul>
+
+      <p><strong>3. Счётчик посещений</strong></p>
+      <p>Для отображения количества посещений сайта мы сохраняем обезличенный счётчик в базе данных Supabase. Идентификация конкретного пользователя не производится.</p>
+
+      <p><strong>4. Внешние сервисы</strong></p>
+      <p>Сайт использует:</p>
+      <ul>
+        <li><strong>Supabase</strong> — хранение контента и фотографий;</li>
+        <li><strong>jsDelivr</strong> — CDN для подключения библиотек (Supabase JS, QRCode.js);</li>
+        <li><strong>GitHub Pages</strong> — размещение сайта.</li>
+      </ul>
+
+      <p><strong>5. Ваши права</strong></p>
+      <p>Вы можете в любой момент удалить все Cookie и данные localStorage через настройки браузера. При этом часть функций сайта (например, выбранная тема) может перестать сохраняться.</p>
+
+      <p><strong>6. Согласие</strong></p>
+      <p>Продолжая пользоваться сайтом, вы соглашаетесь с использованием Cookie и localStorage согласно данной политике.</p>
+
+      <p class="privacy-date">Обновлено: 5 октября 2026 г.</p>
+    </div>
+    <div class="btn-row" style="margin-top:15px;">
+      <button class="btn-cancel" id="closePrivacyBtn">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== COOKIE-БАННЕР ===== -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite">
+  <div class="cookie-banner-text">
+    🍪 Мы используем Cookie и localStorage, чтобы запоминать ваши настройки
+    (тему, последний раздел) и считать посещения сайта.
+    <a href="#" id="cookieMoreLink">Подробнее</a>.
+  </div>
+  <div class="cookie-banner-actions">
+    <button type="button" id="cookieAcceptBtn">Принять</button>
+  </div>
+</div>
+
 <div id="qrPrintArea" style="display:none;"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script>
-  /* ============================================================
-     ⚙️ НАСТРОЙКА SUPABASE
-     ============================================================ */
   const SUPABASE_URL = "https://kcundhshqbdqnpwtmbgo.supabase.co";
   const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjdW5kaHNocWJkcW5wd3RtYmdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0NDM2ODYsImV4cCI6MjEwNjAxOTY4Nn0.Dpmdwb8cMKZEttqvlxAVNJ1o-e68bWGudtuD4KriFuk";
   const BUCKET_NAME = "photos";
@@ -1189,9 +1678,6 @@
 
   const ADMIN_PASSWORD = "rgb2025";
 
-  /* ============================================================
-     🌐 ИНИЦИАЛИЗАЦИЯ SUPABASE
-     ============================================================ */
   let supabaseClient = null;
   let supabaseReady = false;
 
@@ -1206,9 +1692,6 @@
     console.warn("⚠️ Supabase не подключён:", err.message);
   }
 
-  /* ============================================================
-     📑 ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
-     ============================================================ */
   document.querySelectorAll('#menu button').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('#menu button').forEach(b => b.classList.remove('active'));
@@ -1216,13 +1699,11 @@
       btn.classList.add('active');
       document.getElementById(btn.dataset.page).classList.add('active');
       document.getElementById('gazeta-title').textContent = btn.dataset.title;
+      try { sessionStorage.setItem('rgb-active-page', btn.dataset.page); } catch {}
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
 
-  /* ============================================================
-     🔐 РЕЖИМ АДМИНА
-     ============================================================ */
   const body = document.body;
   const adminToggleBtn = document.getElementById('adminToggleBtn');
   const adminPanelBtn = document.getElementById('adminPanelBtn');
@@ -1237,17 +1718,21 @@
     if (isAdmin) {
       body.classList.add('admin');
       sessionStorage.setItem('isAdmin', '1');
-      adminToggleBtn.textContent = "🚪 Выйти из режима админа";
+      adminToggleBtn.textContent = "🚪";
+      adminToggleBtn.title = "Выйти из режима админа";
+      adminToggleBtn.setAttribute('aria-label', "Выйти из режима админа");
       adminToggleBtn.classList.add('on');
-      adminStatus.textContent = "Режим: АДМИНИСТРАТОР";
+      adminStatus.textContent = "Режим: администратор";
       adminStatus.style.color = "#22c55e";
       rebuildEditables();
     } else {
       body.classList.remove('admin');
       sessionStorage.removeItem('isAdmin');
-      adminToggleBtn.textContent = "🔐 Войти как админ";
+      adminToggleBtn.textContent = "🔐";
+      adminToggleBtn.title = "Войти как админ";
+      adminToggleBtn.setAttribute('aria-label', "Войти как админ");
       adminToggleBtn.classList.remove('on');
-      adminStatus.textContent = "Режим: пользователь";
+      adminStatus.textContent = "Режим: гость";
       adminStatus.style.color = "#aaa";
     }
   }
@@ -1286,9 +1771,6 @@
     if (e.target === loginModal) loginModal.classList.remove('open');
   });
 
-  /* ============================================================
-     ⚙️ АДМИН-ПАНЕЛЬ С QR
-     ============================================================ */
   const adminPanelModal = document.getElementById('adminPanelModal');
   const qrCanvasHolder = document.getElementById('qrCanvasHolder');
   const qrDownloadBtn = document.getElementById('qrDownloadBtn');
@@ -1309,8 +1791,7 @@
   function renderQr(url) {
     qrCanvasHolder.innerHTML = "";
     new QRCode(qrCanvasHolder, {
-      text: url,
-      width: 260, height: 260,
+      text: url, width: 260, height: 260,
       colorDark: "#0f2027", colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.H
     });
@@ -1350,9 +1831,6 @@
     setTimeout(() => { qrPrintArea.style.display = 'none'; }, 500);
   });
 
-  /* ============================================================
-     🧼 ОЧИСТКА HTML
-     ============================================================ */
   function sanitizeHtml(html) {
     const allowedTags = ['B','I','U','STRONG','EM','BR','UL','OL','LI','SPAN','P','DIV','A','H1','H2','H3','H4','H5','H6'];
     const allowedAttrs = ['class', 'href', 'target', 'data-id', 'data-collapse'];
@@ -1371,40 +1849,31 @@
     return temp.innerHTML;
   }
 
-  /* ============================================================
-     📜 СВОРАЧИВАНИЕ <ul>/<ol>
-     ============================================================ */
   const MAX_VISIBLE_ITEMS = 3;
 
   function applyCollapseToAll() {
     collectEditables().forEach(el => applyCollapse(el));
   }
-
   function applyCollapse(container) {
     const oldBtn = container.querySelector('.show-more-btn');
     if (oldBtn) oldBtn.remove();
-
     const list = container.querySelector('ul, ol');
     if (!list) return;
-
     const items = list.querySelectorAll(':scope > li');
     if (items.length <= MAX_VISIBLE_ITEMS) {
       items.forEach(li => li.classList.remove('hidden-item'));
       list.classList.remove('collapsed-list');
       return;
     }
-
     items.forEach((li, i) => {
       if (i >= MAX_VISIBLE_ITEMS) li.classList.add('hidden-item');
       else li.classList.remove('hidden-item');
     });
     list.classList.add('collapsed-list');
-
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'show-more-btn';
     btn.textContent = `▼ Показать ещё (${items.length - MAX_VISIBLE_ITEMS})`;
-
     btn.addEventListener('click', () => {
       const isCollapsed = list.classList.toggle('collapsed-list');
       if (isCollapsed) {
@@ -1417,46 +1886,35 @@
         btn.classList.add('expanded');
       }
     });
-
     container.appendChild(btn);
   }
 
-  /* ============================================================
-     📜 УНИВЕРСАЛЬНОЕ СВОРАЧИВАНИЕ [data-collapse]
-     ============================================================ */
   function applyItemCollapseToAll() {
     document.querySelectorAll('[data-collapse]').forEach(el => applyItemCollapse(el));
   }
-
   function applyItemCollapse(container) {
     const oldBtn = container.parentElement.querySelector('.show-more-btn[data-for="' + (container.dataset.id || '') + '"]');
     if (oldBtn) oldBtn.remove();
-
     const limit = parseInt(container.dataset.collapse, 10) || 3;
-
     let items;
     if (container.tagName === 'UL' || container.tagName === 'OL') {
       items = [...container.querySelectorAll(':scope > li')];
     } else {
       items = [...container.children].filter(c => !c.classList.contains('show-more-btn'));
     }
-
     if (items.length <= limit) {
       items.forEach(it => it.classList.remove('collapse-hidden'));
       return;
     }
-
     items.forEach((it, i) => {
       if (i >= limit) it.classList.add('collapse-hidden');
       else it.classList.remove('collapse-hidden');
     });
-
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'show-more-btn';
     btn.dataset.for = container.dataset.id || '';
     btn.textContent = `▼ Показать ещё (${items.length - limit})`;
-
     btn.addEventListener('click', () => {
       const isHidden = items.some(it => it.classList.contains('collapse-hidden'));
       if (isHidden) {
@@ -1469,13 +1927,10 @@
         btn.classList.remove('expanded');
       }
     });
-
     container.parentElement.appendChild(btn);
   }
 
-  /* ============================================================
-     🗂 ГАЛЕРЕЯ ПРОЕКТОВ
-     ============================================================ */
+  /* ===== ГАЛЕРЕЯ ПРОЕКТОВ ===== */
   const projectsGalleryGrid = document.getElementById('projectsGalleryGrid');
   const addProjectBtn = document.getElementById('addProjectBtn');
 
@@ -1490,7 +1945,6 @@
   function saveProjectsList(list) {
     try { localStorage.setItem(PROJECTS_KEY, JSON.stringify(list)); } catch {}
   }
-
   function getProjectImageUrl(n) {
     if (!supabaseReady) return null;
     const path = `${PROJECT_PREFIX}${n}.jpg`;
@@ -1503,33 +1957,25 @@
     card.className = 'project-card';
     card.dataset.projectNum = String(n);
 
-    // Изображение
     const imageWrap = document.createElement('div');
     imageWrap.className = 'project-card-image';
     const url = getProjectImageUrl(n);
-
     if (url) {
       const testImg = new Image();
-      testImg.onload = () => {
-        imageWrap.innerHTML = `<img src="${url}?t=${Date.now()}" alt="Проект ${n}">`;
-      };
-      testImg.onerror = () => {
-        imageWrap.innerHTML = `<div class="placeholder">📷 Фото проекта ${n}<br>(не загружено)</div>`;
-      };
+      testImg.onload = () => { imageWrap.innerHTML = `<img src="${url}?t=${Date.now()}" alt="Проект ${n}">`; };
+      testImg.onerror = () => { imageWrap.innerHTML = `<div class="placeholder">📷 Фото проекта ${n}<br>(не загружено)</div>`; };
       testImg.src = url + "?t=" + Date.now();
     } else {
       imageWrap.innerHTML = `<div class="placeholder">📷 Фото проекта ${n}</div>`;
     }
     card.appendChild(imageWrap);
 
-    // Подпись
     const caption = document.createElement('div');
     caption.className = 'project-card-caption editable';
     caption.dataset.id = `project-${n}-caption`;
     caption.innerHTML = 'Подпись проекта...';
     card.appendChild(caption);
 
-    // Контролы для админа
     const controls = document.createElement('div');
     controls.className = 'project-card-controls admin-only';
 
@@ -1540,7 +1986,6 @@
     uploadInput.accept = 'image/*';
     uploadLabel.setAttribute('for', `projectUpload-${n}`);
     uploadInput.id = `projectUpload-${n}`;
-
     uploadInput.addEventListener('change', async (e) => {
       const file = e.target.files[0];
       if (!file) return;
@@ -1589,15 +2034,12 @@
   async function renderProjectsGallery() {
     if (!projectsGalleryGrid) return;
     projectsGalleryGrid.innerHTML = '';
-
     const list = loadProjectsList();
     if (!list.length) {
       projectsGalleryGrid.innerHTML = `<div style="grid-column:1/-1;color:#889;text-align:center;padding:20px;">Проектов пока нет</div>`;
     } else {
       list.forEach(n => projectsGalleryGrid.appendChild(buildProjectCard(n)));
     }
-
-    // Подгружаем подписи
     if (supabaseReady) {
       try {
         const ids = list.map(n => `project-${n}-caption`);
@@ -1613,8 +2055,6 @@
         console.warn('Не удалось загрузить подписи:', err.message);
       }
     }
-
-    // Если админ — перестроить кнопки редактирования
     if (document.body.classList.contains('admin')) {
       rebuildEditables();
     }
@@ -1630,9 +2070,7 @@
     });
   }
 
-  /* ============================================================
-     ✏️ РЕДАКТИРОВАНИЕ КАРТОЧЕК
-     ============================================================ */
+  /* ===== РЕДАКТИРОВАНИЕ ===== */
   function collectEditables() {
     return document.querySelectorAll('.editable');
   }
@@ -1646,13 +2084,10 @@
 
     cards.forEach(card => {
       if (!card) return;
-
-      // Находим или создаём .edit-controls
       let controls = card.querySelector('.edit-controls');
       if (!controls) {
         controls = document.createElement('div');
         controls.className = 'edit-controls admin-only';
-        // Для project-card вставляем после caption
         if (card.classList.contains('project-card')) {
           const caption = card.querySelector('.project-card-caption');
           if (caption) caption.after(controls);
@@ -1665,23 +2100,19 @@
       controls.dataset.built = '1';
 
       const editableEls = card.querySelectorAll('.editable');
-
       const editBtn = document.createElement('button');
       editBtn.textContent = '✏️ Редактировать';
       editBtn.type = 'button';
-
       const saveBtn = document.createElement('button');
       saveBtn.textContent = '💾 Сохранить';
       saveBtn.className = 'save';
       saveBtn.type = 'button';
       saveBtn.style.display = 'none';
-
       const cancelBtn = document.createElement('button');
       cancelBtn.textContent = '❌ Отмена';
       cancelBtn.className = 'cancel';
       cancelBtn.type = 'button';
       cancelBtn.style.display = 'none';
-
       controls.appendChild(editBtn);
       controls.appendChild(saveBtn);
       controls.appendChild(cancelBtn);
@@ -1694,7 +2125,6 @@
         editableEls.forEach(el => {
           originals.push(el.innerHTML);
           el.contentEditable = 'true';
-
           if (el.dataset.collapse) {
             el.querySelectorAll('.collapse-hidden').forEach(x => x.classList.remove('collapse-hidden'));
             const btn = el.parentElement.querySelector('.show-more-btn[data-for="' + (el.dataset.id || '') + '"]');
@@ -1709,7 +2139,6 @@
           if (oldBtn) oldBtn.remove();
         });
         editableEls[0]?.focus();
-
         editableEls.forEach(el => {
           el.onpaste = (evt) => {
             evt.preventDefault();
@@ -1726,7 +2155,6 @@
             sel.addRange(range);
           };
         });
-
         editBtn.style.display = 'none';
         saveBtn.style.display = '';
         cancelBtn.style.display = '';
@@ -1746,16 +2174,11 @@
       });
 
       saveBtn.addEventListener('click', async () => {
-        if (!supabaseReady) {
-          alert("Supabase не подключён.");
-          return;
-        }
-
+        if (!supabaseReady) { alert("Supabase не подключён."); return; }
         if (statusEl) {
           statusEl.textContent = "⏳ Сохранение...";
           statusEl.style.color = "#00d4ff";
         }
-
         try {
           const rows = [];
           editableEls.forEach(el => {
@@ -1765,24 +2188,19 @@
             el.innerHTML = html;
             rows.push({ id, html, updated_at: new Date().toISOString() });
           });
-
           const { error } = await supabaseClient
             .from('content')
             .upsert(rows, { onConflict: 'id' });
-
           if (error) throw error;
-
           editableEls.forEach(el => {
             el.contentEditable = 'false';
             el.onpaste = null;
             applyCollapse(el);
             if (el.dataset.collapse) applyItemCollapse(el);
           });
-
           editBtn.style.display = '';
           saveBtn.style.display = 'none';
           cancelBtn.style.display = 'none';
-
           if (statusEl) {
             statusEl.textContent = "✅ Сохранено";
             statusEl.style.color = "#22c55e";
@@ -1827,9 +2245,7 @@
     }
   }
 
-  /* ============================================================
-     📸 ФОТО НЕДЕЛИ
-     ============================================================ */
+  /* ===== ФОТО НЕДЕЛИ ===== */
   const photoBox = document.getElementById('photoBox');
   const photoInput = document.getElementById('photoInput');
   const photoRemoveBtn = document.getElementById('photoRemoveBtn');
@@ -1840,7 +2256,6 @@
     const { data } = supabaseClient.storage.from(BUCKET_NAME).getPublicUrl(PHOTO_PATH);
     return data.publicUrl;
   }
-
   function renderPhoto() {
     if (!supabaseReady) {
       photoBox.innerHTML = `<div class="placeholder">⚠️ Хранилище фото не подключено.</div>`;
@@ -1895,9 +2310,7 @@
     }
   });
 
-  /* ============================================================
-     🖼 ФОН СТРАНИЦЫ
-     ============================================================ */
+  /* ===== ФОН ===== */
   const bgPreview = document.getElementById('bgPreview');
   const bgInput = document.getElementById('bgInput');
   const bgRemoveBtn = document.getElementById('bgRemoveBtn');
@@ -1913,7 +2326,6 @@
     const { data } = supabaseClient.storage.from(BUCKET_NAME).getPublicUrl(BG_PATH);
     return data.publicUrl;
   }
-
   function applyBackground(url) {
     if (!url) {
       document.body.classList.remove('has-custom-bg');
@@ -1922,12 +2334,12 @@
     }
     document.body.classList.add('has-custom-bg');
     const isLight = document.body.classList.contains('light-theme');
-    const overlay = isLight
-      ? 'linear-gradient(rgba(245,250,252,0.58), rgba(235,245,249,0.72))'
-      : 'linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75))';
+    const isCustom = document.body.classList.contains('custom-theme');
+    let overlay = 'linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75))';
+    if (isLight) overlay = 'linear-gradient(rgba(245,250,252,0.58), rgba(235,245,249,0.72))';
+    if (isCustom) overlay = 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7))';
     document.body.style.backgroundImage = `${overlay}, url("${url}")`;
   }
-
   async function renderBackground() {
     if (!supabaseReady) return;
     const url = getBgUrl();
@@ -1988,11 +2400,165 @@
     }
   });
 
-  /* ============================================================
-     ✨ АНИМАЦИЯ КАРТОЧЕК
-     ============================================================ */
+  /* ===== СЧЁТЧИК ПОСЕЩЕНИЙ ===== */
+  const VISITS_TABLE = "visits";
+  const VISITS_ROW_ID = "counter";
+  const VISITS_LOCAL_KEY = "rgb-visit-date";
+
+  const visitsCountEl = document.getElementById('visitsCount');
+  const visitsEditBtn = document.getElementById('visitsEditBtn');
+  const visitsInputRow = document.getElementById('visitsInputRow');
+  const visitsInput = document.getElementById('visitsInput');
+  const visitsSaveBtn = document.getElementById('visitsSaveBtn');
+  const visitsCancelBtn = document.getElementById('visitsCancelBtn');
+  const visitsStatus = document.getElementById('visitsStatus');
+
+  let currentVisitsValue = 0;
+
+  function shouldCountVisit() {
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      const saved = localStorage.getItem(VISITS_LOCAL_KEY);
+      return saved !== today;
+    } catch {
+      return true;
+    }
+  }
+  function markVisitCounted() {
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      localStorage.setItem(VISITS_LOCAL_KEY, today);
+    } catch {}
+  }
+
+  async function readVisits() {
+    if (!supabaseReady) return null;
+    const { data, error } = await supabaseClient
+      .from(VISITS_TABLE)
+      .select('total')
+      .eq('id', VISITS_ROW_ID)
+      .maybeSingle();
+    if (error) {
+      console.warn('Ошибка чтения счётчика:', error.message);
+      return null;
+    }
+    return data ? Number(data.total) || 0 : 0;
+  }
+
+  async function incrementVisits(current) {
+    if (!supabaseReady) return null;
+    const newValue = (Number(current) || 0) + 1;
+    const { data, error } = await supabaseClient
+      .from(VISITS_TABLE)
+      .update({ total: newValue, updated_at: new Date().toISOString() })
+      .eq('id', VISITS_ROW_ID)
+      .select('total')
+      .maybeSingle();
+    if (error) {
+      console.warn('Ошибка обновления счётчика:', error.message);
+      return null;
+    }
+    return data ? Number(data.total) || newValue : newValue;
+  }
+
+  async function setVisitsValue(value) {
+    if (!supabaseReady) return null;
+    const newValue = Math.max(0, Math.floor(Number(value) || 0));
+    const { data, error } = await supabaseClient
+      .from(VISITS_TABLE)
+      .update({ total: newValue, updated_at: new Date().toISOString() })
+      .eq('id', VISITS_ROW_ID)
+      .select('total')
+      .maybeSingle();
+    if (error) {
+      console.warn('Ошибка записи счётчика:', error.message);
+      return null;
+    }
+    return data ? Number(data.total) || newValue : newValue;
+  }
+
+  function renderVisits(value) {
+    if (!visitsCountEl) return;
+    if (value === null || value === undefined) {
+      visitsCountEl.textContent = '—';
+      currentVisitsValue = 0;
+    } else {
+      visitsCountEl.textContent = String(value);
+      currentVisitsValue = Number(value) || 0;
+    }
+  }
+
+  async function initVisitsCounter() {
+    if (!visitsCountEl) return;
+    if (!supabaseReady) { visitsCountEl.textContent = '—'; return; }
+    let current = await readVisits();
+    if (current === null) { visitsCountEl.textContent = '—'; return; }
+    if (shouldCountVisit()) {
+      const updated = await incrementVisits(current);
+      if (updated !== null) { current = updated; markVisitCounted(); }
+    }
+    renderVisits(current);
+  }
+
+  if (visitsEditBtn) {
+    visitsEditBtn.addEventListener('click', () => {
+      visitsInput.value = String(currentVisitsValue || 0);
+      visitsInputRow.classList.add('open');
+      visitsEditBtn.parentElement.style.display = 'none';
+      visitsInput.focus();
+      visitsInput.select();
+    });
+  }
+  if (visitsCancelBtn) {
+    visitsCancelBtn.addEventListener('click', () => {
+      visitsInputRow.classList.remove('open');
+      visitsEditBtn.parentElement.style.display = '';
+      if (visitsStatus) visitsStatus.textContent = "";
+    });
+  }
+  if (visitsSaveBtn) {
+    visitsSaveBtn.addEventListener('click', async () => {
+      if (!supabaseReady) { alert("Supabase не подключён."); return; }
+      const newValue = parseInt(visitsInput.value, 10);
+      if (isNaN(newValue) || newValue < 0) {
+        if (visitsStatus) {
+          visitsStatus.textContent = "❌ Введите целое число ≥ 0";
+          visitsStatus.style.color = "#ef4444";
+        }
+        return;
+      }
+      if (visitsStatus) {
+        visitsStatus.textContent = "⏳ Сохранение...";
+        visitsStatus.style.color = "#00d4ff";
+      }
+      const updated = await setVisitsValue(newValue);
+      if (updated === null) {
+        if (visitsStatus) {
+          visitsStatus.textContent = "❌ Не удалось сохранить";
+          visitsStatus.style.color = "#ef4444";
+        }
+        return;
+      }
+      renderVisits(updated);
+      if (visitsStatus) {
+        visitsStatus.textContent = "✅ Сохранено";
+        visitsStatus.style.color = "#22c55e";
+        setTimeout(() => { visitsStatus.textContent = ""; }, 2000);
+      }
+      visitsInputRow.classList.remove('open');
+      visitsEditBtn.parentElement.style.display = '';
+    });
+  }
+  if (visitsInput) {
+    visitsInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') visitsSaveBtn?.click();
+      if (e.key === 'Escape') visitsCancelBtn?.click();
+    });
+  }
+
+  /* ===== АНИМАЦИЯ ===== */
   function initScrollReveal() {
-    const cards = document.querySelectorAll('.card, .cyber-vision-card, .projects-category');
+    const cards = document.querySelectorAll('.card, .cyber-vision-card, .projects-category, .site-qr-section, .visits-counter');
     if (!cards.length) return;
     document.body.classList.add('reveal-enabled');
     cards.forEach((card, index) => {
@@ -2013,9 +2579,7 @@
     cards.forEach(card => observer.observe(card));
   }
 
-  /* ============================================================
-     🎨 СИСТЕМА ТЕМ
-     ============================================================ */
+  /* ===== ТЕМЫ ===== */
   const THEMES_KEY = "rgb-custom-themes";
   const ACTIVE_THEME_KEY = "rgb-active-theme";
 
@@ -2046,9 +2610,7 @@
   function saveUserThemes(themes) {
     try { localStorage.setItem(THEMES_KEY, JSON.stringify(themes)); } catch (e) { console.warn(e); }
   }
-  function getAllThemes() {
-    return [...BUILT_IN_THEMES, ...loadUserThemes()];
-  }
+  function getAllThemes() { return [...BUILT_IN_THEMES, ...loadUserThemes()]; }
   function getActiveThemeId() {
     try { return localStorage.getItem(ACTIVE_THEME_KEY) || "dark"; } catch { return "dark"; }
   }
@@ -2077,11 +2639,8 @@
     document.body.classList.remove('light-theme', 'custom-theme');
     const theme = getAllThemes().find(t => t.id === id);
     if (!theme) { applyThemeById('dark'); return; }
-    if (theme.id === 'light') {
-      document.body.classList.add('light-theme');
-    } else if (theme.id === 'dark') {
-      // базовые стили
-    } else {
+    if (theme.id === 'light') document.body.classList.add('light-theme');
+    else if (theme.id !== 'dark') {
       applyCustomThemeVars(theme.colors);
       document.body.classList.add('custom-theme');
     }
@@ -2104,14 +2663,12 @@
     grid.innerHTML = '';
     const themes = getAllThemes();
     const activeId = getActiveThemeId();
-
     themes.forEach(theme => {
       const card = document.createElement('button');
       card.type = 'button';
       card.className = 'theme-card';
       card.dataset.themeId = theme.id;
       card.dataset.active = String(theme.id === activeId);
-
       const preview = document.createElement('div');
       preview.className = 'theme-card-preview';
       preview.style.background = theme.colors.bg;
@@ -2122,22 +2679,18 @@
         preview.appendChild(swatch);
       });
       card.appendChild(preview);
-
       const name = document.createElement('div');
       name.className = 'theme-card-name';
       name.textContent = theme.name;
       card.appendChild(name);
-
       if (!theme.builtIn) {
         const actions = document.createElement('div');
         actions.className = 'theme-card-actions';
-
         const editBtn = document.createElement('button');
         editBtn.type = 'button';
         editBtn.title = 'Редактировать';
         editBtn.textContent = '✏';
         editBtn.addEventListener('click', (e) => { e.stopPropagation(); openThemeEditor(theme); });
-
         const delBtn = document.createElement('button');
         delBtn.type = 'button';
         delBtn.className = 'danger';
@@ -2152,20 +2705,16 @@
             renderThemesGrid();
           }
         });
-
         actions.appendChild(editBtn);
         actions.appendChild(delBtn);
         card.appendChild(actions);
       }
-
       card.addEventListener('click', () => applyThemeById(theme.id));
       grid.appendChild(card);
     });
   }
 
-  /* ============================================================
-     ✏️ РЕДАКТОР ТЕМ
-     ============================================================ */
+  /* ===== РЕДАКТОР ТЕМ ===== */
   const themeEditor = document.getElementById('themeEditor');
   const themeEditorTitle = document.getElementById('themeEditorTitle');
   const themeNameInput = document.getElementById('themeNameInput');
@@ -2192,7 +2741,6 @@
       chip.className = 'preset-chip';
       chip.title = preset.name;
       chip.dataset.presetIndex = String(idx);
-
       const inner = document.createElement('div');
       inner.className = 'preset-chip-inner';
       [preset.bg, preset.paper, preset.card, preset.accent].forEach(c => {
@@ -2209,7 +2757,6 @@
       presetsRow.appendChild(chip);
     });
   }
-
   function applyColorsToEditor(colors) {
     themeBgColor.value = colors.bg;
     themePaperColor.value = colors.paper;
@@ -2235,7 +2782,6 @@
     btn.style.background = themeAccentColor.value;
     btn.style.color = themePaperColor.value;
   }
-
   [themeBgColor, themePaperColor, themeCardColor, themeAccentColor, themeTextColor].forEach(inp => {
     inp.addEventListener('input', () => {
       updateHexLabels();
@@ -2243,7 +2789,6 @@
       document.querySelectorAll('.preset-chip').forEach(c => c.dataset.selected = 'false');
     });
   });
-
   function openThemeEditor(theme = null) {
     if (theme) {
       editingThemeId = theme.id;
@@ -2264,14 +2809,11 @@
     themeEditor.style.display = 'none';
     editingThemeId = null;
   }
-
   document.getElementById('btnCreateTheme').addEventListener('click', () => openThemeEditor(null));
   document.getElementById('btnCancelTheme').addEventListener('click', closeThemeEditor);
-
   document.getElementById('btnSaveTheme').addEventListener('click', () => {
     const name = themeNameInput.value.trim();
     if (!name) { alert('Введите название темы'); themeNameInput.focus(); return; }
-
     const colors = {
       bg: themeBgColor.value,
       paper: themePaperColor.value,
@@ -2280,15 +2822,10 @@
       accent2: themeAccentColor.value,
       text: themeTextColor.value
     };
-
     const themes = loadUserThemes();
-
     if (editingThemeId) {
       const idx = themes.findIndex(t => t.id === editingThemeId);
-      if (idx >= 0) {
-        themes[idx].name = name;
-        themes[idx].colors = colors;
-      }
+      if (idx >= 0) { themes[idx].name = name; themes[idx].colors = colors; }
       saveUserThemes(themes);
       applyThemeById(editingThemeId);
     } else {
@@ -2297,16 +2834,12 @@
       saveUserThemes(themes);
       applyThemeById(id);
     }
-
     closeThemeEditor();
     renderThemesGrid();
   });
-
   document.getElementById('btnResetTheme').addEventListener('click', () => applyThemeById('dark'));
 
-  /* ============================================================
-     🎨 ПАНЕЛЬ НАСТРОЕК
-     ============================================================ */
+  /* ===== ПАНЕЛЬ НАСТРОЕК ===== */
   const settingsLauncher = document.getElementById('settingsLauncher');
   const settingsDrawer = document.getElementById('settingsDrawer');
   const settingsOverlay = document.getElementById('settingsOverlay');
@@ -2327,7 +2860,6 @@
     settingsLauncher.setAttribute('aria-expanded', 'false');
     settingsLauncher.focus();
   }
-
   settingsLauncher.addEventListener('click', openSettings);
   settingsClose.addEventListener('click', closeSettings);
   settingsOverlay.addEventListener('click', closeSettings);
@@ -2335,10 +2867,104 @@
     if (event.key === 'Escape' && settingsDrawer.classList.contains('open')) closeSettings();
   });
 
-  /* ============================================================
-     🚀 ИНИЦИАЛИЗАЦИЯ
-     ============================================================ */
+  /* ===== ОБРАТНАЯ СВЯЗЬ ===== */
+  const feedbackFloat = document.getElementById('feedbackFloat');
+  const feedbackFooterBtn = document.getElementById('feedbackFooterBtn');
+  const feedbackModal = document.getElementById('feedbackModal');
+  const feedbackCloseBtn = document.getElementById('feedbackCloseBtn');
+  const feedbackSendBtn = document.getElementById('feedbackSendBtn');
+  const feedbackText = document.getElementById('feedbackText');
+  const feedbackRatingButtons = feedbackModal ? feedbackModal.querySelectorAll('[data-rating]') : [];
+  let feedbackRating = '';
+
+  function openFeedback() {
+    if (!feedbackModal) return;
+    feedbackModal.classList.add('open');
+    setTimeout(() => feedbackText?.focus(), 100);
+  }
+  function closeFeedback() {
+    if (feedbackModal) feedbackModal.classList.remove('open');
+  }
+  feedbackFloat?.addEventListener('click', openFeedback);
+  feedbackFooterBtn?.addEventListener('click', openFeedback);
+  feedbackCloseBtn?.addEventListener('click', closeFeedback);
+  feedbackModal?.addEventListener('click', e => { if (e.target === feedbackModal) closeFeedback(); });
+  feedbackRatingButtons.forEach(btn => btn.addEventListener('click', () => {
+    feedbackRating = btn.dataset.rating || '';
+    feedbackRatingButtons.forEach(b => b.classList.toggle('selected', b === btn));
+  }));
+  feedbackSendBtn?.addEventListener('click', () => {
+    const message = feedbackText?.value.trim() || '';
+    const ratingLabels = {
+      interesting: '👍 Да, интересно',
+      partly: '🤔 Частично',
+      'not-interesting': '👎 Можно лучше'
+    };
+    const ratingText = ratingLabels[feedbackRating] || 'Оценка не выбрана';
+    const body = `Здравствуйте!\n\nМоя оценка информации: ${ratingText}.\n\nПожелания / предложения:\n${message || '—'}\n\nОтправлено из стенгазеты «РОБО-ВЕСТИ».`;
+    const mailto = `mailto:?subject=${encodeURIComponent('Пожелание для «РОБО-ВЕСТИ»')}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && feedbackModal?.classList.contains('open')) closeFeedback();
+  });
+
+  /* ===== COOKIE-БАННЕР И ПОЛИТИКА БЕЗОПАСНОСТИ ===== */
+  const COOKIE_KEY = "rgb-cookie-accepted";
+  const cookieBanner = document.getElementById('cookieBanner');
+  const cookieAcceptBtn = document.getElementById('cookieAcceptBtn');
+  const cookieMoreLink = document.getElementById('cookieMoreLink');
+  const privacyModal = document.getElementById('privacyModal');
+  const privacyPolicyBtn = document.getElementById('privacyPolicyBtn');
+  const closePrivacyBtn = document.getElementById('closePrivacyBtn');
+
+  function showCookieBannerIfNeeded() {
+    if (!cookieBanner) return;
+    let accepted = false;
+    try { accepted = localStorage.getItem(COOKIE_KEY) === "1"; } catch {}
+    if (!accepted) {
+      setTimeout(() => cookieBanner.classList.add('visible'), 800);
+    }
+  }
+  function acceptCookies() {
+    try { localStorage.setItem(COOKIE_KEY, "1"); } catch {}
+    cookieBanner.classList.remove('visible');
+  }
+  if (cookieAcceptBtn) cookieAcceptBtn.addEventListener('click', acceptCookies);
+
+  function openPrivacy() { if (privacyModal) privacyModal.classList.add('open'); }
+  function closePrivacy() { if (privacyModal) privacyModal.classList.remove('open'); }
+
+  if (cookieMoreLink) {
+    cookieMoreLink.addEventListener('click', (e) => { e.preventDefault(); openPrivacy(); });
+  }
+  if (privacyPolicyBtn) privacyPolicyBtn.addEventListener('click', openPrivacy);
+  if (closePrivacyBtn) closePrivacyBtn.addEventListener('click', closePrivacy);
+  if (privacyModal) {
+    privacyModal.addEventListener('click', (e) => {
+      if (e.target === privacyModal) closePrivacy();
+    });
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && privacyModal && privacyModal.classList.contains('open')) closePrivacy();
+  });
+
+  /* ===== ИНИЦИАЛИЗАЦИЯ ===== */
   buildPresets();
+
+  try {
+    const savedPage = sessionStorage.getItem('rgb-active-page');
+    if (savedPage) {
+      const btn = document.querySelector(`#menu button[data-page="${savedPage}"]`);
+      if (btn) {
+        document.querySelectorAll('#menu button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(savedPage).classList.add('active');
+        document.getElementById('gazeta-title').textContent = btn.dataset.title;
+      }
+    }
+  } catch {}
 
   if (sessionStorage.getItem('isAdmin') === '1') setAdminMode(true);
   else setAdminMode(false);
@@ -2352,9 +2978,12 @@
   renderBackground();
   setInterval(renderPhoto, 30000);
 
+  initVisitsCounter();
+
   applyThemeById(getActiveThemeId());
 
-  // ===== QR-КОД САЙТА =====
+  showCookieBannerIfNeeded();
+
   (function renderPublicSiteQR() {
     const qrElement = document.getElementById('siteQrCode');
     if (!qrElement || typeof QRCode === 'undefined') return;
