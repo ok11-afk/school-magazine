@@ -1,54 +1,58 @@
-# 🤖 RGB — Электронная стенгазета класса робототехники
+# 🤖 РОБО-ВЕСТИ — стенгазета класса робототехники RGB
 
-Интерактивная стенгазета с разделами:
-- 🚀 Наши проекты
-- 🏆 Гений недели
-- 📅 Календарь событий
-- 😄 Робо-юмор
-- 🧩 Головоломка
-- 🔧 Совет от мастера
-- 📸 Фото недели
+Интерактивная веб-стенгазета учебного проекта **RGB** — класса и кружка робототехники.
+Проект живёт на GitHub Pages, хранит контент в Supabase, умеет читать новости голосом, считать просмотры и играть в мини-игру «Робот-лабиринт».
 
-## 🌐 Как посмотреть
+![Скриншот главной страницы](screenshot.png)
 
-Откройте: **https://ваш-username.github.io/robot-gazeta/**
+---
 
-## 🔐 Режим администратора
+## ✨ Что умеет
 
-1. Нажмите **«🔐 Войти как админ»** в правом верхнем углу.
-2. Введите пароль (`***`).
-3. Теперь вы можете:
-   - Редактировать текстовые блоки (кнопка «✏️ Редактировать»).
-   - Загружать «Фото недели».
-   - Вставлять текст без стилей — при копировании из других сайтов стили автоматически удаляются.
+- 🎨 **Кастомные темы** — тёмная, светлая и бесконечные пользовательские
+- 📝 **Админ-панель** — редактирование текста прямо на странице (пароль в `index.html`)
+- 📸 **Фото недели и проекты** — загрузка через Supabase Storage
+- 🔊 **Голосовое чтение новостей** — Web Speech API (заголовок + текст)
+- 🎮 **Мини-игра «Робот-лабиринт»** — бесконечные уровни, случайная генерация, свой SVG-робот
+- 📊 **Счётчик просмотров** — обезличенный, с антиспамом 30 сек
+- 📱 **QR-код и A4-плакат** для печати — `qr-print.html`
+- 🥚 **Пасхалки** — 5 кликов по логотипу и 🤖 в футере
+- 💬 **Форма обратной связи** — FormSubmit с капчей и honeypot
+- 🍪 **КУКИ-баннер** — честная политика без сбора данных
 
-## ⚙️ Настройка
+---
 
-Для работы фото и редактирования нужен **Supabase**.
+## 🛠 Стек
 
-### 1. Создайте проект в Supabase
-Зарегистрируйтесь на [supabase.com](https://supabase.com), создайте новый проект.
+- **Frontend:** чистый HTML / CSS / JavaScript (без фреймворков)
+- **Backend / Storage:** [Supabase](https://supabase.com/)
+- **Форма обратной связи:** [FormSubmit](https://formsubmit.co/)
+- **QR-библиотека:** [qrcodejs](https://github.com/davidshimjs/qrcodejs) (через jsDelivr)
+- **Хостинг:** GitHub Pages
 
-### 2. Создайте bucket для фото
-- Storage → New bucket → Name: `photos` → **Public bucket** ✅ → Save.
+---
 
-### 3. Создайте таблицу контента
-SQL Editor → выполните:
+## 📁 Структура
+school-magazine/
+├── index.html ← главная стенгазета
+├── cookies.html ← политика cookie (в стиле КУКИШ)
+├── security.html ← политика безопасности
+├── qr-print.html ← A4-плакат с QR-кодом для печати
+├── secret.html ← пасхалка для проверяющего 🤫
+├── assets/
+│ └── robot.svg ← логотип класса RGB
+└── style/
+  └── style.css ← все стили проекта
 
-```sql
-create table if not exists public.content (
-  id text primary key,
-  html text not null,
-  updated_at timestamptz default now()
-);
 
-alter table public.content enable row level security;
+👥 Команда
+Класс / кружок: RGB
 
-create policy "Public read content"   on public.content for select to public using (true);
-create policy "Public insert content" on public.content for insert to public with check (true);
-create policy "Public update content" on public.content for update to public using (true);
+Разработчик: Седельников Яков
 
-create policy "Public Read for photos"   on storage.objects for select to public using (bucket_id = 'photos');
-create policy "Public Insert for photos" on storage.objects for insert to public with check (bucket_id = 'photos');
-create policy "Public Update for photos" on storage.objects for update to public using (bucket_id = 'photos');
-create policy "Public Delete for photos" on storage.objects for delete to public using (bucket_id = 'photos');
+Почта проекта: rgb-profi@yandex.ru
+
+📜 Лицензия
+Учебный проект. Свободно используйте код для своих школьных стенгазет. 🖕🍪
+
+КУКИш ВАМ, А НЕ КУКИ!

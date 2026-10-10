@@ -5,1174 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RGB — Стенгазета класса робототехники</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+<link rel="stylesheet" href="style/style.css">
 <style>
-  * { box-sizing: border-box; }
-  body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    margin: 0; padding: 20px; color: #fff; min-height: 100vh;
-    transition: background-image 0.3s ease;
-  }
-  .paper {
-    max-width: 1100px; margin: auto; background: #1a1a2e;
-    border: 3px solid #00d4ff; border-radius: 15px; padding: 25px;
-    box-shadow: 0 0 30px #00d4ff88;
-  }
-  header { border-bottom: 2px dashed #00d4ff; padding-bottom: 15px; margin-bottom: 20px; }
-  .top-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-  .logo { flex-shrink: 0; filter: drop-shadow(0 0 10px #00d4ffaa); animation: spin 12s linear infinite; }
-  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  .title-block { flex: 1.15 1 0; min-width: 240px; }
-
-  .cyber-vision-card {
-    position: relative;
-    margin: 0 0 20px;
-    padding: 20px 22px;
-    border: 1px solid var(--custom-accent-soft, #00d4ff55);
-    border-left: 5px solid var(--custom-accent, #8b5cf6);
-    border-radius: 16px;
-    background: linear-gradient(135deg,
-      var(--custom-card, #182443) 0%,
-      var(--custom-paper, #111a31) 55%,
-      var(--custom-card, #1b1635) 100%);
-    box-shadow: 0 10px 28px #0003, 0 0 22px var(--custom-accent-soft, #8b5cf620);
-    overflow: hidden;
-  }
-  .cyber-vision-card::before {
-    content: ""; position: absolute; width: 180px; height: 180px;
-    right: -75px; top: -95px; border-radius: 50%;
-    background: var(--custom-accent-soft, #00d4ff14);
-    pointer-events: none;
-  }
-  .cyber-vision-card .cyber-vision-title {
-    display: flex; align-items: center; gap: 10px;
-    margin: 0 0 10px;
-    color: var(--custom-accent, #a78bfa);
-    font-size: 1.3em;
-    border-bottom: 1px solid var(--custom-accent-soft, #00d4ff35);
-    padding-bottom: 9px;
-  }
-  .cyber-vision-card .cyber-vision-title span { font-size: 1.15em; }
-  .cyber-vision-card p {
-    margin: 0 0 15px;
-    color: var(--custom-text, #e6edf7);
-    line-height: 1.6;
-  }
-  .cyber-vision-link {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 10px 16px; border-radius: 10px;
-    background: var(--custom-accent, #00d4ff);
-    color: var(--custom-paper, #07131d) !important;
-    font-weight: 800; text-decoration: none;
-    box-shadow: 0 5px 16px var(--custom-accent-soft, #00d4ff30);
-    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
-  }
-  .cyber-vision-link:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.1);
-    box-shadow: 0 8px 22px var(--custom-accent-soft, #00d4ff45);
-  }
-
-  .about-panel {
-    flex: 1 1 0; min-width: 270px;
-    padding: 16px 18px;
-    background: linear-gradient(145deg,
-      var(--custom-card, #16213e),
-      var(--custom-paper, #111a30));
-    border: 1px solid var(--custom-accent-soft, #00d4ff55);
-    border-left: 4px solid var(--custom-accent, #22c55e);
-    border-radius: 14px;
-    box-shadow: 0 8px 24px #0003, 0 0 18px var(--custom-accent-soft, #00d4ff18);
-    position: relative; overflow: hidden;
-  }
-  .about-panel::after {
-    content: ""; position: absolute; width: 90px; height: 90px;
-    right: -35px; top: -35px; border-radius: 50%;
-    background: var(--custom-accent-soft, #00d4ff12);
-    pointer-events: none;
-  }
-  .about-panel h2 {
-    margin: 0 0 8px;
-    color: var(--custom-accent, #00d4ff);
-    font-size: 1.15em;
-    border-bottom: 1px solid var(--custom-accent-soft, #00d4ff44);
-    padding-bottom: 7px;
-  }
-  .about-panel p {
-    margin: 0; line-height: 1.55;
-    color: var(--custom-text, #dbeafe);
-    font-size: 0.92em;
-  }
-  .about-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-  .about-tag {
-    display: inline-block; padding: 4px 9px;
-    border-radius: 999px;
-    background: var(--custom-accent-soft, #00d4ff18);
-    border: 1px solid var(--custom-accent-soft, #00d4ff44);
-    color: var(--custom-accent, #7dd3fc);
-    font-size: 0.76em; font-weight: 700;
-  }
-
-  .class-name { font-size: 1.1em; color: #00d4ff; letter-spacing: 4px; font-weight: bold; text-transform: uppercase; }
-  h1 {
-    font-size: 2.4em; margin: 5px 0;
-    background: linear-gradient(90deg, #22c55e, #3b82f6, #ef4444);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text; letter-spacing: 3px;
-  }
-  .slogan { color: #ff00ea; font-style: italic; margin-top: 5px; font-size: 1em; }
-
-  .admin-bar {
-    display: flex; justify-content: flex-end; align-items: center;
-    gap: 10px; margin-bottom: 10px; flex-wrap: wrap;
-  }
-  .admin-bar button {
-    background: #16213e; color: #ffd700; border: 2px solid #ffd700;
-    padding: 6px 14px; border-radius: 20px; cursor: pointer;
-    font-weight: bold; font-size: 0.85em; font-family: inherit;
-    transition: all 0.25s;
-  }
-  .admin-bar button:hover { background: #ffd700; color: #0f2027; }
-  .admin-bar button.on {
-    background: #22c55e; border-color: #22c55e; color: #fff;
-    box-shadow: 0 0 12px #22c55e;
-  }
-  .admin-bar button.panel-btn { background: #16213e; color: #00d4ff; border-color: #00d4ff; }
-  .admin-bar button.panel-btn:hover { background: #00d4ff; color: #0f2027; }
-  .admin-bar button.icon-btn {
-    width: 42px; height: 42px; padding: 0;
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 1.25em; line-height: 1; border-radius: 50%;
-  }
-  .admin-status { font-size: 0.85em; color: #aaa; }
-
-  nav { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
-  nav button {
-    background: #16213e; color: #00d4ff; border: 2px solid #00d4ff;
-    padding: 10px 18px; border-radius: 25px; cursor: pointer;
-    font-weight: bold; font-size: 0.95em; font-family: inherit;
-    transition: all 0.25s;
-  }
-  nav button:hover { background: #00d4ff; color: #0f2027; box-shadow: 0 0 15px #00d4ff; transform: translateY(-2px); }
-  nav button.active {
-    background: linear-gradient(90deg, #22c55e, #3b82f6, #ef4444);
-    color: #fff; border-color: transparent; box-shadow: 0 0 20px #3b82f6aa;
-  }
-
-  .page { display: none; }
-  .page.active { display: block; animation: fadeIn 0.4s ease; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-  .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
-  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
-  .card {
-    background: #16213e; border-left: 4px solid #00d4ff; border-radius: 10px;
-    padding: 15px; margin-bottom: 15px; transition: transform 0.3s, box-shadow 0.3s;
-  }
-  .card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px #00d4ff55; }
-
-  body.reveal-enabled .card.reveal-card,
-  body.reveal-enabled .cyber-vision-card.reveal-card,
-  body.reveal-enabled .projects-category.reveal-card,
-  body.reveal-enabled .site-qr-section.reveal-card,
-  body.reveal-enabled .visits-counter.reveal-card {
-    opacity: 0;
-    transform: translateY(38px) scale(0.97);
-    filter: blur(2px);
-    transition:
-      opacity 0.65s ease,
-      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-      filter 0.65s ease,
-      box-shadow 0.3s ease;
-    transition-delay: var(--reveal-delay, 0ms);
-  }
-  body.reveal-enabled .card.reveal-card.is-visible,
-  body.reveal-enabled .cyber-vision-card.reveal-card.is-visible,
-  body.reveal-enabled .projects-category.reveal-card.is-visible,
-  body.reveal-enabled .site-qr-section.reveal-card.is-visible,
-  body.reveal-enabled .visits-counter.reveal-card.is-visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    body.reveal-enabled .card.reveal-card,
-    body.reveal-enabled .card.reveal-card.is-visible,
-    body.reveal-enabled .cyber-vision-card.reveal-card,
-    body.reveal-enabled .cyber-vision-card.reveal-card.is-visible,
-    body.reveal-enabled .projects-category.reveal-card,
-    body.reveal-enabled .projects-category.reveal-card.is-visible,
-    body.reveal-enabled .site-qr-section.reveal-card,
-    body.reveal-enabled .site-qr-section.reveal-card.is-visible,
-    body.reveal-enabled .visits-counter.reveal-card,
-    body.reveal-enabled .visits-counter.reveal-card.is-visible {
-      opacity: 1; transform: none; filter: none; transition: none;
-    }
-  }
-
-  .card h2 {
-    color: #00d4ff; margin-top: 0; font-size: 1.3em;
-    border-bottom: 1px solid #00d4ff44; padding-bottom: 5px;
-  }
-  .card.highlight { border-left-color: #ff00ea; }
-  .card.highlight h2 { color: #ff00ea; }
-  .card.joke { border-left-color: #ffd700; }
-  .card.joke h2 { color: #ffd700; }
-  .card.puzzle { border-left-color: #00ff88; }
-  .card.puzzle h2 { color: #00ff88; }
-
-  .tag {
-    display: inline-block; background: #00d4ff; color: #0f2027;
-    padding: 3px 10px; border-radius: 12px; font-size: 0.8em;
-    font-weight: bold; margin-right: 5px;
-  }
-  footer {
-    text-align: center; margin-top: 25px; padding-top: 15px;
-    border-top: 2px dashed #00d4ff; color: #aaa; font-size: 0.9em;
-  }
-  ul { padding-left: 20px; } li { margin-bottom: 5px; }
-
-  .photo-box {
-    background: #0f2027; border-radius: 8px; overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-    min-height: 160px; border: 1px dashed #00d4ff55; position: relative;
-  }
-  .photo-box img { width: 100%; height: auto; display: block; border-radius: 8px; }
-  .photo-box .placeholder { color: #555; padding: 40px 10px; text-align: center; }
-
-  .admin-only { display: none !important; }
-  body.admin .admin-only { display: block !important; }
-  body.admin .admin-only.inline { display: inline-block !important; }
-  body.admin .project-card-controls.admin-only { display: flex !important; }
-  body.admin .projects-gallery-header .admin-only { display: inline-block !important; }
-  body.admin .visits-counter-edit.admin-only { display: block !important; }
-
-  .bottom-background-control { text-align: center; margin-top: 22px; margin-bottom: 10px; }
-  .bottom-background-control button {
-    border: none; background: #00d4ff; color: #0f2027;
-    padding: 10px 22px; border-radius: 22px;
-    font-size: 0.95em; font-weight: bold; cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 0 12px rgba(0, 212, 255, 0.25);
-    font-family: inherit;
-  }
-  .bottom-background-control button:hover {
-    background: #ffffff; transform: translateY(-2px);
-    box-shadow: 0 0 18px rgba(0, 212, 255, 0.55);
-  }
-
-  .admin-photo-controls { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
-  .admin-photo-controls label {
-    background: #00d4ff; color: #0f2027; padding: 6px 14px;
-    border-radius: 20px; cursor: pointer; font-weight: bold;
-    font-size: 0.85em; transition: all 0.25s;
-  }
-  .admin-photo-controls label:hover { background: #fff; }
-  .admin-photo-controls input[type="file"] { display: none; }
-  .admin-photo-controls button {
-    background: #ef4444; color: #fff; border: none; padding: 6px 14px;
-    border-radius: 20px; cursor: pointer; font-weight: bold;
-    font-size: 0.85em; font-family: inherit;
-  }
-  .admin-photo-controls button:hover { background: #b91c1c; }
-
-  .edit-controls { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
-  .edit-controls button {
-    background: #00d4ff; color: #0f2027; border: none;
-    padding: 5px 12px; border-radius: 15px; cursor: pointer;
-    font-weight: bold; font-size: 0.8em; font-family: inherit;
-    transition: all 0.25s;
-  }
-  .edit-controls button:hover { background: #fff; }
-  .edit-controls button.save { background: #22c55e; color: #fff; }
-  .edit-controls button.save:hover { background: #16a34a; }
-  .edit-controls button.cancel { background: #666; color: #fff; }
-  .edit-controls button.cancel:hover { background: #888; }
-
-  .editable[contenteditable="true"] {
-    outline: 2px dashed #00d4ff; outline-offset: 4px;
-    background: #0f2027; border-radius: 6px; padding: 8px; min-height: 30px;
-  }
-  .card h2.editable[contenteditable="true"] { padding: 4px 8px; min-height: 30px; }
-  .edit-status { font-size: 0.8em; color: #22c55e; margin-top: 6px; min-height: 1em; }
-
-  .editable ul.collapsed-list > li.hidden-item,
-  .editable ol.collapsed-list > li.hidden-item { display: none; }
-
-  [data-collapse] > .collapse-hidden { display: none !important; }
-  .project-list { display: flex; flex-direction: column; gap: 8px; }
-  .project-item { padding: 4px 0; }
-
-  .show-more-btn {
-    display: inline-block; margin-top: 8px;
-    background: transparent; color: #00d4ff;
-    border: 2px dashed #00d4ff; padding: 6px 14px;
-    border-radius: 20px; cursor: pointer;
-    font-family: inherit; font-weight: bold; font-size: 0.85em;
-    transition: all 0.25s;
-  }
-  .show-more-btn:hover { background: #00d4ff; color: #0f2027; border-style: solid; }
-  .show-more-btn.expanded { border-color: #ff00ea; color: #ff00ea; }
-  .show-more-btn.expanded:hover { background: #ff00ea; color: #fff; }
-
-  .modal {
-    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
-    z-index: 1000; align-items: center; justify-content: center; padding: 20px;
-    overflow-y: auto;
-  }
-  .modal.open { display: flex; }
-  .modal-content {
-    background: #1a1a2e; border: 2px solid #00d4ff; border-radius: 12px;
-    padding: 25px; max-width: 360px; width: 100%; text-align: center;
-    box-shadow: 0 0 30px #00d4ff88;
-  }
-  .modal-content h3 { color: #00d4ff; margin-top: 0; }
-  .modal-content input {
-    width: 100%; padding: 10px; border-radius: 8px; border: 2px solid #00d4ff;
-    background: #0f2027; color: #fff; font-size: 1em; margin: 15px 0;
-    font-family: inherit;
-  }
-  .modal-content input:focus { outline: none; box-shadow: 0 0 10px #00d4ff; }
-  .modal-content .btn-row { display: flex; gap: 10px; }
-  .modal-content button {
-    flex: 1; padding: 10px; border-radius: 8px; border: none;
-    font-weight: bold; cursor: pointer; font-family: inherit; font-size: 0.95em;
-  }
-  .btn-login { background: #22c55e; color: #fff; }
-  .btn-login:hover { background: #16a34a; }
-  .btn-cancel { background: #444; color: #fff; }
-  .btn-cancel:hover { background: #666; }
-  .error-msg { color: #ef4444; font-size: 0.85em; min-height: 1.2em; }
-
-  .admin-panel { max-width: 520px; text-align: left; }
-  .admin-panel h3 { text-align: center; margin-top: 0; }
-  .qr-wrapper {
-    background: #fff; border-radius: 12px; padding: 20px;
-    display: flex; flex-direction: column; align-items: center; gap: 12px;
-    margin: 15px 0; box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
-  }
-  .qr-wrapper #qrCanvasHolder {
-    display: flex; justify-content: center; align-items: center;
-    min-height: 260px; min-width: 260px;
-  }
-  .qr-wrapper canvas, .qr-wrapper img { display: block; border-radius: 8px; }
-  .qr-label {
-    font-size: 1.1em; font-weight: bold; color: #1a1a2e;
-    letter-spacing: 1px; text-align: center;
-  }
-  .qr-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-  .qr-actions button {
-    flex: 1; min-width: 140px; padding: 10px 14px; border-radius: 8px;
-    border: none; font-weight: bold; cursor: pointer; font-family: inherit;
-    font-size: 0.95em; transition: all 0.25s;
-  }
-  .qr-btn-download { background: #22c55e; color: #fff; }
-  .qr-btn-download:hover { background: #16a34a; }
-  .qr-btn-print { background: #00d4ff; color: #0f2027; }
-  .qr-btn-print:hover { background: #00b8e0; }
-
-  .admin-section {
-    margin-top: 18px; border-top: 1px dashed #00d4ff44; padding-top: 14px;
-  }
-  .admin-section-title { color: #00d4ff; font-weight: bold; font-size: 0.95em; margin-bottom: 10px; }
-  .bg-preview {
-    width: 100%; height: 120px; background: #0f2027;
-    border: 1px dashed #00d4ff55; border-radius: 8px;
-    overflow: hidden; display: flex; align-items: center; justify-content: center;
-    margin-bottom: 10px;
-  }
-  .bg-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .bg-preview-empty { color: #555; font-size: 0.85em; }
-  .bg-controls { display: flex; gap: 8px; flex-wrap: wrap; }
-  .bg-btn-upload {
-    background: #00d4ff; color: #0f2027; padding: 6px 14px;
-    border-radius: 20px; cursor: pointer; font-weight: bold;
-    font-size: 0.85em; transition: all 0.25s;
-  }
-  .bg-btn-upload:hover { background: #fff; }
-  #bgInput { display: none; }
-  .bg-btn-remove {
-    background: #ef4444; color: #fff; border: none; padding: 6px 14px;
-    border-radius: 20px; cursor: pointer; font-weight: bold;
-    font-size: 0.85em; font-family: inherit; transition: all 0.25s;
-  }
-  .bg-btn-remove:hover { background: #b91c1c; }
-  .bg-status { font-size: 0.8em; color: #22c55e; margin-top: 8px; min-height: 1em; }
-
-  body.has-custom-bg {
-    background-size: cover !important;
-    background-position: center !important;
-    background-attachment: fixed !important;
-    background-repeat: no-repeat !important;
-  }
-
-  @media print {
-    body * { visibility: hidden !important; }
-    #qrPrintArea, #qrPrintArea * { visibility: visible !important; }
-    #qrPrintArea {
-      position: fixed; inset: 0; background: #fff;
-      display: flex !important; flex-direction: column;
-      align-items: center; justify-content: center; padding: 40px;
-    }
-    #qrPrintArea .qr-label { font-size: 2em; margin-top: 24px; }
-  }
-
-  .settings-launcher {
-    position: fixed; right: 18px; top: 50%; transform: translateY(-50%);
-    z-index: 1200; width: 52px; height: 52px; border: 1px solid #00d4ff;
-    border-radius: 50%; background: #16213e; color: #00d4ff; font-size: 1.45rem;
-    cursor: pointer; box-shadow: 0 5px 24px #0005, 0 0 14px #00d4ff33;
-    transition: transform .22s ease, background .22s ease, color .22s ease;
-  }
-  .settings-launcher:hover { transform: translateY(-50%) rotate(25deg) scale(1.06); background: #00d4ff; color: #0f2027; }
-  .settings-overlay {
-    position: fixed; inset: 0; z-index: 1290; background: rgba(3, 8, 20, .55);
-    opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility .25s ease;
-  }
-  .settings-overlay.open { opacity: 1; visibility: visible; }
-  .settings-drawer {
-    position: fixed; z-index: 1300; top: 0; right: 0; height: 100dvh;
-    width: min(400px, 92vw); padding: 26px 22px; overflow-y: auto;
-    color: #f8fafc; background: #111a30; border-left: 2px solid #00d4ff;
-    box-shadow: -12px 0 35px #0005; transform: translateX(105%);
-    transition: transform .3s cubic-bezier(.22,1,.36,1);
-  }
-  .settings-drawer.open { transform: translateX(0); }
-  .settings-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:24px; }
-  .settings-head h2 { margin:0; color:#00d4ff; font-size:1.35rem; }
-  .settings-close { border:0; border-radius:10px; width:38px; height:38px; cursor:pointer; font-size:1.3rem; background:#26334f; color:inherit; }
-  .settings-label { display:block; margin-bottom:12px; font-weight:700; }
-  .settings-note { color:#aab6c9; font-size:.88rem; line-height:1.5; margin-top:16px; }
-
-  .themes-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 10px; margin-bottom: 12px;
-  }
-  .theme-card {
-    position: relative; border: 2px solid #35445f; border-radius: 12px;
-    padding: 10px; cursor: pointer; background: #1a2742;
-    transition: border-color .2s, transform .2s, box-shadow .2s; text-align: left;
-  }
-  .theme-card:hover { transform: translateY(-2px); }
-  .theme-card[data-active="true"] {
-    border-color: #00d4ff; box-shadow: 0 0 0 2px #00d4ff22, 0 0 18px #00d4ff22;
-  }
-  .theme-card-preview {
-    height: 54px; border-radius: 8px; margin-bottom: 8px;
-    border: 1px solid #ffffff30; overflow: hidden; display: flex;
-  }
-  .theme-card-preview .swatch { flex: 1; }
-  .theme-card-name {
-    font-size: 0.85em; font-weight: 700; color: #eaf2ff;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .theme-card-actions {
-    position: absolute; top: 6px; right: 6px;
-    display: flex; gap: 4px; opacity: 0; transition: opacity .2s;
-  }
-  .theme-card:hover .theme-card-actions { opacity: 1; }
-  .theme-card-actions button {
-    width: 22px; height: 22px; border-radius: 50%;
-    border: none; cursor: pointer; font-size: 0.75em;
-    display: flex; align-items: center; justify-content: center;
-    background: #26334f; color: #fff; transition: background .2s;
-  }
-  .theme-card-actions button:hover { background: #00d4ff; color: #0f2027; }
-  .theme-card-actions button.danger:hover { background: #ef4444; color: #fff; }
-
-  .theme-action-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-  .theme-action-row button {
-    flex: 1; min-width: 120px; padding: 10px 14px; border-radius: 10px;
-    border: none; font-weight: 700; cursor: pointer;
-    font-family: inherit; font-size: 0.9em; transition: all .2s;
-  }
-  .btn-create-theme { background: linear-gradient(90deg, #22c55e, #00d4ff); color: #0f2027; }
-  .btn-create-theme:hover { filter: brightness(1.15); }
-  .btn-reset-theme { background: #26334f; color: #eaf2ff; }
-  .btn-reset-theme:hover { background: #35445f; }
-
-  .theme-editor {
-    margin-top: 18px; padding: 16px; border: 1px solid #35445f;
-    border-radius: 12px; background: #0f1830;
-  }
-  .theme-editor-title { font-weight: 700; color: #00d4ff; margin-bottom: 14px; font-size: 0.95em; }
-  .theme-editor-label {
-    display: block; font-size: 0.8em; color: #aab6c9;
-    margin-bottom: 6px; margin-top: 12px; font-weight: 700;
-  }
-  .theme-editor-input {
-    width: 100%; padding: 9px 12px; border-radius: 8px;
-    border: 1px solid #35445f; background: #1a2742; color: #eaf2ff;
-    font-family: inherit; font-size: 0.95em;
-  }
-  .theme-editor-input:focus { outline: none; border-color: #00d4ff; box-shadow: 0 0 10px #00d4ff33; }
-
-  .presets-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-  .preset-chip {
-    width: 40px; height: 40px; border-radius: 10px;
-    border: 2px solid #35445f; cursor: pointer;
-    transition: transform .2s, border-color .2s;
-    padding: 0; overflow: hidden; position: relative;
-  }
-  .preset-chip:hover { transform: scale(1.08); border-color: #00d4ff; }
-  .preset-chip[data-selected="true"] { border-color: #00d4ff; box-shadow: 0 0 0 2px #00d4ff55; }
-  .preset-chip-inner { display: flex; width: 100%; height: 100%; }
-  .preset-chip-inner div { flex: 1; }
-
-  .color-pick-row { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
-  .color-pick-row input[type="color"] {
-    width: 48px; height: 36px; border: 1px solid #35445f;
-    border-radius: 8px; padding: 2px; background: #1a2742; cursor: pointer;
-  }
-  .color-pick-row .color-hex { flex: 1; font-family: monospace; font-size: 0.85em; color: #aab6c9; }
-
-  .theme-live-preview {
-    margin-top: 14px; padding: 12px; border-radius: 10px;
-    border: 1px solid #35445f; transition: all .2s;
-  }
-  .theme-live-preview .lp-title { font-weight: 700; margin-bottom: 6px; }
-  .theme-live-preview .lp-text { font-size: 0.85em; line-height: 1.4; margin-bottom: 8px; }
-  .theme-live-preview .lp-btn { display: inline-block; padding: 5px 12px; border-radius: 8px; font-size: 0.8em; font-weight: 700; }
-
-  .theme-editor-actions { display: flex; gap: 8px; margin-top: 16px; }
-  .theme-editor-actions button {
-    flex: 1; padding: 10px; border-radius: 8px; border: none;
-    font-weight: 700; cursor: pointer; font-family: inherit;
-    font-size: 0.9em; transition: all .2s;
-  }
-  .btn-save-theme { background: #22c55e; color: #fff; }
-  .btn-save-theme:hover { background: #16a34a; }
-  .btn-cancel-theme { background: #26334f; color: #eaf2ff; }
-  .btn-cancel-theme:hover { background: #35445f; }
-
-  /* ===== СВЕТЛАЯ ТЕМА ===== */
-  body.light-theme { background: linear-gradient(135deg, #edf5f8, #dceaf0, #cbdfe8); color: #243447; }
-  body.light-theme .paper { background: #f8fbfd; border-color: #159fc0; box-shadow: 0 0 28px #159fc033; }
-  body.light-theme header { border-bottom-color: #159fc077; }
-  body.light-theme .class-name { color: #087f9d; }
-  body.light-theme .slogan { color: #a21caf; }
-  body.light-theme .admin-bar button { background: #fff; color: #805d00; border-color: #d6a900; }
-  body.light-theme .admin-bar button:hover { background: #ffe58a; color: #243447; }
-  body.light-theme .admin-bar button.panel-btn { color: #087f9d; border-color: #159fc0; }
-  body.light-theme nav button { background: #e7f1f6; color: #087f9d; border-color: #159fc0; }
-  body.light-theme nav button:hover { background: #bfeefa; color: #16313d; }
-  body.light-theme .card { background: #fff; color: #243447; box-shadow: 0 3px 12px #183b4b12; }
-  body.light-theme .card h2 { color: #087f9d; border-bottom-color: #159fc044; }
-  body.light-theme .card.highlight h2 { color: #b423a5; }
-  body.light-theme .card.joke h2 { color: #8a6500; }
-  body.light-theme .card.puzzle h2 { color: #087d54; }
-  body.light-theme .tag { background: #b8eff9; color: #16414d; }
-  body.light-theme footer { color: #536779; border-top-color: #159fc077; }
-  body.light-theme .photo-box { background: #eaf3f7; }
-  body.light-theme .photo-box .placeholder { color: #607888; }
-  body.light-theme .settings-launcher { background: #fff; color: #087f9d; border-color: #159fc0; }
-  body.light-theme .settings-drawer { background: #f8fbfd; color: #243447; border-left-color: #159fc0; }
-  body.light-theme .settings-head h2 { color: #087f9d; }
-  body.light-theme .settings-close { background: #e4eef3; color: #243447; }
-  body.light-theme .settings-note { color: #607888; }
-  body.light-theme .bottom-background-control button { background: #159fc0; color: #fff; }
-  body.light-theme .bottom-background-control button:hover { background: #087f9d; }
-  body.light-theme .modal-content { background: #f8fbfd; color: #243447; }
-  body.light-theme .admin-section { background: #edf4f7; }
-  body.light-theme input, body.light-theme textarea { background: #fff; color: #243447; border-color: #c3d5df; }
-  body.light-theme .theme-card { background: #fff; color: #243447; border-color: #c3d5df; }
-  body.light-theme .theme-card-name { color: #243447; }
-  body.light-theme .theme-card-actions button { background: #e4eef3; color: #243447; }
-  body.light-theme .theme-editor { background: #edf4f7; border-color: #c3d5df; }
-  body.light-theme .theme-editor-input { background: #fff; color: #243447; border-color: #c3d5df; }
-  body.light-theme .btn-reset-theme { background: #e4eef3; color: #243447; }
-  body.light-theme .btn-cancel-theme { background: #e4eef3; color: #243447; }
-
-  body.light-theme .about-panel {
-    background: linear-gradient(145deg, #ffffff, #edf6fa);
-    border-color: #159fc044;
-    border-left-color: #16a765;
-    box-shadow: 0 8px 24px #183b4b12;
-  }
-  body.light-theme .about-panel h2 { color: #087f9d; border-bottom-color: #159fc044; }
-  body.light-theme .about-panel p { color: #385064; }
-  body.light-theme .about-tag { background: #159fc012; border-color: #159fc044; color: #087f9d; }
-
-  body.light-theme .cyber-vision-card {
-    background: linear-gradient(135deg, #ffffff 0%, #eef8fb 58%, #f5f0ff 100%);
-    border-color: #159fc044;
-    border-left-color: #7c3aed;
-    box-shadow: 0 10px 28px #183b4b14, 0 0 20px #7c3aed10;
-  }
-  body.light-theme .cyber-vision-card .cyber-vision-title {
-    color: #6d28d9; border-bottom-color: #159fc044;
-  }
-  body.light-theme .cyber-vision-card p { color: #385064; }
-  body.light-theme .cyber-vision-link { background: #7c3aed; color: #fff !important; }
-  body.light-theme .cyber-vision-link:hover { background: #6d28d9; }
-
-  /* ===== КАСТОМНАЯ ТЕМА ===== */
-  body.custom-theme { background: var(--custom-bg); color: var(--custom-text); }
-  body.custom-theme .paper {
-    background: var(--custom-paper);
-    border-color: var(--custom-accent);
-    box-shadow: 0 0 30px var(--custom-accent-soft);
-  }
-  body.custom-theme h1 {
-    background: linear-gradient(90deg, var(--custom-accent), var(--custom-accent-2, var(--custom-accent)), var(--custom-accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  body.custom-theme .class-name,
-  body.custom-theme .card h2,
-  body.custom-theme .about-panel h2,
-  body.custom-theme .cyber-vision-card .cyber-vision-title { color: var(--custom-accent); }
-  body.custom-theme nav button {
-    color: var(--custom-accent);
-    border-color: var(--custom-accent);
-    background: transparent;
-  }
-  body.custom-theme nav button:hover { background: var(--custom-accent); color: var(--custom-paper); }
-  body.custom-theme .card {
-    background: var(--custom-card);
-    border-left-color: var(--custom-accent);
-  }
-  body.custom-theme .card h2 { border-bottom-color: var(--custom-accent-soft); }
-  body.custom-theme .tag { background: var(--custom-accent); color: var(--custom-paper); }
-  body.custom-theme .admin-bar button { color: var(--custom-accent); border-color: var(--custom-accent); }
-  body.custom-theme .admin-bar button:hover { background: var(--custom-accent); color: var(--custom-paper); }
-  body.custom-theme .settings-launcher { color: var(--custom-accent); border-color: var(--custom-accent); }
-  body.custom-theme .settings-drawer { border-left-color: var(--custom-accent); }
-  body.custom-theme .settings-head h2 { color: var(--custom-accent); }
-  body.custom-theme footer { border-top-color: var(--custom-accent-soft); }
-  body.custom-theme .bottom-background-control button { background: var(--custom-accent); color: var(--custom-paper); }
-  body.custom-theme .cyber-vision-link { background: var(--custom-accent); color: var(--custom-paper) !important; }
-
-  @media (max-width: 520px) {
-    .settings-launcher { right:10px; width:46px; height:46px; }
-    .settings-drawer { padding:22px 18px; }
-    .themes-grid { grid-template-columns: 1fr 1fr; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .settings-overlay, .settings-drawer, .settings-launcher, .theme-card, .preset-chip { transition:none !important; }
-  }
-
-  /* ===== Публичный QR-код сайта ===== */
-  .site-qr-section {
-    margin: 28px auto 12px;
-    max-width: 760px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding: 18px 22px;
-    border: 1px solid var(--custom-accent-soft, #00d4ff55);
-    border-left: 4px solid var(--custom-accent, #00d4ff);
-    border-radius: 16px;
-    background: linear-gradient(145deg,
-      var(--custom-card, #111a30),
-      var(--custom-paper, #16213e));
-    box-shadow: 0 8px 24px #0003, 0 0 18px var(--custom-accent-soft, #00d4ff14);
-  }
-  .site-qr-text { flex: 1; }
-  .site-qr-text p {
-    margin: 0 0 8px;
-    line-height: 1.5;
-    color: var(--custom-text, #dbeafe);
-  }
-  .site-qr-text span {
-    font-size: .8em;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--custom-accent, #7dd3fc);
-  }
-  .site-qr-box {
-    flex: 0 0 auto;
-    padding: 9px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 18px #0004;
-  }
-  #siteQrCode {
-    width: 150px; height: 150px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  #siteQrCode img, #siteQrCode canvas {
-    display: block;
-    width: 150px !important;
-    height: 150px !important;
-  }
-  @media (max-width: 600px) {
-    .site-qr-section { flex-direction: column; text-align: center; }
-  }
-
-  body.light-theme .site-qr-section {
-    background: linear-gradient(145deg, #fff, #edf6fa);
-    border-color: #159fc044;
-    border-left-color: #159fc0;
-    box-shadow: 0 8px 24px #183b4b12;
-  }
-  body.light-theme .site-qr-text p { color: #385064; }
-  body.light-theme .site-qr-text span { color: #087f9d; }
-
-  body.custom-theme .site-qr-section {
-    background: linear-gradient(145deg, var(--custom-card), var(--custom-paper));
-    border-color: var(--custom-accent-soft);
-    border-left-color: var(--custom-accent);
-  }
-  body.custom-theme .site-qr-text p { color: var(--custom-text); }
-  body.custom-theme .site-qr-text span { color: var(--custom-accent); }
-
-  /* ===== СЧЁТЧИК ПОСЕЩЕНИЙ ===== */
-  .visits-counter {
-    margin: 16px auto 0;
-    max-width: 760px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 26px 24px 28px;
-    border: 2px solid var(--custom-accent-soft, #00d4ff55);
-    border-left: 6px solid var(--custom-accent, #00d4ff);
-    border-radius: 20px;
-    background: linear-gradient(145deg,
-      var(--custom-card, #111a30),
-      var(--custom-paper, #16213e));
-    box-shadow: 0 12px 32px #0004, 0 0 28px var(--custom-accent-soft, #00d4ff22);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .visits-counter::before {
-    content: "";
-    position: absolute;
-    width: 240px; height: 240px;
-    right: -100px; top: -120px;
-    border-radius: 50%;
-    background: var(--custom-accent-soft, #00d4ff10);
-    pointer-events: none;
-  }
-  .visits-counter-label {
-    font-size: 1.1em;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--custom-accent, #7dd3fc);
-    opacity: 0.9;
-  }
-  .visits-counter-value {
-    font-size: 4.5em;
-    font-weight: 900;
-    line-height: 1;
-    letter-spacing: 2px;
-    color: var(--custom-accent, #00d4ff);
-    text-shadow: 0 0 24px var(--custom-accent-soft, #00d4ff55);
-    font-variant-numeric: tabular-nums;
-  }
-  .visits-counter-sub {
-    font-size: 0.95em;
-    letter-spacing: 1px;
-    opacity: 0.75;
-    color: var(--custom-text, #dbeafe);
-  }
-  .visits-counter-edit { margin-top: 12px; }
-  .visits-counter-edit button {
-    background: transparent;
-    color: var(--custom-accent, #00d4ff);
-    border: 2px dashed var(--custom-accent, #00d4ff);
-    padding: 6px 14px;
-    border-radius: 18px;
-    font-family: inherit;
-    font-weight: bold;
-    font-size: 0.85em;
-    cursor: pointer;
-    transition: all .25s;
-  }
-  .visits-counter-edit button:hover {
-    background: var(--custom-accent, #00d4ff);
-    color: var(--custom-paper, #0f2027);
-    border-style: solid;
-  }
-  body.light-theme .visits-counter-edit button {
-    color: #087f9d;
-    border-color: #087f9d;
-  }
-  body.light-theme .visits-counter-edit button:hover {
-    background: #087f9d;
-    color: #fff;
-  }
-
-  .visits-counter-input-row {
-    display: none;
-    gap: 8px;
-    align-items: center;
-    justify-content: center;
-    margin-top: 8px;
-    flex-wrap: wrap;
-  }
-  .visits-counter-input-row.open { display: flex; }
-  .visits-counter-input-row input {
-    width: 130px;
-    padding: 8px 12px;
-    border-radius: 10px;
-    border: 2px solid var(--custom-accent, #00d4ff);
-    background: var(--custom-paper, #0f2027);
-    color: var(--custom-text, #ffffff);
-    font-family: inherit;
-    font-size: 1em;
-    text-align: center;
-    outline: none;
-  }
-  body.light-theme .visits-counter-input-row input {
-    background: #fff;
-    color: #243447;
-    border-color: #087f9d;
-  }
-  .visits-counter-input-row button {
-    padding: 8px 14px;
-    border-radius: 10px;
-    border: none;
-    font-family: inherit;
-    font-weight: bold;
-    font-size: 0.9em;
-    cursor: pointer;
-    transition: all .2s;
-  }
-  .visits-counter-input-row button.save { background: #22c55e; color: #fff; }
-  .visits-counter-input-row button.save:hover { background: #16a34a; }
-  .visits-counter-input-row button.cancel { background: #444; color: #fff; }
-  .visits-counter-input-row button.cancel:hover { background: #666; }
-
-  @media (max-width: 520px) {
-    .visits-counter-value { font-size: 3.2em; }
-    .visits-counter-label { font-size: 0.95em; letter-spacing: 1px; }
-  }
-
-  body.light-theme .visits-counter {
-    background: linear-gradient(145deg, #fff, #edf6fa);
-    border-color: #159fc055;
-    border-left-color: #159fc0;
-    box-shadow: 0 12px 32px #183b4b18, 0 0 28px #159fc022;
-  }
-  body.light-theme .visits-counter-label { color: #087f9d; }
-  body.light-theme .visits-counter-value {
-    color: #087f9d;
-    text-shadow: 0 0 24px #159fc033;
-  }
-  body.light-theme .visits-counter-sub { color: #385064; }
-
-  body.custom-theme .visits-counter {
-    background: linear-gradient(145deg, var(--custom-card), var(--custom-paper));
-    border-color: var(--custom-accent-soft);
-    border-left-color: var(--custom-accent);
-  }
-  body.custom-theme .visits-counter-label { color: var(--custom-accent); }
-  body.custom-theme .visits-counter-value { color: var(--custom-accent); text-shadow: 0 0 24px var(--custom-accent-soft); }
-  body.custom-theme .visits-counter-sub { color: var(--custom-text); }
-
-  /* ===== КАТЕГОРИЯ «НАШИ ПРОЕКТЫ» ===== */
-  .projects-category {
-    margin: 0 0 22px;
-    padding: 22px;
-    border: 1px solid #00d4ff44;
-    border-left: 4px solid #00d4ff;
-    border-radius: 16px;
-    background: linear-gradient(145deg, #111a30, #16213e);
-    box-shadow: 0 8px 24px #0003, 0 0 18px #00d4ff14;
-  }
-  .projects-gallery-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
-    border-bottom: 1px solid #00d4ff44;
-    padding-bottom: 10px;
-  }
-  .projects-gallery-header h2 {
-    margin: 0;
-    color: #00d4ff;
-    font-size: 1.35em;
-  }
-  #addProjectBtn {
-    background: #22c55e; color: #fff; border: none;
-    padding: 8px 16px; border-radius: 18px;
-    font-weight: bold; cursor: pointer; font-family: inherit;
-    font-size: 0.85em; transition: all .25s;
-  }
-  #addProjectBtn:hover { background: #16a34a; transform: translateY(-2px); }
-  .projects-gallery-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;
-  }
-  @media (max-width: 720px) { .projects-gallery-grid { grid-template-columns: 1fr; } }
-
-  .project-card {
-    display: flex; flex-direction: column;
-    background: #0f2027; border-radius: 14px; border: 1px solid #00d4ff33;
-    overflow: hidden; transition: transform .3s, box-shadow .3s;
-  }
-  .project-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px #00d4ff33; }
-  .project-card-image {
-    position: relative; width: 100%; aspect-ratio: 16 / 10;
-    background: #16213e center/cover no-repeat;
-    display: flex; align-items: center; justify-content: center; overflow: hidden;
-  }
-  .project-card-image img {
-    width: 100%; height: 100%; object-fit: cover;
-    display: block; position: absolute; inset: 0;
-  }
-  .project-card-image .placeholder { color: #556; font-size: 0.9em; text-align: center; padding: 20px; z-index: 1; }
-  .project-card-caption {
-    padding: 14px 16px 8px; font-size: 0.95em; line-height: 1.5;
-    color: #dbeafe; flex: 1; min-height: 60px;
-  }
-  .project-card-controls { display: flex; gap: 8px; padding: 0 16px 16px; flex-wrap: wrap; }
-  .project-card-controls label,
-  .project-card-controls button {
-    padding: 6px 12px; border-radius: 16px; border: none;
-    font-family: inherit; font-weight: bold; font-size: 0.82em;
-    cursor: pointer; transition: all .2s;
-  }
-  .project-card-controls label { background: #00d4ff; color: #0f2027; }
-  .project-card-controls label:hover { background: #fff; }
-  .project-card-controls button.remove { background: #ef4444; color: #fff; }
-  .project-card-controls button.remove:hover { background: #b91c1c; }
-  .project-card-controls input[type="file"] { display: none; }
-
-  .project-card .edit-controls { padding: 0 16px 16px; margin-top: 0; }
-
-  body.light-theme .projects-category {
-    background: linear-gradient(145deg, #fff, #edf6fa);
-    border-color: #159fc044; border-left-color: #159fc0;
-  }
-  body.light-theme .projects-gallery-header { border-bottom-color: #159fc044; }
-  body.light-theme .projects-gallery-header h2 { color: #087f9d; }
-  body.light-theme .project-card { background: #fff; border-color: #c3d5df; }
-  body.light-theme .project-card-image { background: #eaf3f7; }
-  body.light-theme .project-card-image .placeholder { color: #889; }
-  body.light-theme .project-card-caption { color: #243447; }
-
-  body.custom-theme .projects-category {
-    background: var(--custom-card);
-    border-color: var(--custom-accent-soft);
-    border-left-color: var(--custom-accent);
-  }
-  body.custom-theme .projects-gallery-header h2 { color: var(--custom-accent); }
-  body.custom-theme .projects-gallery-header { border-bottom-color: var(--custom-accent-soft); }
-  body.custom-theme .project-card {
-    background: var(--custom-paper); border-color: var(--custom-accent-soft);
-  }
-  body.custom-theme .project-card-caption { color: var(--custom-text); }
-  body.custom-theme .project-card-controls label { background: var(--custom-accent); color: var(--custom-paper); }
-
-  /* ===== ОБРАТНАЯ СВЯЗЬ ===== */
-  .feedback-float {
+  /* ===== ПРОГРЕСС-БАР ЧТЕНИЯ ===== */
+  #reading-progress {
     position: fixed;
-    right: 18px;
-    bottom: 18px;
-    z-index: 1180;
-    max-width: 300px;
-    padding: 12px 16px;
-    border: 1px solid var(--custom-accent-soft, #00d4ff55);
-    border-left: 4px solid var(--custom-accent, #00d4ff);
-    border-radius: 15px;
-    background: linear-gradient(145deg, var(--custom-card, #111a30), var(--custom-paper, #16213e));
-    color: var(--custom-text, #dbeafe);
-    box-shadow: 0 10px 28px #0005, 0 0 18px var(--custom-accent-soft, #00d4ff22);
-    font-family: inherit;
-    font-size: .9em;
-    cursor: pointer;
-    text-align: left;
-    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-  }
-  .feedback-float:hover { transform: translateY(-3px); box-shadow: 0 14px 34px #0006, 0 0 24px var(--custom-accent-soft, #00d4ff35); }
-  .feedback-float-title { font-weight: 800; color: var(--custom-accent, #00d4ff); margin-bottom: 3px; }
-  .feedback-float-sub { opacity: .8; font-size: .82em; }
-
-  .feedback-modal-content { max-width: 520px; text-align: left; }
-  .feedback-modal-content h3 { text-align: center; margin-bottom: 8px; }
-  .feedback-intro { text-align: center; opacity: .8; font-size: .9em; margin-top: 0; }
-  .feedback-rating { display: flex; gap: 10px; margin: 16px 0; }
-  .feedback-rating button {
-    flex: 1; padding: 11px 8px; border-radius: 11px;
-    border: 1px solid var(--custom-accent-soft, #00d4ff55);
-    background: var(--custom-card, #16213e); color: var(--custom-text, #dbeafe);
-    cursor: pointer; font-family: inherit; font-weight: 700; transition: all .2s;
-  }
-  .feedback-rating button:hover, .feedback-rating button.selected {
-    background: var(--custom-accent, #00d4ff); color: var(--custom-paper, #0f2027); transform: translateY(-2px);
-  }
-  .feedback-textarea {
-    width: 100%; min-height: 130px; resize: vertical; padding: 12px;
-    border-radius: 11px; border: 1px solid var(--custom-accent-soft, #00d4ff55);
-    background: var(--custom-paper, #0f2027); color: var(--custom-text, #fff);
-    font-family: inherit; font-size: .95em; outline: none;
-  }
-  .feedback-textarea:focus { border-color: var(--custom-accent, #00d4ff); box-shadow: 0 0 12px var(--custom-accent-soft, #00d4ff22); }
-  .feedback-mail-note { font-size: .78em; opacity: .65; margin: 9px 0 0; text-align: center; }
-  .feedback-send { background: var(--custom-accent, #00d4ff); color: var(--custom-paper, #0f2027); }
-  .feedback-send:hover { filter: brightness(1.1); transform: translateY(-1px); }
-
-  body.light-theme .feedback-float { background: linear-gradient(145deg, #fff, #edf6fa); color: #243447; border-color: #159fc055; border-left-color: #159fc0; }
-  body.light-theme .feedback-float-title { color: #087f9d; }
-  body.light-theme .feedback-rating button { background: #fff; color: #243447; border-color: #c3d5df; }
-  body.light-theme .feedback-rating button:hover, body.light-theme .feedback-rating button.selected { background: #159fc0; color: #fff; }
-  body.light-theme .feedback-textarea { background: #fff; color: #243447; border-color: #c3d5df; }
-  body.custom-theme .feedback-float { background: linear-gradient(145deg, var(--custom-card), var(--custom-paper)); }
-  body.custom-theme .feedback-rating button { background: var(--custom-paper); color: var(--custom-text); border-color: var(--custom-accent-soft); }
-  body.custom-theme .feedback-textarea { background: var(--custom-paper); color: var(--custom-text); border-color: var(--custom-accent-soft); }
-
-  @media (max-width: 600px) {
-    .feedback-float { right: 10px; bottom: 10px; left: 10px; max-width: none; text-align: center; }
-  }
-
-  /* ===== ССЫЛКА В ФУТЕРЕ ===== */
-  .footer-links {
-    margin-top: 8px;
-  }
-  .footer-links button {
-    background: transparent;
-    border: none;
-    color: var(--custom-accent, #00d4ff);
-    font-family: inherit;
-    font-size: 0.9em;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 8px;
-    transition: all .25s;
-    text-decoration: underline;
-  }
-  .footer-links button:hover {
-    background: var(--custom-accent-soft, #00d4ff22);
-    text-decoration: none;
-  }
-  body.light-theme .footer-links button { color: #087f9d; }
-  body.custom-theme .footer-links button { color: var(--custom-accent); }
-
-  /* ===== COOKIE-БАННЕР ===== */
-  .cookie-banner {
-    position: fixed;
-    left: 16px;
-    right: 16px;
-    bottom: 16px;
-    z-index: 1250;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 14px 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    flex-wrap: wrap;
-    border: 1px solid var(--custom-accent-soft, #00d4ff55);
-    border-left: 4px solid var(--custom-accent, #00d4ff);
-    border-radius: 14px;
-    background: linear-gradient(145deg,
-      var(--custom-card, #111a30),
-      var(--custom-paper, #16213e));
-    color: var(--custom-text, #dbeafe);
-    box-shadow: 0 12px 32px #0005, 0 0 22px var(--custom-accent-soft, #00d4ff22);
-    font-size: 0.92em;
-    transform: translateY(140%);
-    opacity: 0;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(90deg, #22c55e, #3b82f6, #ef4444, #00d4ff);
+    background-size: 300% 100%;
+    animation: progressGlow 3s linear infinite;
+    z-index: 9999;
+    box-shadow: 0 0 10px #00d4ff88;
+    transition: width 0.08s linear;
     pointer-events: none;
-    transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .35s ease;
   }
-  .cookie-banner.visible {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
+  @keyframes progressGlow {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
   }
-  .cookie-banner-text { flex: 1; min-width: 200px; line-height: 1.5; }
-  .cookie-banner-text a {
-    color: var(--custom-accent, #00d4ff);
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  .cookie-banner-actions button {
-    background: var(--custom-accent, #00d4ff);
-    color: var(--custom-paper, #0f2027);
-    border: none;
-    padding: 9px 20px;
-    border-radius: 20px;
-    font-family: inherit;
-    font-weight: bold;
-    font-size: 0.9em;
-    cursor: pointer;
-    transition: all .25s;
-    white-space: nowrap;
-  }
-  .cookie-banner-actions button:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.15);
-    box-shadow: 0 6px 18px var(--custom-accent-soft, #00d4ff55);
-  }
-  @media (max-width: 600px) {
-    .cookie-banner { flex-direction: column; align-items: stretch; text-align: center; }
-    .cookie-banner-actions { display: flex; justify-content: center; }
-  }
-  body.light-theme .cookie-banner {
-    background: linear-gradient(145deg, #fff, #edf6fa);
-    border-color: #159fc055;
-    border-left-color: #159fc0;
-    color: #243447;
-  }
-  body.light-theme .cookie-banner-text a { color: #087f9d; }
-  body.light-theme .cookie-banner-actions button { background: #159fc0; color: #fff; }
-  body.custom-theme .cookie-banner {
-    background: linear-gradient(145deg, var(--custom-card), var(--custom-paper));
-    border-color: var(--custom-accent-soft);
-    border-left-color: var(--custom-accent);
-    color: var(--custom-text);
-  }
-  body.custom-theme .cookie-banner-actions button {
-    background: var(--custom-accent);
-    color: var(--custom-paper);
-  }
-
-  /* ===== МОДАЛКА ПОЛИТИКИ ===== */
-  .privacy-modal-content {
-    max-width: 640px;
-    text-align: left;
-  }
-  .privacy-modal-content h3 {
-    text-align: center;
-    margin-bottom: 16px;
-  }
-  .privacy-body {
-    max-height: 65vh;
-    overflow-y: auto;
-    padding-right: 6px;
-    color: var(--custom-text, #dbeafe);
-    line-height: 1.55;
-    font-size: 0.92em;
-  }
-  .privacy-body p { margin: 0 0 10px; }
-  .privacy-body p strong { color: var(--custom-accent, #00d4ff); }
-  .privacy-body ul {
-    padding-left: 20px;
-    margin: 0 0 12px;
-  }
-  .privacy-body li { margin-bottom: 4px; }
-  .privacy-body code {
-    background: var(--custom-accent-soft, #00d4ff22);
-    padding: 1px 6px;
-    border-radius: 6px;
-    font-family: monospace;
-    font-size: 0.88em;
-  }
-  .privacy-date {
-    color: #889;
-    font-size: 0.85em;
-    text-align: right;
-    margin-top: 14px !important;
-  }
-  body.light-theme .privacy-body { color: #243447; }
-  body.light-theme .privacy-body p strong { color: #087f9d; }
-  body.light-theme .privacy-body code { background: #159fc022; }
-  body.custom-theme .privacy-body { color: var(--custom-text); }
-  body.custom-theme .privacy-body p strong { color: var(--custom-accent); }
+  @media print { #reading-progress { display: none !important; } }
 </style>
 </head>
 <body>
+
+<div id="reading-progress"></div>
 
 <button class="feedback-float" id="feedbackFloat" type="button" aria-label="Оставить отзыв">
   <div class="feedback-float-title">💬 Вам была интересна предоставленная информация?</div>
@@ -1308,11 +167,11 @@
 
   <section id="home" class="page active">
     <div class="cyber-vision-card">
-      <h2 class="cyber-vision-title"><span>👁️</span> Виртуальное-зрение</h2>
+      <h2 class="cyber-vision-title"><span>👁️</span> Компьютерное зрение</h2>
       <p class="editable" data-id="cyber-vision">
-        Наш товарищ работает над проектом кибер-зрения — системой, связанной с камерой,
-        обработкой изображения и технологиями ESP32. Здесь можно подробнее познакомиться
-        с проектом, его разработкой и результатами работы.
+        Наша команда RGB-ПРОФЕССИОНАЛЫ работает над проектом кибер-зрения — системой, связанной с камерой,
+        обработкой изображения и технологиями на базе плат разработки ESP32S3 и ARDUINO. Здесь можно подробнее познакомиться
+        с проектом, этапами его разработки и результатами работы.
       </p>
       <a class="cyber-vision-link" href="https://wwwnapoleon.github.io/esp32_fpv/" target="_blank" rel="noopener noreferrer">
         🔗 Открыть проект
@@ -1349,6 +208,124 @@
           <div class="edit-controls admin-only"></div>
           <div class="edit-status"></div>
         </div>
+
+        <!-- ===== МИНИ-ИГРА «РОБОТ-ЛАБИРИНТ» ===== -->
+<!-- ===== МИНИ-ИГРА «РОБОТ-ЛАБИРИНТ» ===== -->
+<div class="card puzzle" id="robotGameCard">
+  <h2>🎮 Мини-игра: Робот-лабиринт</h2>
+  <p style="margin:0 0 10px;color:#dbeafe;">
+    Проведи робота 🤖 к батарейке 🔋. Каждый уровень — <strong>новый лабиринт</strong> и сложнее!
+    Управление: <strong>W A S D</strong> или стрелки.
+  </p>
+
+  <div id="gameHud" style="
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 0.92em;
+    font-weight: 700;
+    flex-wrap: wrap;">
+    <div>🏆 Уровень: <span id="gameLevel" style="color:#22c55e;">1</span></div>
+    <div>📏 Размер: <span id="gameSize" style="color:#00d4ff;">10×10</span></div>
+    <div>👣 Ходов: <span id="gameMoves" style="color:#ffd700;">0</span></div>
+    <div>🥇 Рекорд: <span id="gameBest" style="color:#ff00ea;">—</span></div>
+  </div>
+
+  <button id="startGameBtn" type="button" style="
+    background: linear-gradient(135deg, #22c55e, #00d4ff);
+    color: #0f2027; border: none; padding: 10px 22px;
+    border-radius: 22px; font-weight: 800; font-family: inherit;
+    font-size: 0.95em; cursor: pointer; letter-spacing: 1px;
+    box-shadow: 0 4px 14px #00d4ff44; transition: all .25s;">
+    ▶ Играть
+  </button>
+
+  <div id="gameWrap" style="display:none; margin-top: 14px;">
+    <div id="gameStatus" style="
+      color: #00d4ff; font-weight: 700; margin-bottom: 8px;
+      font-size: 0.95em; min-height: 1.2em; text-align: center;">
+    </div>
+    <canvas id="gameCanvas" width="360" height="360" style="
+      display: block; margin: 0 auto;
+      background: #0f2027; border: 2px solid #00d4ff;
+      border-radius: 12px; box-shadow: 0 0 20px #00d4ff55;
+      max-width: 100%; height: auto; image-rendering: pixelated;">
+    </canvas>
+        <!-- D-Pad для телефона -->
+    <div id="dpadWrap" style="
+      display: none;
+      margin-top: 14px;
+      justify-content: center;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      position: sticky;
+      bottom: 20px;
+      z-index: 10;">
+    <div style="
+        display: grid;
+        grid-template-columns: repeat(3, 68px);
+        grid-template-rows: repeat(3, 68px);
+        gap: 6px;">
+        <div></div>
+        <button class="dpad-btn" data-dir="up" aria-label="Вверх" style="
+          background: linear-gradient(135deg, #00d4ff, #22c55e);
+          color: #0f2027; border: none; border-radius: 16px;
+          font-size: 28px; font-weight: 900; cursor: pointer;
+          box-shadow: 0 4px 14px #00d4ff55; font-family: inherit;
+          transition: transform .1s;">▲</button>
+        <div></div>
+
+        <button class="dpad-btn" data-dir="left" aria-label="Влево" style="
+          background: linear-gradient(135deg, #00d4ff, #22c55e);
+          color: #0f2027; border: none; border-radius: 16px;
+          font-size: 28px; font-weight: 900; cursor: pointer;
+          box-shadow: 0 4px 14px #00d4ff55; font-family: inherit;
+          transition: transform .1s;">◀</button>
+
+        <div style="
+          display: flex; align-items: center; justify-content: center;
+          background: #0f2027; border-radius: 16px;
+          border: 2px solid #00d4ff55; font-size: 26px;">🤖</div>
+
+        <button class="dpad-btn" data-dir="right" aria-label="Вправо" style="
+          background: linear-gradient(135deg, #00d4ff, #22c55e);
+          color: #0f2027; border: none; border-radius: 16px;
+          font-size: 28px; font-weight: 900; cursor: pointer;
+          box-shadow: 0 4px 14px #00d4ff55; font-family: inherit;
+          transition: transform .1s;">▶</button>
+
+        <div></div>
+        <button class="dpad-btn" data-dir="down" aria-label="Вниз" style="
+          background: linear-gradient(135deg, #00d4ff, #22c55e);
+          color: #0f2027; border: none; border-radius: 16px;
+          font-size: 28px; font-weight: 900; cursor: pointer;
+          box-shadow: 0 4px 14px #00d4ff55; font-family: inherit;
+          transition: transform .1s;">▼</button>
+        <div></div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top: 12px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+      <button id="restartGameBtn" type="button" style="
+        background: transparent; color: #00d4ff;
+        border: 2px dashed #00d4ff; padding: 6px 14px;
+        border-radius: 18px; font-family: inherit; font-weight: bold;
+        font-size: 0.85em; cursor: pointer;">
+        🔄 Этот же уровень
+      </button>
+      <button id="newMazeBtn" type="button" style="
+        background: transparent; color: #22c55e;
+        border: 2px dashed #22c55e; padding: 6px 14px;
+        border-radius: 18px; font-family: inherit; font-weight: bold;
+        font-size: 0.85em; cursor: pointer;">
+        🎲 Новый лабиринт
+      </button>
+    </div>
+  </div>
+</div>
       </div>
 
       <div>
@@ -1484,7 +461,6 @@
     </div>
   </section>
 
-  <!-- ================= НАШИ ПРОЕКТЫ ================= -->
   <section id="projects" class="page">
     <section class="projects-category reveal-card" id="projectsGallery">
       <div class="projects-gallery-header">
@@ -1494,7 +470,6 @@
         </button>
       </div>
       <div class="projects-gallery-grid" id="projectsGalleryGrid">
-        <!-- Карточки проектов генерируются JS -->
       </div>
     </section>
   </section>
@@ -1505,7 +480,7 @@
 
   <div class="site-qr-section reveal-card">
     <div class="site-qr-text">
-      <p>Отсканируй QR-код камерой телефона, чтобы быстро открыть стенгазету.</p>
+      <p>Отсканируй QR-код камерой телефона, чтобы открыть стенгазету на телефоне.</p>
       <span>RGB • РОБО-ВЕСТИ</span>
     </div>
     <div class="site-qr-box">
@@ -1513,9 +488,8 @@
     </div>
   </div>
 
-  <!-- ===== БОЛЬШОЙ СЧЁТЧИК ПОСЕЩЕНИЙ ===== -->
   <div class="visits-counter reveal-card" id="visitsCounter">
-    <div class="visits-counter-label">🌐 Наш сайт посетило:</div>
+    <div class="visits-counter-label">🌐 Просмотров стенгазеты:</div>
     <div class="visits-counter-value" id="visitsCount">…</div>
     <div class="visits-counter-sub">раз</div>
 
@@ -1532,6 +506,9 @@
 
   <footer>
     Стенгазета класса робототехники <strong>RGB</strong> • Разработчик: Седельников Яков
+    <span id="secretRobot" title="?" style="
+      opacity: 0.15; cursor: pointer; font-size: 0.9em;
+      margin-left: 8px; transition: opacity .3s;">🤖</span>
     <div class="footer-links">
       <button type="button" id="feedbackFooterBtn">💡 Что можно улучшить для Вас?</button>
       <button type="button" id="privacyPolicyBtn">🔒 Политика безопасности</button>
@@ -1541,19 +518,34 @@
 
 <div class="modal" id="feedbackModal">
   <div class="modal-content feedback-modal-content">
-    <h3>💬 Обратная связь</h3>
-    <p class="feedback-intro">Ваше мнение поможет сделать «РОБО-ВЕСТИ» ещё интереснее.</p>
-    <div class="feedback-rating" role="group" aria-label="Оценка информации">
-      <button type="button" data-rating="interesting">👍 Да, интересно</button>
-      <button type="button" data-rating="partly">🤔 Частично</button>
-      <button type="button" data-rating="not-interesting">👎 Можно лучше</button>
-    </div>
-    <textarea class="feedback-textarea" id="feedbackText" maxlength="3000" placeholder="Напишите, что вам понравилось или что хотелось бы улучшить..."></textarea>
-    <p class="feedback-mail-note">При отправке откроется почтовое приложение с уже подготовленным письмом.</p>
-    <div class="btn-row" style="margin-top:12px;">
-      <button class="btn-cancel" id="feedbackCloseBtn" type="button">Закрыть</button>
-      <button class="feedback-send" id="feedbackSendBtn" type="button">✉️ Подготовить письмо</button>
-    </div>
+    <form id="feedbackForm" action="https://formsubmit.co/rgb-profi@yandex.ru" method="POST">
+      <h3>💬 Обратная связь</h3>
+      <p class="feedback-intro">Ваше мнение поможет сделать «РОБО-ВЕСТИ» ещё интереснее.</p>
+
+      <div class="feedback-rating" role="group" aria-label="Оценка информации">
+        <button type="button" data-rating="interesting">👍 Да, интересно</button>
+        <button type="button" data-rating="partly">🤔 Частично</button>
+        <button type="button" data-rating="not-interesting">👎 Можно лучше</button>
+      </div>
+
+      <input type="hidden" name="Оценка" id="feedbackRatingInput" value="">
+      <input type="hidden" name="_subject" value="Пожелание для «РОБО-ВЕСТИ»">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="true">
+      <input type="hidden" name="_next" value="https://ok11-afk.github.io/school-magazine/">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+      <textarea class="feedback-textarea" id="feedbackText" name="Сообщение"
+                maxlength="3000"
+                placeholder="Напишите, что вам понравилось или что хотелось бы улучшить..."></textarea>
+
+      <p class="feedback-mail-note">Письмо уйдёт напрямую разработчику — без почтовых клиентов.</p>
+
+      <div class="btn-row" style="margin-top:12px;">
+        <button class="btn-cancel" id="feedbackCloseBtn" type="button">Закрыть</button>
+        <button class="feedback-send" id="feedbackSendBtn" type="submit">✉️ Отправить</button>
+      </div>
+    </form>
   </div>
 </div>
 
@@ -1608,7 +600,6 @@
   </div>
 </div>
 
-<!-- ===== МОДАЛКА «ПОЛИТИКА БЕЗОПАСНОСТИ» ===== -->
 <div class="modal" id="privacyModal">
   <div class="modal-content privacy-modal-content">
     <h3>🔒 Политика безопасности</h3>
@@ -1651,15 +642,16 @@
   </div>
 </div>
 
-<!-- ===== COOKIE-БАННЕР ===== -->
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite">
   <div class="cookie-banner-text">
-    🍪 Мы используем Cookie и localStorage, чтобы запоминать ваши настройки
-    (тему, последний раздел) и считать посещения сайта.
-    <a href="#" id="cookieMoreLink">Подробнее</a>.
+    <strong>🍪✋ КУКИШ ВАМ, А НЕ КУКИ!</strong><br>
+    Мы <em>не используем Cookie</em> и <em>не собираем персональные данные</em>.
+    Согласие через бездействие не считается согласием — но нам оно и не нужно,
+    потому что собирать нечего.
+    <a href="cookies.html" id="cookieMoreLink">ПОДРОБНЕЕ</a>.
   </div>
   <div class="cookie-banner-actions">
-    <button type="button" id="cookieAcceptBtn">Принять</button>
+    <button type="button" id="cookieAcceptBtn">Принять (кукиш)</button>
   </div>
 </div>
 
@@ -1930,7 +922,6 @@
     container.parentElement.appendChild(btn);
   }
 
-  /* ===== ГАЛЕРЕЯ ПРОЕКТОВ ===== */
   const projectsGalleryGrid = document.getElementById('projectsGalleryGrid');
   const addProjectBtn = document.getElementById('addProjectBtn');
 
@@ -2070,7 +1061,6 @@
     });
   }
 
-  /* ===== РЕДАКТИРОВАНИЕ ===== */
   function collectEditables() {
     return document.querySelectorAll('.editable');
   }
@@ -2245,7 +1235,6 @@
     }
   }
 
-  /* ===== ФОТО НЕДЕЛИ ===== */
   const photoBox = document.getElementById('photoBox');
   const photoInput = document.getElementById('photoInput');
   const photoRemoveBtn = document.getElementById('photoRemoveBtn');
@@ -2310,7 +1299,6 @@
     }
   });
 
-  /* ===== ФОН ===== */
   const bgPreview = document.getElementById('bgPreview');
   const bgInput = document.getElementById('bgInput');
   const bgRemoveBtn = document.getElementById('bgRemoveBtn');
@@ -2400,10 +1388,11 @@
     }
   });
 
-  /* ===== СЧЁТЧИК ПОСЕЩЕНИЙ ===== */
+  /* ===== СЧЁТЧИК ПОСЕЩЕНИЙ (антиспам 30 сек) ===== */
   const VISITS_TABLE = "visits";
   const VISITS_ROW_ID = "counter";
-  const VISITS_LOCAL_KEY = "rgb-visit-date";
+  const VISITS_ANTISPAM_MS = 30_000;
+  const VISITS_SESSION_KEY = "rgb-last-count";
 
   const visitsCountEl = document.getElementById('visitsCount');
   const visitsEditBtn = document.getElementById('visitsEditBtn');
@@ -2414,22 +1403,6 @@
   const visitsStatus = document.getElementById('visitsStatus');
 
   let currentVisitsValue = 0;
-
-  function shouldCountVisit() {
-    try {
-      const today = new Date().toISOString().slice(0, 10);
-      const saved = localStorage.getItem(VISITS_LOCAL_KEY);
-      return saved !== today;
-    } catch {
-      return true;
-    }
-  }
-  function markVisitCounted() {
-    try {
-      const today = new Date().toISOString().slice(0, 10);
-      localStorage.setItem(VISITS_LOCAL_KEY, today);
-    } catch {}
-  }
 
   async function readVisits() {
     if (!supabaseReady) return null;
@@ -2491,11 +1464,19 @@
   async function initVisitsCounter() {
     if (!visitsCountEl) return;
     if (!supabaseReady) { visitsCountEl.textContent = '—'; return; }
+
     let current = await readVisits();
     if (current === null) { visitsCountEl.textContent = '—'; return; }
-    if (shouldCountVisit()) {
+
+    const now = Date.now();
+    let lastCount = 0;
+    try { lastCount = Number(sessionStorage.getItem(VISITS_SESSION_KEY) || 0); } catch {}
+    const canCount = (now - lastCount) > VISITS_ANTISPAM_MS;
+
+    if (canCount) {
       const updated = await incrementVisits(current);
-      if (updated !== null) { current = updated; markVisitCounted(); }
+      if (updated !== null) current = updated;
+      try { sessionStorage.setItem(VISITS_SESSION_KEY, String(now)); } catch {}
     }
     renderVisits(current);
   }
@@ -2714,7 +1695,6 @@
     });
   }
 
-  /* ===== РЕДАКТОР ТЕМ ===== */
   const themeEditor = document.getElementById('themeEditor');
   const themeEditorTitle = document.getElementById('themeEditorTitle');
   const themeNameInput = document.getElementById('themeNameInput');
@@ -2839,7 +1819,6 @@
   });
   document.getElementById('btnResetTheme').addEventListener('click', () => applyThemeById('dark'));
 
-  /* ===== ПАНЕЛЬ НАСТРОЕК ===== */
   const settingsLauncher = document.getElementById('settingsLauncher');
   const settingsDrawer = document.getElementById('settingsDrawer');
   const settingsOverlay = document.getElementById('settingsOverlay');
@@ -2867,13 +1846,13 @@
     if (event.key === 'Escape' && settingsDrawer.classList.contains('open')) closeSettings();
   });
 
-  /* ===== ОБРАТНАЯ СВЯЗЬ ===== */
   const feedbackFloat = document.getElementById('feedbackFloat');
   const feedbackFooterBtn = document.getElementById('feedbackFooterBtn');
   const feedbackModal = document.getElementById('feedbackModal');
   const feedbackCloseBtn = document.getElementById('feedbackCloseBtn');
-  const feedbackSendBtn = document.getElementById('feedbackSendBtn');
+  const feedbackForm = document.getElementById('feedbackForm');
   const feedbackText = document.getElementById('feedbackText');
+  const feedbackRatingInput = document.getElementById('feedbackRatingInput');
   const feedbackRatingButtons = feedbackModal ? feedbackModal.querySelectorAll('[data-rating]') : [];
   let feedbackRating = '';
 
@@ -2889,27 +1868,40 @@
   feedbackFooterBtn?.addEventListener('click', openFeedback);
   feedbackCloseBtn?.addEventListener('click', closeFeedback);
   feedbackModal?.addEventListener('click', e => { if (e.target === feedbackModal) closeFeedback(); });
+
   feedbackRatingButtons.forEach(btn => btn.addEventListener('click', () => {
     feedbackRating = btn.dataset.rating || '';
     feedbackRatingButtons.forEach(b => b.classList.toggle('selected', b === btn));
-  }));
-  feedbackSendBtn?.addEventListener('click', () => {
-    const message = feedbackText?.value.trim() || '';
-    const ratingLabels = {
+    const labels = {
       interesting: '👍 Да, интересно',
       partly: '🤔 Частично',
       'not-interesting': '👎 Можно лучше'
     };
-    const ratingText = ratingLabels[feedbackRating] || 'Оценка не выбрана';
-    const body = `Здравствуйте!\n\nМоя оценка информации: ${ratingText}.\n\nПожелания / предложения:\n${message || '—'}\n\nОтправлено из стенгазеты «РОБО-ВЕСТИ».`;
-    const mailto = `mailto:?subject=${encodeURIComponent('Пожелание для «РОБО-ВЕСТИ»')}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
+    if (feedbackRatingInput) feedbackRatingInput.value = labels[feedbackRating] || '';
+  }));
+
+  feedbackForm?.addEventListener('submit', () => {
+    try { localStorage.setItem('rgb-feedback-sent', String(Date.now())); } catch {}
   });
+
+  (function showThanksIfReturned() {
+    try {
+      const sent = localStorage.getItem('rgb-feedback-sent');
+      if (!sent) return;
+      const age = Date.now() - Number(sent);
+      if (age < 60_000) {
+        setTimeout(() => {
+          alert('✅ Спасибо! Ваше сообщение отправлено.');
+        }, 500);
+      }
+      localStorage.removeItem('rgb-feedback-sent');
+    } catch {}
+  })();
+
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && feedbackModal?.classList.contains('open')) closeFeedback();
   });
 
-  /* ===== COOKIE-БАННЕР И ПОЛИТИКА БЕЗОПАСНОСТИ ===== */
   const COOKIE_KEY = "rgb-cookie-accepted";
   const cookieBanner = document.getElementById('cookieBanner');
   const cookieAcceptBtn = document.getElementById('cookieAcceptBtn');
@@ -2935,9 +1927,6 @@
   function openPrivacy() { if (privacyModal) privacyModal.classList.add('open'); }
   function closePrivacy() { if (privacyModal) privacyModal.classList.remove('open'); }
 
-  if (cookieMoreLink) {
-    cookieMoreLink.addEventListener('click', (e) => { e.preventDefault(); openPrivacy(); });
-  }
   if (privacyPolicyBtn) privacyPolicyBtn.addEventListener('click', openPrivacy);
   if (closePrivacyBtn) closePrivacyBtn.addEventListener('click', closePrivacy);
   if (privacyModal) {
@@ -2949,7 +1938,722 @@
     if (e.key === 'Escape' && privacyModal && privacyModal.classList.contains('open')) closePrivacy();
   });
 
-  /* ===== ИНИЦИАЛИЗАЦИЯ ===== */
+  /* ===== ПРОГРЕСС-БАР ЧТЕНИЯ ===== */
+  (function initReadingProgress() {
+    const bar = document.getElementById('reading-progress');
+    if (!bar) return;
+    function update() {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      if (h <= 0) { bar.style.width = '0%'; return; }
+      const p = Math.min(100, Math.max(0, (window.scrollY / h) * 100));
+      bar.style.width = p + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+
+ /* ===== МИНИ-ИГРА «РОБОТ-ЛАБИРИНТ» (бесконечный + рандом + анимация) ===== */
+  (function initRobotGame() {
+    const startBtn = document.getElementById('startGameBtn');
+    const restartBtn = document.getElementById('restartGameBtn');
+    const newMazeBtn = document.getElementById('newMazeBtn');
+    const wrap = document.getElementById('gameWrap');
+    const canvas = document.getElementById('gameCanvas');
+    const statusEl = document.getElementById('gameStatus');
+    const hud = document.getElementById('gameHud');
+    const levelEl = document.getElementById('gameLevel');
+    const sizeEl = document.getElementById('gameSize');
+    const movesEl = document.getElementById('gameMoves');
+    const bestEl = document.getElementById('gameBest');
+    if (!startBtn || !canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+
+    // === Состояние игры ===
+    let state = {
+      level: 1,
+      size: 10,
+      maze: null,
+      player: { x: 0, y: 0 },
+      goal: { x: 0, y: 0 },
+      moves: 0,
+      playing: false,
+      best: null
+    };
+
+    // === Анимация робота ===
+    let robotAnim = {
+      // плавный переход к новой позиции (для анимации ходьбы)
+      visualX: 0,
+      visualY: 0,
+      // направление взгляда: 0 = вправо, Math.PI = влево и т.д.
+      facing: 0,
+      // таймер "шага" — для подпрыгивания
+      stepPhase: 0,
+      isMoving: false,
+      // idle-анимация (покачивание)
+      idleTime: 0
+    };
+
+    // === Частицы (пыль при ходьбе) ===
+    let particles = [];
+
+    function spawnDust(x, y, dirX, dirY) {
+      for (let i = 0; i < 5; i++) {
+        particles.push({
+          x: x + (Math.random() - 0.5) * 12,
+          y: y + (Math.random() - 0.5) * 12,
+          vx: -dirX * (0.5 + Math.random() * 1.5) + (Math.random() - 0.5) * 0.8,
+          vy: -dirY * (0.5 + Math.random() * 1.5) + (Math.random() - 0.5) * 0.8,
+          life: 1,
+          size: 2 + Math.random() * 3,
+          color: Math.random() < 0.5 ? '#00d4ff' : '#22c55e'
+        });
+      }
+    }
+
+    // =====================
+    // ГЕНЕРАЦИЯ ЛАБИРИНТА
+    // =====================
+    function generateMaze(size) {
+      const N = size % 2 === 0 ? size : size + 1;
+      const g = Array.from({ length: N }, () => Array(N).fill(1));
+      const stack = [{ x: 0, y: 0 }];
+      g[0][0] = 0;
+
+      const dirs = [
+        { dx:  2, dy:  0 },
+        { dx: -2, dy:  0 },
+        { dx:  0, dy:  2 },
+        { dx:  0, dy: -2 }
+      ];
+
+      while (stack.length) {
+        const cur = stack[stack.length - 1];
+        const neighbors = [];
+        for (const d of dirs) {
+          const nx = cur.x + d.dx;
+          const ny = cur.y + d.dy;
+          if (nx >= 0 && ny >= 0 && nx < N && ny < N && g[ny][nx] === 1) {
+            neighbors.push({ x: nx, y: ny, dx: d.dx, dy: d.dy });
+          }
+        }
+        if (!neighbors.length) { stack.pop(); continue; }
+        const next = neighbors[Math.floor(Math.random() * neighbors.length)];
+        g[cur.y + next.dy / 2][cur.x + next.dx / 2] = 0;
+        g[next.y][next.x] = 0;
+        stack.push({ x: next.x, y: next.y });
+      }
+
+      const extraOpenings = Math.max(0, 6 - state.level);
+      for (let i = 0; i < extraOpenings; i++) {
+        const rx = 1 + Math.floor(Math.random() * (N - 2));
+        const ry = 1 + Math.floor(Math.random() * (N - 2));
+        if (g[ry][rx] === 1) g[ry][rx] = 0;
+      }
+
+      return { grid: g, size: N };
+    }
+
+    function isSolvable(grid, start, goal, N) {
+      const visited = Array.from({ length: N }, () => Array(N).fill(false));
+      const queue = [start];
+      visited[start.y][start.x] = true;
+
+      while (queue.length) {
+        const { x, y } = queue.shift();
+        if (x === goal.x && y === goal.y) return true;
+        for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+          const nx = x + dx, ny = y + dy;
+          if (nx >= 0 && ny >= 0 && nx < N && ny < N &&
+              !visited[ny][nx] && grid[ny][nx] === 0) {
+            visited[ny][nx] = true;
+            queue.push({ x: nx, y: ny });
+          }
+        }
+      }
+      return false;
+    }
+
+    function pickGoal(grid, N) {
+      const candidates = [];
+      const from = Math.floor(N * 0.66);
+      for (let y = from; y < N; y++) {
+        for (let x = from; x < N; x++) {
+          if (grid[y][x] === 0) candidates.push({ x, y });
+        }
+      }
+      return candidates.length
+        ? candidates[Math.floor(Math.random() * candidates.length)]
+        : { x: N - 1, y: N - 1 };
+    }
+
+    function buildSolvableMaze(size) {
+      let attempts = 0;
+      let result;
+      let goal;
+
+      do {
+        result = generateMaze(size);
+        const N = result.size;
+        goal = pickGoal(result.grid, N);
+        result.grid[goal.y][goal.x] = 0;
+
+        const topOpen  = goal.y > 0     && result.grid[goal.y - 1][goal.x] === 0;
+        const leftOpen = goal.x > 0     && result.grid[goal.y][goal.x - 1] === 0;
+        const botOpen  = goal.y < N - 1 && result.grid[goal.y + 1][goal.x] === 0;
+        const rightOpen= goal.x < N - 1 && result.grid[goal.y][goal.x + 1] === 0;
+
+        if (!topOpen && !leftOpen && !botOpen && !rightOpen) {
+          const options = [];
+          if (goal.y > 0)     options.push({ x: goal.x,     y: goal.y - 1 });
+          if (goal.x > 0)     options.push({ x: goal.x - 1, y: goal.y     });
+          if (goal.y < N - 1) options.push({ x: goal.x,     y: goal.y + 1 });
+          if (goal.x < N - 1) options.push({ x: goal.x + 1, y: goal.y     });
+          if (options.length) {
+            const pick = options[Math.floor(Math.random() * options.length)];
+            result.grid[pick.y][pick.x] = 0;
+          }
+        }
+        attempts++;
+      } while (!isSolvable(result.grid, { x: 0, y: 0 }, goal, result.size) && attempts < 30);
+
+      result.goal = goal;
+      return result;
+    }
+
+    // =====================
+    // ОТРИСОВКА
+    // =====================
+    function cellSize() {
+      return Math.floor(canvas.width / state.size);
+    }
+
+       // Предзагрузка картинки
+    const robotImg = new Image();
+    robotImg.src = 'assets/robot.svg';  // ← имя файла
+
+    function drawRobot(cx, cy, CELL) {
+      const size = CELL * 0.95;          // ← размер: 0.9-1.0 крути по вкусу
+      const half = size / 2;
+
+      ctx.save();
+      ctx.translate(cx, cy);
+
+      // поворот в сторону движения
+      ctx.rotate(robotAnim.facing);
+
+      // idle-покачивание
+      const idle = Math.sin(robotAnim.idleTime * 2) * 0.05;
+      ctx.rotate(idle);
+
+      // подпрыгивание при ходьбе
+      const jump = robotAnim.isMoving
+        ? Math.abs(Math.sin(robotAnim.stepPhase * Math.PI * 2)) * 4
+        : 0;
+      ctx.translate(0, -jump);
+
+      // тень под роботом
+      ctx.fillStyle = 'rgba(0,0,0,0.4)';
+      ctx.beginPath();
+      ctx.ellipse(0, half * 1.05, half * 0.85, half * 0.16, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // сама SVG-картинка
+      if (robotImg.complete && robotImg.naturalWidth > 0) {
+        ctx.drawImage(robotImg, -half, -half, size, size);
+      } else {
+        // заглушка на время загрузки
+        ctx.fillStyle = '#00d4ff';
+        ctx.beginPath();
+        ctx.arc(0, 0, half, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.restore();
+    }
+    function drawBattery(cx, cy, CELL) {
+      const size = CELL * 0.55;
+      const bh = size * 0.65;
+      const bw = size;
+
+      ctx.save();
+      ctx.translate(cx, cy);
+
+      // Мягкое свечение вокруг
+      const glow = 0.5 + Math.sin(robotAnim.idleTime * 3) * 0.3;
+      const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, CELL * 0.7);
+      grad.addColorStop(0, `rgba(34, 197, 94, ${0.25 * glow})`);
+      grad.addColorStop(1, 'rgba(34, 197, 94, 0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(-CELL, -CELL, CELL * 2, CELL * 2);
+
+      // Корпус
+      ctx.fillStyle = '#22c55e';
+      ctx.beginPath();
+      ctx.roundRect(-bw / 2, -bh / 2, bw, bh, 3);
+      ctx.fill();
+
+      // Плюс
+      ctx.fillRect(bw / 2, -bh * 0.2, bw * 0.12, bh * 0.4);
+
+      // Уровень
+      ctx.fillStyle = '#0f2027';
+      ctx.fillRect(-bw * 0.35, -bh * 0.2, bw * 0.3, bh * 0.4);
+
+      // Молния
+      ctx.fillStyle = '#ffd700';
+      ctx.beginPath();
+      ctx.moveTo(0, -bh * 0.35);
+      ctx.lineTo(-bw * 0.12, -bh * 0.02);
+      ctx.lineTo(0, -bh * 0.02);
+      ctx.lineTo(-bw * 0.05, bh * 0.3);
+      ctx.lineTo(bw * 0.15, -bh * 0.05);
+      ctx.lineTo(bw * 0.02, -bh * 0.05);
+      ctx.lineTo(bw * 0.12, -bh * 0.35);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    function drawParticles() {
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.92;
+        p.vy *= 0.92;
+        p.life -= 0.04;
+
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+          continue;
+        }
+
+        ctx.globalAlpha = p.life;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function draw() {
+      if (!state.maze) return;
+      const CELL = cellSize();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Фон
+      ctx.fillStyle = '#0f2027';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Стены и пол
+      for (let y = 0; y < state.size; y++) {
+        for (let x = 0; x < state.size; x++) {
+          if (state.maze[y][x] === 1) {
+            ctx.fillStyle = '#16213e';
+            ctx.fillRect(x * CELL, y * CELL, CELL, CELL);
+            ctx.strokeStyle = '#00d4ff22';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x * CELL + 1, y * CELL + 1, CELL - 2, CELL - 2);
+          } else {
+            ctx.fillStyle = '#0a1420';
+            ctx.fillRect(x * CELL, y * CELL, CELL, CELL);
+          }
+        }
+      }
+
+      // Батарейка (с анимацией)
+      drawBattery(
+        state.goal.x * CELL + CELL / 2,
+        state.goal.y * CELL + CELL / 2,
+        CELL
+      );
+
+      // Пыль под роботом
+      drawParticles();
+
+      // Робот (с анимацией)
+      drawRobot(
+        robotAnim.visualX * CELL + CELL / 2,
+        robotAnim.visualY * CELL + CELL / 2,
+        CELL
+      );
+    }
+
+    // =====================
+    // HUD
+    // =====================
+    function updateHUD() {
+      if (levelEl) levelEl.textContent = String(state.level);
+      if (sizeEl)  sizeEl.textContent  = `${state.size}×${state.size}`;
+      if (movesEl) movesEl.textContent = String(state.moves);
+      if (bestEl)  bestEl.textContent  = state.best ? `${state.best} ходов` : '—';
+    }
+
+    // =====================
+    // ЛОГИКА
+    // =====================
+    function startLevel(level, keepMaze) {
+      state.level = level;
+      state.size = Math.min(10 + Math.floor((level - 1) / 2), 21);
+
+      let builtGoal = null;
+      if (!keepMaze || !state.maze || state.maze.length !== state.size) {
+        const built = buildSolvableMaze(state.size);
+        state.maze = built.grid;
+        state.size = built.size;
+        builtGoal = built.goal;
+      }
+
+      state.player = { x: 0, y: 0 };
+      state.goal = builtGoal
+        || (state.goal && state.maze[state.goal.y] && state.maze[state.goal.y][state.goal.x] === 0
+              ? state.goal
+              : { x: state.size - 1, y: state.size - 1 });
+
+      state.moves = 0;
+      state.playing = true;
+
+      // Сброс анимации
+      robotAnim.visualX = 0;
+      robotAnim.visualY = 0;
+      robotAnim.facing = 0;
+      robotAnim.stepPhase = 0;
+      robotAnim.isMoving = false;
+      particles = [];
+
+      const side = Math.min(480, state.size * 32);
+      canvas.width = side;
+      canvas.height = side;
+
+      hud.style.display = 'flex';
+      wrap.style.display = 'block';
+      statusEl.innerHTML = `🎲 Уровень <strong>${level}</strong> • ${state.size}×${state.size}`;
+      updateHUD();
+      draw();
+    }
+
+        function move(dx, dy) {
+      if (!state.playing) return;
+
+      // ✅ Считаем ЛЮБОЕ нажатие — даже в стену
+      state.moves++;
+
+      // Поворот в сторону нажатия (даже если не идём)
+      if (dx > 0) robotAnim.facing = 0;
+      else if (dx < 0) robotAnim.facing = Math.PI;
+      else if (dy < 0) robotAnim.facing = -Math.PI / 2;
+      else if (dy > 0) robotAnim.facing = Math.PI / 2;
+
+      // Проверяем — можно ли идти
+      const nx = state.player.x + dx;
+      const ny = state.player.y + dy;
+      const canGo = !(
+        nx < 0 || ny < 0 || nx >= state.size || ny >= state.size ||
+        state.maze[ny][nx] === 1
+      );
+
+      // Обновляем HUD сразу — ход уже засчитан
+      updateHUD();
+
+      if (!canGo) {
+        // Ударились в стену — короткий "отскок" анимации
+        robotAnim.isMoving = true;
+        robotAnim.stepPhase = 0;
+        return;
+      }
+
+      // Идём
+      const CELL = cellSize();
+      spawnDust(
+        robotAnim.visualX * CELL + CELL / 2,
+        robotAnim.visualY * CELL + CELL / 2,
+        dx, dy
+      );
+
+      state.player.x = nx;
+      state.player.y = ny;
+      robotAnim.isMoving = true;
+      robotAnim.stepPhase = 0;
+
+      if (state.player.x === state.goal.x && state.player.y === state.goal.y) {
+        win();
+      }
+    }
+    function win() {
+      state.playing = false;
+      if (!state.best || state.moves < state.best) {
+        state.best = state.moves;
+      }
+
+      // Взрыв частиц на финише
+      const CELL = cellSize();
+      for (let i = 0; i < 30; i++) {
+        particles.push({
+          x: state.goal.x * CELL + CELL / 2,
+          y: state.goal.y * CELL + CELL / 2,
+          vx: (Math.random() - 0.5) * 8,
+          vy: (Math.random() - 0.5) * 8,
+          life: 1,
+          size: 2 + Math.random() * 4,
+          color: Math.random() < 0.5 ? '#22c55e' : '#ffd700'
+        });
+      }
+
+      statusEl.innerHTML = `🎉 <strong style="color:#22c55e;">Победа!</strong> ${state.moves} ходов. Готов к уровню ${state.level + 1}?`;
+
+      setTimeout(() => {
+        startLevel(state.level + 1, false);
+      }, 1400);
+    }
+
+    // =====================
+    // ANIMATION LOOP
+    // =====================
+    let lastTime = performance.now();
+    function animate(now) {
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+
+      // ✅ Защита от null — рисуем только если лабиринт готов
+      if (!state.maze) {
+        requestAnimationFrame(animate);
+        return;
+      }
+
+      robotAnim.idleTime += dt;
+
+      // Плавное движение visualX/Y к player
+      const lerp = 1 - Math.pow(0.001, dt);
+      robotAnim.visualX += (state.player.x - robotAnim.visualX) * lerp;
+      robotAnim.visualY += (state.player.y - robotAnim.visualY) * lerp;
+
+      // Анимация шага
+      if (robotAnim.isMoving) {
+        robotAnim.stepPhase += dt * 4;
+        if (robotAnim.stepPhase > 1) {
+          robotAnim.stepPhase = 0;
+          robotAnim.isMoving = false;
+        }
+      }
+
+      // Если робот далеко от visual — значит идёт, продолжаем
+      if (Math.abs(state.player.x - robotAnim.visualX) > 0.01 ||
+          Math.abs(state.player.y - robotAnim.visualY) > 0.01) {
+        robotAnim.isMoving = true;
+      }
+
+      draw();
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+
+    // =====================
+    // УПРАВЛЕНИЕ
+    // =====================
+    startBtn.addEventListener('click', () => {
+      state.level = 1;
+      state.best = null;
+      startLevel(1, false);
+    });
+
+    restartBtn.addEventListener('click', () => {
+      startLevel(state.level, false);
+    });
+
+    newMazeBtn.addEventListener('click', () => {
+      startLevel(state.level, false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!state.playing) return;
+      if (wrap.style.display === 'none') return;
+      const k = e.key.toLowerCase();
+      if (k === 'w' || k === 'arrowup')    { e.preventDefault(); move(0, -1); }
+      if (k === 's' || k === 'arrowdown')  { e.preventDefault(); move(0, 1); }
+      if (k === 'a' || k === 'arrowleft')  { e.preventDefault(); move(-1, 0); }
+      if (k === 'd' || k === 'arrowright') { e.preventDefault(); move(1, 0); }
+    });
+
+    // Свайпы
+    let touchStart = null;
+    canvas.addEventListener('touchstart', (e) => {
+      const t = e.touches[0];
+      touchStart = { x: t.clientX, y: t.clientY };
+    }, { passive: true });
+    canvas.addEventListener('touchend', (e) => {
+      if (!touchStart || !state.playing) return;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchStart.x;
+      const dy = t.clientY - touchStart.y;
+      const TH = 24;
+      if (Math.abs(dx) < TH && Math.abs(dy) < TH) return;
+      if (Math.abs(dx) > Math.abs(dy)) {
+        move(dx > 0 ? 1 : -1, 0);
+      } else {
+        move(0, dy > 0 ? 1 : -1);
+      }
+      touchStart = null;
+    }, { passive: true });
+
+    // D-Pad
+    (function initDpad() {
+      const dpad = document.getElementById('dpadWrap');
+      if (!dpad) return;
+      const DIRS = {
+        up:    [0, -1],
+        down:  [0,  1],
+        left:  [-1, 0],
+        right: [1,  0]
+      };
+      dpad.querySelectorAll('.dpad-btn').forEach(btn => {
+        const dir = btn.dataset.dir;
+        const vibrate = () => { if (navigator.vibrate) navigator.vibrate(12); };
+        const handle = (e) => {
+          e.preventDefault();
+          if (!state.playing) return;
+          const [dx, dy] = DIRS[dir] || [0, 0];
+          if (dx || dy) move(dx, dy);
+          vibrate();
+        };
+        btn.addEventListener('click', handle);
+        btn.addEventListener('touchstart', handle, { passive: false });
+      });
+    })();
+  })();
+
+  /* ===== ГОЛОСОВОЕ ЧТЕНИЕ НОВОСТЕЙ ===== */
+  function initSpeech() {
+    if (!('speechSynthesis' in window)) return;
+
+    const cards = document.querySelectorAll('#terminal .card');
+    cards.forEach(card => {
+      // Не дублировать кнопку
+      if (card.querySelector('.speak-btn')) return;
+
+      // ✅ Берём ВСЕ .editable в карточке (заголовок + текст)
+      const editables = card.querySelectorAll('.editable');
+      if (!editables.length) return;
+
+      // Склеиваем весь текст: "Заголовок. Текст новости."
+      const fullText = [...editables]
+        .map(el => el.textContent.trim())
+        .filter(t => t.length > 0)
+        .join('. ')
+        .replace(/[\u2600-\u27BF]/g, '')                  // символы/стрелки
+        .replace(/[\uD83C-\uDBFF][\uDC00-\uDFFF]/g, '')   // эмодзи
+        .replace(/\[СРОЧНО\]/gi, '')
+        .replace(/\bСРОЧНО\b/gi, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      if (fullText.length < 3) return;
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'speak-btn';
+      btn.innerHTML = '🔊 Прослушать';
+
+      btn.addEventListener('click', () => {
+        if (speechSynthesis.speaking) {
+          speechSynthesis.cancel();
+          document.querySelectorAll('.speak-btn.speaking').forEach(b => {
+            b.classList.remove('speaking');
+            b.innerHTML = '🔊 Прослушать';
+          });
+          return;
+        }
+        const u = new SpeechSynthesisUtterance(fullText);
+        u.lang = 'ru-RU';
+        u.rate = 0.95;
+        u.pitch = 1.05;
+        u.onend = () => {
+          btn.classList.remove('speaking');
+          btn.innerHTML = '🔊 Прослушать';
+        };
+        btn.classList.add('speaking');
+        btn.innerHTML = '⏹ Остановить';
+        speechSynthesis.speak(u);
+      });
+
+      // ✅ Кнопку вставляем ПОСЛЕ последнего .editable в карточке
+      const lastEditable = editables[editables.length - 1];
+      lastEditable.after(btn);
+    });
+  }
+
+
+  /* ===== ПАСХАЛКА: 5 кликов по логотипу ===== */
+  (function initSecretEgg() {
+    const logo = document.querySelector('.logo');
+    if (!logo) return;
+    let clicks = 0;
+    let timer = null;
+    logo.style.cursor = 'pointer';
+    logo.addEventListener('click', () => {
+      clicks++;
+      clearTimeout(timer);
+      timer = setTimeout(() => { clicks = 0; }, 2000);
+      if (clicks >= 5) {
+        clicks = 0;
+        document.body.style.transition = 'filter .4s';
+        document.body.style.filter = 'brightness(2)';
+        setTimeout(() => {
+          document.body.style.filter = '';
+          window.location.href = 'secret.html';
+        }, 350);
+      }
+    });
+  })();
+
+  /* ===== ПАСХАЛКА: робот в футере ===== */
+  (function initFooterRobot() {
+    const robot = document.getElementById('secretRobot');
+    if (!robot) return;
+    robot.addEventListener('click', () => {
+      window.location.href = 'secret.html';
+    });
+    robot.addEventListener('mouseenter', () => { robot.style.opacity = '1'; });
+    robot.addEventListener('mouseleave', () => { robot.style.opacity = '0.15'; });
+  })();
+
+  /* ===== ПРИВЕТСТВИЕ ПО ВРЕМЕНИ СУТОК ===== */
+  (function initTimeGreeting() {
+    const titleEl = document.getElementById('gazeta-title');
+    if (!titleEl) return;
+
+    const h = new Date().getHours();
+    let greeting;
+    if (h >= 5 && h < 12)       greeting = '☀️ ДОБРОЕ УТРО, RGB!';
+    else if (h >= 12 && h < 17) greeting = '🌞 ДЕНЬ В РАЗГАРЕ!';
+    else if (h >= 17 && h < 23) greeting = '🌆 ВЕЧЕРНИЙ ВЫПУСК';
+    else                         greeting = '🌙 НОЧНОЙ ВЫПУСК';
+
+    function applyGreeting() {
+      const activePage = document.querySelector('#menu button.active')?.dataset.page;
+      if (activePage === 'home') {
+        titleEl.textContent = greeting;
+      }
+    }
+
+    applyGreeting();
+
+    document.querySelectorAll('#menu button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        setTimeout(() => {
+          if (btn.dataset.page === 'home') {
+            titleEl.textContent = greeting;
+          }
+        }, 10);
+      });
+    });
+  })();
+
   buildPresets();
 
   try {
@@ -2977,12 +2681,12 @@
   renderPhoto();
   renderBackground();
   setInterval(renderPhoto, 30000);
-
   initVisitsCounter();
-
   applyThemeById(getActiveThemeId());
-
   showCookieBannerIfNeeded();
+  // ✅ Голосовое чтение — после загрузки контента из Supabase
+  // Ждём 1.5 сек, чтобы loadContent() успел вставить текст новостей
+  setTimeout(initSpeech, 1500);
 
   (function renderPublicSiteQR() {
     const qrElement = document.getElementById('siteQrCode');
