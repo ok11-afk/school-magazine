@@ -1370,3 +1370,8 @@ body.custom-theme .policy-storage strong { color: var(--custom-accent); }
   border: 1px solid #00d4ff33;
 }
 
+
+
+/* Кликабельные направления в блоке «О нас» */
+.about-tag-link { text-decoration: none; cursor: pointer; transition: transform .18s ease, background .18s ease, border-color .18s ease; }
+.about-tag-link:hover, .about-tag-link:focus-visible { transform: translateY(-2px); background: var(--custom-accent-soft, #00d4ff30); border-color: var(--custom-accent, #00d4ff); outline: none; }
