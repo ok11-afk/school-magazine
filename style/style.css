@@ -1375,3 +1375,28 @@ body.custom-theme .policy-storage strong { color: var(--custom-accent); }
 /* Кликабельные направления в блоке «О нас» */
 .about-tag-link { text-decoration: none; cursor: pointer; transition: transform .18s ease, background .18s ease, border-color .18s ease; }
 .about-tag-link:hover, .about-tag-link:focus-visible { transform: translateY(-2px); background: var(--custom-accent-soft, #00d4ff30); border-color: var(--custom-accent, #00d4ff); outline: none; }
+
+
+/* Адаптивное отображение изображений в разделе «Наши проекты» */
+#projectsGalleryGrid .project-card { min-width: 0; }
+#projectsGalleryGrid .project-card-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+#projectsGalleryGrid .project-card-image img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+@media (max-width: 720px) {
+  #projectsGalleryGrid .project-card-image { aspect-ratio: 16 / 10; }
+}
