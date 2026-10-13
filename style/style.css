@@ -1377,26 +1377,39 @@ body.custom-theme .policy-storage strong { color: var(--custom-accent); }
 .about-tag-link:hover, .about-tag-link:focus-visible { transform: translateY(-2px); background: var(--custom-accent-soft, #00d4ff30); border-color: var(--custom-accent, #00d4ff); outline: none; }
 
 
-/* Адаптивное отображение изображений в разделе «Наши проекты» */
-#projectsGalleryGrid .project-card { min-width: 0; }
-#projectsGalleryGrid .project-card-image {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  min-height: 0;
-  overflow: hidden;
-  position: relative;
+  /* В режиме администратора редактируемый текст всегда белый */
+  body.admin [contenteditable="true"],
+  body.admin [contenteditable="true"] *,
+  body.admin .editing,
+  body.admin .edit-mode,
+  body.admin textarea,
+  body.admin input:not([type="color"]):not([type="checkbox"]):not([type="radio"]),
+  body.admin select {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff;
+    caret-color: #fff;
+  }
+  body.admin [contenteditable="true"]::placeholder,
+  body.admin textarea::placeholder,
+  body.admin input::placeholder {
+    color: #d1d5db !important;
+    -webkit-text-fill-color: #d1d5db;
+    opacity: 1;
+  }
+
+
+/* Универсальный контраст для редактирования в админ-режиме: во всех темах и разделах */
+body .editable[contenteditable="true"],
+body [contenteditable="true"],
+body .editable[contenteditable="true"] *,
+body [contenteditable="true"] * {
+  background-color: #fff !important;
+  color: #000 !important;
+  caret-color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
 }
-#projectsGalleryGrid .project-card-image img {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-@media (max-width: 720px) {
-  #projectsGalleryGrid .project-card-image { aspect-ratio: 16 / 10; }
+body .editable[contenteditable="true"]::placeholder,
+body [contenteditable="true"]::placeholder {
+  color: #555 !important;
+  -webkit-text-fill-color: #555 !important;
 }
